@@ -1,0 +1,11 @@
+{
+  "name": "react-js-ecommerce-web-app",
+  "version": "1.0.0",
+  "description": "Firt Personel React JS E-Commerce Web APP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MeceM",
+  "license": "ISC"
+}
