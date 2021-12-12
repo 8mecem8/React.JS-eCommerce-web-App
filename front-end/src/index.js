@@ -4,10 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { combinedRedusers } from './Reducers';
+import thunk from 'redux-thunk'
+
+
+
+const store = createStore(combinedRedusers, composeWithDevTools(applyMiddleware(thunk)))
+
+
+
+
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
+
   document.getElementById('root')
 );
 

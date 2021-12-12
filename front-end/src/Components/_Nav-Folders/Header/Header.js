@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import  {Link} from "react-router-dom";
+import firebase from 'firebase/compat/app';
+import { useSelector, useDispatch } from 'react-redux'
 
 /* Material Uİ */
 import AppBar from '@mui/material/AppBar';
@@ -15,11 +17,13 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 /* Custom Css */
 import useStyles from './HeaderStyles'
 
 import logo from '../../../logo.png';
+import { height } from '@mui/system';
 
 
 
@@ -27,6 +31,11 @@ import logo from '../../../logo.png';
 
 function Header() {
 
+  const user = useSelector(state => state.user)
+
+  
+
+  const dispatch = useDispatch()
   const sty = useStyles()
     
   const [anchorEl, setAnchorEl] = useState(null);
@@ -56,28 +65,36 @@ function Header() {
   };
 
 
+  const logOut = () => {
+      firebase.auth().signOut()
+      dispatch({
+          type:"LOGOUT",
+          payload: null
+      })
+  }
+
 
   return (
 <>
-   {/*  <Link to="/login">About</Link> */}
-    <Box sx={{ flexGrow: 1 }}>
+  
+<Box sx={{ flexGrow: 1 }}>
 
-      <AppBar position="static">
-        <Toolbar>
+  <AppBar position="static" sx={{ height: [80,54] }} >
+    <Toolbar >
 
 
 
 {/*------------------------ logo ------------------------*/}
 <Typography
-            variant="h6"
+            
             noWrap
             component="div"
-             sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }} 
+             sx={{ mr: 2,ml: 0 }} 
              underline="none"
           >
   {/* <Link  color="inherit" underline="none" sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }}><img src={logo} className="App-logo" alt="logo" /></Link> */}
 
-<Link to="/"><img src={logo} className="App-logo" alt="logo" /></Link>
+<Link className="AppLogo" to="/"><img src={logo} style={{mixBlendMode: "screen",pointerEvents:"none",display:"flex",height: "5vmin",zIndex:1000}}   alt="logo" /></Link>
 </Typography>
 
 
@@ -140,7 +157,7 @@ function Header() {
 
 
       {/*------------------------ Account------------------------*/}    
-<div>
+{user ? <div>
 
   <IconButton
                 size="large"
@@ -151,7 +168,7 @@ function Header() {
                 color="inherit"
                 sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'h5.fontSize' }}
               >
-                <AccountCircle sx={{fontSize: "40px" }}/>
+                <AccountCircle sx={{fontSize: [80,40],m:"0",p:"0" }}/><p className={sty.proP}>{user.email.split('@')[0]}</p>
   </IconButton>
 
 
@@ -172,23 +189,26 @@ function Header() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
   </Menu>
               
-</div>
+</div> : null}
 
 {/*------------------------ Loging and register ------------------------*/}
 
-   <Stack spacing={2} direction="row" >
+
+{!user && (<Stack spacing={2} direction="row" >
             
            
           <Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/login" className={sty.link}>Login</Link></Button>
           <Button variant="text"  startIcon={<PersonAddAltSharpIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/register" className={sty.link}>Register</Link></Button>
-  </Stack> 
+  </Stack> )}
+   
 
 
-        </Toolbar>
-      </AppBar>
-    </Box>
+    </Toolbar>
+  </AppBar>
+</Box>
  </> 
   );
 }

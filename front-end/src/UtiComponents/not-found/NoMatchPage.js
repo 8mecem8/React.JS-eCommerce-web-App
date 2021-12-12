@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 // Material UI
-import { withStyles } from '@mui/styles';
+/* import { withStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -66,13 +66,13 @@ const NoMatchPage = ({ classes }) => (
 
 
 export default withStyles(styles)(NoMatchPage);
+ */
 
 
 
 
 
-
-/* // Material UI
+// Material UI
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -84,7 +84,12 @@ const theme = createTheme();
 
 const styles = makeStyles((theme) => ({
   wrapper: {
-    marginTop: 85,
+    
+    display:"flex",
+    marginLeft:"6vw",
+    marginTop:"8vw",
+    justifyContent:"center"
+    
   },
   logo: {
     paddingBottom: 20,
@@ -149,4 +154,4 @@ const NoMatchPage = (props) => {
 
 
 
-export default NoMatchPage; */
+export default NoMatchPage;
