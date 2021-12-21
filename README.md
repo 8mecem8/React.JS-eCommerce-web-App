@@ -1,5 +1,5 @@
 # React.JS-eCommerce-web-App
- 🔭 I’m currently working on  First personal React JS E-Commerce Web App
+ 🔭 I’m currently working on  First personal React JS E-Commerce Web Application
  
  I have developed many small projects to learn React.JS, In this project I will be developing a real life Web Application with React.JS, This project will have more features than my first Vanilla Javascript eCommerce Web Application.
  
