@@ -19,11 +19,68 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
+import Drawer from '@mui/material/Drawer';
+
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 /* Custom Css */
 import useStyles from './HeaderStyles'
 
 import logo from '../../../logo.png';
 import { height } from '@mui/system';
+
+
+const zurna = false
+
+
+
+
+
+
+{/*------------------------ Burger Menu Style ------------------------*/}
+/* const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem); */
+
+
+
+
+
+
+
 
 
 
@@ -32,37 +89,64 @@ import { height } from '@mui/system';
 function Header() {
 
   const user = useSelector(state => state.user)
-
+  console.log(user)
   
 
   const dispatch = useDispatch()
   const sty = useStyles()
+
+
     
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorEl2, setAnchorEl2] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
+  const [adminDashboardStatus, setAdminDashboardStatus] = useState(false);
+  const [burgerMenu, setBurgerMEnu] = useState(false);
   
-  const open = Boolean(anchorEl2);
+  
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+{/*------------------------Admin DashBoard ------------------------*/}
+
+
+
+ const aDashboardClick = (event) => {
+    setAdminDashboardStatus(event.currentTarget);
   };
 
- const handleClick2 = (event) => {
-    setAnchorEl2(event.currentTarget);
+
+ const aDashboardClose = () => {
+    setAdminDashboardStatus(false);
   };
+
+
+
+
+
+{/*------------------------ Account------------------------*/} 
+
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
   };
 
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenu = () => {
+    setAnchorEl(true);
   };
 
-  const handleClose2 = () => {
-    setAnchorEl2(null);
+ 
+
+{/*------------------------ Burger Menu icon ------------------------*/}
+
+ const burgerMenuHandleClick = (event) => {
+    setBurgerMEnu(event.currentTarget);
   };
+
+  const burgerMenuHandleClose = () => {
+    setBurgerMEnu(false);
+  };
+
+
+
 
 
   const logOut = () => {
@@ -98,58 +182,191 @@ function Header() {
 </Typography>
 
 
-{/*------------------------ Burger Menu icon ------------------------*/}
+{/*------------------------ Burger Menu ------------------------*/}
 <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 0 }}
+            onClick={burgerMenuHandleClick}
           >
             <MenuIcon />
 </IconButton>
 
 
-{/*------------------------ DashBoard ------------------------*/}
-<Typography  component="div" sx={{ flexGrow: 1 }}>
-
-
-  <Button
-        id="demo-positioned-button"
-        aria-controls="demo-positioned-menu"
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick2}
-        sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}
+{/* <StyledMenu
         
       >
-       <p className={sty.link}> Dashboard </p>
-  </Button> 
+        <StyledMenuItem>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Sent mail" />
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItemIcon>
+            <DraftsIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Drafts" />
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItemIcon>
+            <InboxIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Inbox" />
+        </StyledMenuItem>
+</StyledMenu> */}
 
 
-  <Menu
+{/* <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl2}
-        open={open}
-        onClose={handleClose2}
+        anchorEl={burgerMenu}
+        open={Boolean(burgerMenu)}
+        onClose={burgerMenuHandleClose}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'left',
         }}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
         }}
-        color="secondary"
-        /* sx={{ flexGrow: 2 }} */
-        
-        
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
-  </Menu>
+      </Menu>
+ */}
+
+
+
+<Drawer  anchor={"left"} open={burgerMenu} onClose={burgerMenuHandleClose} >
+
+
+<Box >
+
+
+      <List  >
+        {['History', 'Password', 'Wishlist',].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+
+            
+            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+            
+          </ListItem>
+        ))}
+      </List>
+
+
+      <Divider />
+
+
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+
+            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+          </ListItem>
+        ))}
+      </List>
+
+
+</Box>
+
+
+
+
+ </Drawer>
+
+
+
+
+
+
+
+
+{/*------------------------Admin DashBoard ------------------------*/}
+<Typography  component="div" sx={{ flexGrow: 1 }}>
+
+{user?.role === "admin" ?<Button
+        id="demo-positioned-button"
+        aria-controls="demo-positioned-menu"
+        aria-haspopup="true"
+        
+        onClick={aDashboardClick}
+        sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}
+        
+      >
+       <p className={sty.link}>Admin Dashboard</p>
+  </Button> 
+ :[]} 
+  
+
+
+
+<Drawer  anchor={"right"} open={adminDashboardStatus} onClose={aDashboardClose} >
+
+
+<Box >
+
+
+      <List  >
+        {['Dashboard', 'Password', 'Wishlist',].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+
+            
+            <Link to={`/admin/${text.split(' ')[0].toLowerCase()}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+            
+          </ListItem>
+        ))}
+      </List>
+
+
+      <Divider />
+
+
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+
+            <Link to={`/admin/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+          </ListItem>
+        ))}
+      </List>
+
+
+</Box>
+
+
+
+
+ </Drawer>
+
+
+
+
+
+
+
+
+
+
 
 </Typography>
 
@@ -184,7 +401,7 @@ function Header() {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                open={Boolean(anchorEl)}
+                open={anchorEl}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>

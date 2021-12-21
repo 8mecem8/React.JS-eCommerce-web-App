@@ -1,5 +1,8 @@
 import React, {useState,useEffect} from 'react'
 import {useNavigate} from "react-router-dom";
+import {useDispatch,useSelector} from 'react-redux'
+import {createUpdateUser} from '../../../UtiFunctions/utiAuth'
+
 
 /* Firebase db */
 import {auth} from "../../fireBase"
@@ -51,11 +54,11 @@ function TransitionDown(props) {
 
 
 
-
 const RegisterComplete = () => {
 
-let navigate = useNavigate();
-
+      let navigate = useNavigate();
+      const dispatch = useDispatch()
+      const sty = useStyles()
   
 
 /*------------------------ Snackbar states ------------------------*/
@@ -64,8 +67,7 @@ let navigate = useNavigate();
           const [error, setError] = useState(false);
           const [errorMessage, setErrorMessage] = useState("");
 
-
-      const sty = useStyles()
+      
     
 /*------------------------ Function's main states ------------------------*/
       const [email,setEmail] = useState("")
@@ -79,12 +81,8 @@ let navigate = useNavigate();
 
 useEffect(
   ()=>
-
   {
-
-    setEmail(window.localStorage.getItem('emailForSignIn'))
-    
-
+    setEmail(window.localStorage.getItem('emailForSignIn'))    
   },
   [])
 
@@ -118,7 +116,22 @@ useEffect(
 
           const idTokenResult = await user.getIdTokenResult()
 
-          
+            await createUpdateUser(idTokenResult.token).then((arg)=>
+            {
+              dispatch({
+             type:"LOGGED_IN_USER",
+             payload:{
+                      _id: arg.data._id,
+                      email: arg.data.email,
+                      name: arg.data.name,
+                      role: arg.data.role,
+                    token: idTokenResult.token}
+                    })
+
+            }).catch((err)=>{
+            setErrorMessage(err.message)
+            setError(true)
+            setLoading(false)})
 
             navigate("/")
 
@@ -195,6 +208,8 @@ useEffect(
 
        <TextField
         label="Password"
+        type="password"
+        autoComplete="current-password"
         value={password}
         name="todo"
         onChange={(e)=>{setPassword(e.target.value);}}

@@ -7,6 +7,10 @@ export default makeStyles(() => ({
         color:"white",
         textDecoration:"none",
     },
+       link_nav: {
+        textTransform: "none",
+        textDecoration:"none",
+    },
     proP:{
         fontSize:"0.8vw",
         marginLeft:"7px"

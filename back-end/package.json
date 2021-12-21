@@ -4,21 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "npm:null@*",
-    "cors": "npm:null@*",
-    "dotenv": "npm:null@*",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-jwt": "npm:null@*",
+    "express-jwt": "^6.1.0",
     "firebase-admin": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.1",
+    "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "slugify": "^1.6.4"
   }
 }

@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate,Link} from "react-router-dom";
-
+import {createUpdateUser, roleBasedRedirect} from '../../../UtiFunctions/utiAuth'
 
 
 /* Firebase db */
@@ -31,7 +31,6 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 
 import pic1 from "./az3.png"
-import { async } from '@firebase/util';
 
 
 
@@ -49,6 +48,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 function TransitionDown(props) {
   return <Slide {...props} direction="down" />;
 }
+
+
 
 
 
@@ -77,14 +78,14 @@ const Login = () => {
 
       
     
-{/*------------------------ İf there is logged user go to homepage ------------------------*/}
+{/*------------------------ İf there is logged user ------------------------*/}
     const user = useSelector(state => state.user)
 
    
 
     useEffect(()=>
     {
-        if(user && user.token) navigate("/")
+        if(user && user.token) navigate("/") 
     },[user])
 
 
@@ -113,14 +114,30 @@ const Login = () => {
             const {user} = result
             const idTokenResult = await user.getIdTokenResult()
 
-            dispatch({
+            await createUpdateUser(idTokenResult.token).then((arg)=>
+            {
+              dispatch({
              type:"LOGGED_IN_USER",
-             payload:{email: user.email,
+             payload:{
+                      _id: arg.data._id,
+                      email: arg.data.email,
+                      name: arg.data.name,
+                      role: arg.data.role,
                     token: idTokenResult.token}
                     })
 
+                  
+                roleBasedRedirect(arg,navigate)
 
-            navigate("/")
+            }).catch((err)=>{
+            setErrorMessage(err.message)
+            setError(true)
+            setLoading(false)})
+
+            
+
+                    
+            
 
         } catch (error) {
             
@@ -158,14 +175,27 @@ const Login = () => {
             const {user} = result
             const idTokenResult = await user.getIdTokenResult()
 
-            dispatch({
+            await createUpdateUser(idTokenResult.token).then((arg)=>
+            {
+              dispatch({
              type:"LOGGED_IN_USER",
-             payload:{email: user.email,
+             payload:{
+                      _id: arg.data._id,
+                      email: arg.data.email,
+                      name: arg.data.name,
+                      role: arg.data.role,
                     token: idTokenResult.token}
                     })
 
 
-            navigate("/")
+                    roleBasedRedirect(arg,navigate)
+
+            }).catch((err)=>{
+            setErrorMessage(err.message)
+            setError(true)
+            setLoading(false)})
+
+
 
 
         }).catch((error)=>
@@ -223,6 +253,8 @@ const Login = () => {
 
       <TextField
         label="Password"
+        type="password"
+        autoComplete="current-password"
         value={password}
         name="Password"
         onChange={(e)=>{setPassword(e.target.value)}}

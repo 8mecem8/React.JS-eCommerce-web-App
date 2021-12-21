@@ -12,7 +12,7 @@ import thunk from 'redux-thunk'
 
 
 
-const store = createStore(combinedRedusers, composeWithDevTools(applyMiddleware(thunk)))
+export const store = createStore(combinedRedusers, composeWithDevTools(applyMiddleware(thunk)))
 
 
 
