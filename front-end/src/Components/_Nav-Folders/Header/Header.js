@@ -320,7 +320,7 @@ function Header() {
 
 
       <List  >
-        {['Dashboard', 'Password', 'Wishlist',].map((text, index) => (
+        {['Dashboard', 'Product', 'Products','Category','Subcategory','Coupons'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
