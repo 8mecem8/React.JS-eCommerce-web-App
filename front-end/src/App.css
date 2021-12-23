@@ -9,13 +9,14 @@
 }
 
 @media screen and (max-width: 600px) {
- .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
-  margin-top: 80px;
-  background-color: rgb(255 255 255 / 73%) !important;
-}
+  .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    margin-top: 80px;
+    background-color: rgb(255 255 255 / 73%) !important;
+  }
 }
 
 /* Hamburger Menu Drawer > background div */
 .css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
   background-color: rgb(0 0 0 / 0%) !important;
 }
+

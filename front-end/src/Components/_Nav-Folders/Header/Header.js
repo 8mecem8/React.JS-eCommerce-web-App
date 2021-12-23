@@ -89,7 +89,7 @@ const StyledMenuItem = withStyles((theme) => ({
 function Header() {
 
   const user = useSelector(state => state.user)
-  console.log(user)
+  
   
 
   const dispatch = useDispatch()
@@ -274,7 +274,7 @@ function Header() {
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
 
-            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav} underline="none"><ListItemText primary={text} /></Link>
           </ListItem>
         ))}
       </List>

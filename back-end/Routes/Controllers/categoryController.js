@@ -10,14 +10,15 @@ const categoryModel = require('../../Models/catagory');
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-    const category = await new categoryModel({ name, slug: slugify(name) }).save();
-    res.json(category);
+
+    const { category } = req.body;
+    const newCategory = await new categoryModel({ name:category, slug: slugify(category) }).save();
+    return res.json(newCategory);
     
   } catch (err) {
      console.log("err.errors is =============================>",Object.entries(err.errors)[0][1].properties.message);
      console.table(err.errors);
-    res.status(400).send("***Create category failed***"+" | "+"Error Message == "+err._message+" "+"|| Main Reason =====> "+ Object.entries(err.errors)[0][1].properties.message);
+    res.status(400).json("***Create category failed***"+" | "+"Error Message == "+err._message+" "+"|| Main Reason =====> "+ Object.entries(err.errors)[0][1].properties.message);
   }
 };
 
