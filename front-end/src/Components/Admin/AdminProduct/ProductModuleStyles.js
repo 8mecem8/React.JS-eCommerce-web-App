@@ -7,18 +7,9 @@ export default makeStyles((theme) => (
     sub: {
         position:"inherit !important",
     },
-    proP:{
-        fontSize:"0.8vw",
-        marginLeft:"7px"
-    },
-    container: 
-    {
-        transform: "translateY(60px)",
-        
-
-    },
-    cir:{
-        color: theme.palette.common.white,
+    mGrid:{
+        transform: "translateY(80px)",
     }
+    
     
 }));

@@ -38,6 +38,6 @@ categorySchema.plugin(uniqueValidator)
 
 
 
-const categoryModel = mongoose.model('catagory', categorySchema)
+const categoryModel = mongoose.model('Category', categorySchema)
 
 module.exports = categoryModel

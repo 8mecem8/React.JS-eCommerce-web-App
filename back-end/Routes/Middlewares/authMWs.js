@@ -9,7 +9,6 @@ exports.authCheck = async (req,res,next) =>
 
         const fbUser = await admin.auth().verifyIdToken(req.headers.authtoken)
 
-        //console.log("fbUser is ===>",fbUser)
         
         req.body.user = fbUser
         
@@ -24,6 +23,8 @@ exports.authCheck = async (req,res,next) =>
 
 
 exports.adminCheck = async (req, res, next) => {
+
+  
   const { email } = req.body.user;
 
   const adminUser = await userModel.findOne({ email }).exec();

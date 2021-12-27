@@ -13,11 +13,12 @@ import History from '../Components/User/UserHistory/UserHistory';
 import UserPassword from '../Components/User/UserPassword/UserPassword';
 import UserWishList from '../Components/User/UserWishList/UserWishList';
 import AdminDashBoard from '../Components/Admin/AdminDashBoard/AdminDashBoard';
-
+import AdminCategory from '../Components/Admin/AdminCategory/AdminCategory';
+import AdminProduct from '../Components/Admin/AdminProduct/ProductModule';
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
-import AdminCategory from '../Components/Admin/AdminCategory/AdminCategory';
+
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
 
@@ -54,6 +55,7 @@ const Routez = () => {
                 {/* Only Admin, Routes */}
                 <Route  path="/admin/dashboard" element={!user && !user?.token ?  <Login /> : <AdminDashBoard />} />
                 <Route  path="/admin/category" element={!user && !user?.token ?  <Login /> : <AdminCategory />} />
+                <Route  path="/admin/product" element={!user && !user?.token ?  <Login /> : <AdminProduct />} />
 
 
                  <Route path="*" element={<NoMatchPage />} />

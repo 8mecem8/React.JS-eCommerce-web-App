@@ -14,11 +14,17 @@ export default makeStyles((theme) => (
     container: 
     {
         transform: "translateY(60px)",
-        
-
     },
     cir:{
         color: theme.palette.common.white,
-    }
+    },
+    input:{
+        transform: "translateY(10px)",
+    },
+    inputOff:{
+        /* display:"none !important", */
+        fontSize:"15px",
+        transform: "translatex(4px)",
+    },
     
 }));

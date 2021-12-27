@@ -178,7 +178,7 @@ function Header() {
           >
   {/* <Link  color="inherit" underline="none" sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }}><img src={logo} className="App-logo" alt="logo" /></Link> */}
 
-<Link className="AppLogo" to="/"><img src={logo} style={{mixBlendMode: "screen",pointerEvents:"none",display:"flex",height: "5vmin",zIndex:1000}}   alt="logo" /></Link>
+<Link className="AppLogo" to="/"><img src={logo} style={{mixBlendMode: "screen",pointerEvents:"none",display:"flex",height: "40px",zIndex:1000}}   alt="logo" /></Link>
 </Typography>
 
 
@@ -320,7 +320,7 @@ function Header() {
 
 
       <List  >
-        {['Dashboard', 'Product', 'Products','Category','Subcategory','Coupons'].map((text, index) => (
+        {['Dashboard', 'Product', 'Products','Category','Coupons'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

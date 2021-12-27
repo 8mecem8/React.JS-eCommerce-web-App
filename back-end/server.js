@@ -11,6 +11,8 @@ require('dotenv').config({path:__dirname+'/.env'})
 const authRouter = require('./Routes/Route-Links/authRouter.js');
 const userRouter = require('./Routes/Route-Links/userRouter.js');
 const categoryRouter = require('./Routes/Route-Links/categoryRouter.js');
+const subCategoryRouter = require('./Routes/Route-Links/subCategoryRouter.js');
+const productRouter = require('./Routes/Route-Links/productRouter.js');
 
 
 
@@ -28,6 +30,9 @@ app.use(express.json({ strict: false }))
 app.use("/api", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/", categoryRouter);
+app.use("/api/", subCategoryRouter);
+app.use("/api/", productRouter);
+
 
 
 //Database------------------------------------------------------------------------------
@@ -91,7 +96,7 @@ app.use(unknownEndpoint)
 
 
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
+  console.error(" first error.message is in the next ======>",error.message)
 
   if (error.name === 'CastError') {
     return response.status(400).send({message:'malformatted id' })
@@ -103,7 +108,7 @@ const errorHandler = (error, request, response, next) => {
 
 
 
-  console.error(error.message)
+  console.error(" last error.message is in the next ======>",error.message)
 
   next(error)
 }

@@ -1,6 +1,6 @@
 const slugify = require("slugify");
 
-const categoryModel = require('../../Models/catagory');
+const categoryModel = require('../../Models/categoryModel');
 
 
 
@@ -40,11 +40,11 @@ exports.read = async (req, res) => {
 
 
 exports.update = async (req, res) => {
-  const { name } = req.body;
+  const { category } = req.body;
   try {
     const updated = await categoryModel.findOneAndUpdate(
       { slug: req.params.slug },
-      { name, slug: slugify(name) },
+      { name:category, slug: slugify(category) },
       { new: true }
     );
 
