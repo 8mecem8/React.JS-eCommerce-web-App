@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 32,
+      maxlength: [1000,'too long title'],
       text: true,
       unique:true
     },
@@ -20,33 +20,35 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
-      maxlength: 3000,
+      maxlength: [99000,'too long description'],
       text: true,
     },
     price: {
-      type: Number,
+      type: String,
       required: true,
       trim: true,
-      maxlength: 32,
+      maxlength: [50,'too big number for price'],
     },
-    // category: {
-    //   type: ObjectId,
-    //   ref: "Category",
-    // },
-    // Subcategory: [
-    //   {
-    //     type: ObjectId,
-    //     ref: "SubCategory",
-    //   },
-    // ],
+     category: {
+       type: ObjectId,
+       ref: "Category",
+     },
+     subcategory: 
+       [
+         {
+         type: ObjectId,
+         ref: "SubCategory",
+         }
+       ]
+     ,
     quantity: Number,
     // sold: {
     //   type: Number,
     //   default: 0,
     // },
-    // images: {
-    //   type: Array,
-    // },
+     images: {
+       type: Array,
+     },
     shipping: {
       type: String,
       collation:{strength: 1 },

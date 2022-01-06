@@ -23,3 +23,8 @@
 #root {
   overflow-x: hidden;
 }
+
+/* Create Product select multiple subcategories */
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: rgb(255 48 48 / 66%) !important;
+}

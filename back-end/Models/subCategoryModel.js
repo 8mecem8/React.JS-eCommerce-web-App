@@ -9,7 +9,7 @@ const subCategorySchema = new mongoose.Schema({
       type: String,
       trim: true,
       required: true,
-      minlength:[3,'too short'],
+      minlength:[2,'too short'],
       maxlength:[32,'too long']
   },
   slug: {

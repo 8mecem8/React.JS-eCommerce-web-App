@@ -6,7 +6,7 @@ const {
   read,
   update,
   remove,
-  list,
+  listAll,
 } = require("../Controllers/productController")
 
 
@@ -19,7 +19,9 @@ const { authCheck,adminCheck } = require('../Middlewares/authMWs')
 
 // Routes-------------------------------------------------------------------------
 productRouter.post("/product", authCheck, adminCheck, create);
-// productRouter.get("/categories", list);
+productRouter.get("/products/:count", listAll);
+productRouter.delete("/product/:slug", authCheck, adminCheck, remove);
+
 // productRouter.get("/category/:slug", read);
 // productRouter.put("/category/:slug", authCheck, adminCheck, update);
 // productRouter.delete("/category/:slug", authCheck, adminCheck, remove);

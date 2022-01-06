@@ -26,7 +26,11 @@ exports.create = async (req, res) => {
 
 
 exports.list = async (req, res) =>
-  res.json(await subCategoryModel.find({}).sort({ createdAt: -1 }).exec());
+  res.json(await subCategoryModel.find({}).populate({
+      path: 'parent',
+      select:
+        'name',
+    }).sort({ createdAt: -1 }).exec());
 
 
 
@@ -41,12 +45,12 @@ exports.read = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-  console.log(req.body)
-  const { subCategory } = req.body;
+  //console.log(req.body)
+  const { subCategory,parent } = req.body;
   try {
     const updated = await subCategoryModel.findOneAndUpdate(
       { slug: req.params.slug },
-      { name:subCategory, slug: slugify(subCategory) },
+      { name:subCategory,parent:parent, slug: slugify(subCategory) },
       { new: true }
     );
 

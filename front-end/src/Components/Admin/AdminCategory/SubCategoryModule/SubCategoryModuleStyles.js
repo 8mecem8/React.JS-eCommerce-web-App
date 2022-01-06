@@ -26,5 +26,10 @@ export default makeStyles((theme) => (
         fontSize:"15px",
         transform: "translatex(4px)",
     },
+    tinyCat:{
+        fontSize:"11px",
+        transform: "translatey(-10px)",
+
+    }
     
 }));

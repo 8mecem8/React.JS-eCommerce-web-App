@@ -13,6 +13,7 @@ const userRouter = require('./Routes/Route-Links/userRouter.js');
 const categoryRouter = require('./Routes/Route-Links/categoryRouter.js');
 const subCategoryRouter = require('./Routes/Route-Links/subCategoryRouter.js');
 const productRouter = require('./Routes/Route-Links/productRouter.js');
+const cloudinaryRouter = require('./Routes/Route-Links/cloudinaryRouter.js');
 
 
 
@@ -21,7 +22,7 @@ const productRouter = require('./Routes/Route-Links/productRouter.js');
 // Middlewares-------------------------------------------------------------------------
 app.use(cors())
 app.use(morgan("dev"))
-app.use(express.json({ strict: false }))
+app.use(express.json({ strict: false,limit: '50mb' }))
 //app.use('/uploads', express.static(path.join(__dirname, '/../uploads')))
 //app.use(express.static(path.join(__dirname, '/build')))
 //app.use(express.static(path.join(__dirname, '/../Front-end')))
@@ -32,6 +33,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/", categoryRouter);
 app.use("/api/", subCategoryRouter);
 app.use("/api/", productRouter);
+app.use("/api/", cloudinaryRouter);
 
 
 
@@ -79,8 +81,6 @@ app.get("/api/products/:id", (req, res)=>
 
 
  */
-
-
 
 
 

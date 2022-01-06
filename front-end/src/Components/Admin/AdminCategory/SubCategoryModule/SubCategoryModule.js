@@ -94,7 +94,7 @@ function AdminSubCategory({updateComp,setUpdateComp})
 
 {/*------------------------ Create Subcategory State ------------------------*/}
     const [Loading,setLoading] = useState(false)
-    const [selectedSubCategory,setSelectedSubCategory] = useState(null)
+    const [selectedCategory,setSelectedCategory] = useState(null)
 
     
 
@@ -155,7 +155,7 @@ useEffect( async()=>
 
 
 
-{/*------------------------ Create Category list Functions ------------------------*/} 
+{/*------------------------ Create Subcategory list Functions ------------------------*/} 
 
     const formCreateCategory = async (e) => 
     {
@@ -167,14 +167,18 @@ useEffect( async()=>
 
       
 
-        createSubCategory(inputName,selectedSubCategory,user.token)
+        createSubCategory(inputName,selectedCategory,user.token)
             .then((arg)=>
             {
             setSnackBarMessage(`Category ${arg.data.name} is succesfuly created`)
             setOpen(true)     
             setInputName('')
-            setSelectedSubCategory('')
+            setSelectedCategory('')
+
+                
+            //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
             setUpdateComp(true)
+            setUpdateComp(false)
 
             })
             .catch((error)=>
@@ -209,7 +213,7 @@ useEffect( async()=>
     }
 
 
-{/*------------------------ Delete Category Function ------------------------*/}
+{/*------------------------ Delete Subcategory Function ------------------------*/}
 
 const deleteCategoryFunc = (arg) => 
 {
@@ -231,7 +235,10 @@ const deleteCategoryFunc = (arg) =>
                 //console.log("result is =====>>>",result.data.name)
 
                 setDelCatLoadingLoading(false)
+                
+                //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
                 setUpdateComp(true)
+                setUpdateComp(false)
                
 
             }).catch((error)=>
@@ -246,7 +253,7 @@ const deleteCategoryFunc = (arg) =>
 
 
 
-{/*------------------------ Edit Category Function ------------------------*/}
+{/*------------------------ Edit Subcategory Function ------------------------*/}
 
 const editCategorySubmit = (e) => 
 {
@@ -255,7 +262,7 @@ const editCategorySubmit = (e) =>
     setDialogOpen(false)
     setCategoryColOpen(false)
 
-    updateSubCategory(editCategoryName.slug,editCategoryName.name,user.token).then(async(result)=>
+    updateSubCategory(editCategoryName.slug, editCategoryName.name, selectedCategory ,user.token).then(async(result)=>
             {   
                 setDelCatLoadingLoading(true)
 
@@ -266,7 +273,10 @@ const editCategorySubmit = (e) =>
                 //console.log("result is =====>>>",result.data.name)
 
                 setDelCatLoadingLoading(false)
+
+                //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
                 setUpdateComp(true)
+                setUpdateComp(false)
                 
 
             }).catch((error)=>
@@ -279,7 +289,7 @@ const editCategorySubmit = (e) =>
 
 
 
-{/*------------------------ Filter Category Functions ------------------------*/}    
+{/*------------------------ Filter Subcategory Functions ------------------------*/}    
 
 const handleFilter = (e) => 
 {
@@ -333,13 +343,13 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
 
 
                             
-                                <InputLabel id="select-label"  className={selectedSubCategory === null ? sty.input : sty.inputOff}>&nbsp;&nbsp;&nbsp; A category must be selected</InputLabel>
+                                <InputLabel id="select-label"  className={selectedCategory === null ? sty.input : sty.inputOff}>&nbsp;&nbsp;&nbsp; A category must be selected</InputLabel>
                                 <Select
                                 labelId="select-standard-label"
                                 id="demo-simple-select"
-                                value={selectedSubCategory}
+                                value={selectedCategory}
                                 label="Select a Category"
-                                onChange={(e)=>{setSelectedSubCategory(e.target.value)}}
+                                onChange={(e)=>{setSelectedCategory(e.target.value)}}
                                 sx={{maxWidth:"400px", minWidth:"360px",ml:"20px"}}
                                 variant="standard"
                                 >
@@ -362,7 +372,7 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
                                 </Grid>
 
                                 <Grid item xs={1} sx={{ml: 2,}}>
-                                        { Loading ? <BarLoader speed={2} /> :  <Fab type='submit' disabled={!inputName || !selectedSubCategory} variant="extended" size="medium" color="primary" aria-label="add" style={{textTransform: 'none',}}>
+                                        { Loading ? <BarLoader speed={2} /> :  <Fab type='submit' disabled={!inputName || !selectedCategory} variant="extended" size="medium" color="primary" aria-label="add" style={{textTransform: 'none',}}>
                                          <AddIcon sx={{ m: "auto" }} />
                                             Create
                                         </Fab>}
@@ -426,7 +436,7 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
                             <CategoryTwoToneIcon sx={{color:"rgb(254 0 252 / 96%)"}} />    
                     </ListItemIcon>
 
-                    <ListItemText id={labelId} primary={` ${value.name }`} />
+                    <ListItemText id={labelId} primary={` ${value.name }`} /> <p className={sty.tinyCat}>{value.parent.name}</p>
 
                     <Tooltip title={`Delete ${value.name} Category`} onClick={ async()=>
                     
@@ -507,8 +517,7 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
           <DialogContentText id="alert-dialog-description">
             <InputLabel htmlFor="component-simple" sx={{mx: 'auto'}}>You can change Category Name</InputLabel > 
 
-            {/*  {console.log("editCategoryName is ===>",editCategoryName)}
-             {console.log("categoriesList is ===>",categoriesList)} */}
+            
             
 
 
@@ -516,10 +525,10 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
                                 labelId="select-standard-label"
                                 id="demo-simple-select"
                                 label="Select a Category"
-                                onChange={(e)=>{setSelectedSubCategory(e.target.value)}}
+                                onChange={(e)=>{setSelectedCategory(e.target.value)}}
                                 sx={{maxWidth:"400px", minWidth:"360px",mb:"20px"}}
                                 variant="standard"
-                                defaultValue={categoriesList.filter(item => item._id == editCategoryName.parent)[0]?._id}
+                                defaultValue={categoriesList.filter(item => item._id == editCategoryName.parent?._id)[0]?._id}
                                 >
 
                                 
@@ -528,7 +537,7 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
                                 </Select>
 
 
-
+            
 
             <Input id="component-simple" required value={editCategoryName.name} onChange={(event) => {setEditCategoryName({...editCategoryName,name:event.target.value})}} fullWidth={true}  />
           </DialogContentText>

@@ -29,7 +29,7 @@ function AdminCategory()
     return (
         <>
 
-        <section style={{backgroundImage:`linear-gradient(rgb(255 255 255 / 70%), rgb(25 118 210)),url(${pic})`,backgroundRepeat:"no-repeat",backgroundSize:"100% 100%",height: "100vw",zIndex:1}}>
+        <section style={{backgroundImage:`linear-gradient(rgb(255 255 255 / 70%), rgb(25 118 210)),url(${pic})`,backgroundRepeat:"no-repeat",backgroundSize:"100%",width:`${window.innerWidth <= 550 ? "2000px" : "100vw"}`,minHeight:"1500px",maxHeight:"5000px",zIndex:1}}>
 
 
         <Grid container sx={{flexDirection:{xs: "column",sm: "column",md: "row",lg: "row", xl: "row",}}}   justifyContent="space-between" alignItems="flex-start" spacing={0}>

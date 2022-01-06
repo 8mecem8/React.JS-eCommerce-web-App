@@ -18,6 +18,7 @@ import AdminProduct from '../Components/Admin/AdminProduct/ProductModule';
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
+import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsModule';
 
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
@@ -56,7 +57,7 @@ const Routez = () => {
                 <Route  path="/admin/dashboard" element={!user && !user?.token ?  <Login /> : <AdminDashBoard />} />
                 <Route  path="/admin/category" element={!user && !user?.token ?  <Login /> : <AdminCategory />} />
                 <Route  path="/admin/product" element={!user && !user?.token ?  <Login /> : <AdminProduct />} />
-
+                <Route  path="/admin/products" element={!user && !user?.token ?  <Login /> : <AdminAllProducts />} />
 
                  <Route path="*" element={<NoMatchPage />} />
             </Routes>

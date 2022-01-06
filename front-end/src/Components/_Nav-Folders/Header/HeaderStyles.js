@@ -12,7 +12,7 @@ export default makeStyles(() => ({
         textDecoration:"none",
     },
     proP:{
-        fontSize:"0.8vw",
+        fontSize:"18px",
         marginLeft:"7px"
     }
     

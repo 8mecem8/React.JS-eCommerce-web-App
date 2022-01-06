@@ -143,7 +143,7 @@ useEffect( async()=>
 
 
 
-console.log("categoriesList is ===>",categoriesList)
+//console.log("categoriesList is ===>",categoriesList)
 
 
 
@@ -165,8 +165,10 @@ console.log("categoriesList is ===>",categoriesList)
             setSnackBarMessage(`Category ${arg.data.name} is succesfuly created`)
             setOpen(true)     
             setInputName('')
-            setUpdateComp(true)
 
+             //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
+            setUpdateComp(true)
+            setUpdateComp(false)
             })
             .catch((error)=>
             {
@@ -218,7 +220,10 @@ const deleteCategoryFunc = (arg) =>
                 //console.log("result is =====>>>",result.data.name)
 
                 setDelCatLoadingLoading(false)
+
+                //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
                 setUpdateComp(true)
+                setUpdateComp(false)
 
             }).catch((error)=>
                     {
@@ -252,7 +257,10 @@ const editCategorySubmit = (e) =>
                 //console.log("result is =====>>>",result.data.name)
 
                 setDelCatLoadingLoading(false)
+
+                //To update other component's fetched list we need to change higher state first true then false tobe able to change it true again
                 setUpdateComp(true)
+                setUpdateComp(false)
 
             }).catch((error)=>
                     {
