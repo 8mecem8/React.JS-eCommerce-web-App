@@ -65,6 +65,25 @@ function TransitionDown(props) {
 
 
 
+const initialState = {
+  title: "",
+  description: "",
+  price: "",
+  categories: [""],
+  category: "",
+  subcategories: [""],
+  subcategory: "",
+  shipping: "",
+  quantity: "",
+  images: [],
+  color: "",
+  brand: "",
+};
+
+
+
+
+
 
 function AdminAllProducts() 
 {
@@ -83,6 +102,7 @@ function AdminAllProducts()
     const [listOpen, setListOpen] = useState(false);
     const [fetchedProductsList, setFetchedProductsList] = useState([]);
     const [delProductSlug, setDelProductSlug] = useState([]);
+    const [editProductDetails, setEditProductDetails] = useState(initialState);
 
   
  
@@ -94,7 +114,8 @@ function AdminAllProducts()
 {/*------------------------ Product Edit Dialog State ------------------------*/}
     const [editProductDialogOpen,setEditProductDialogOpen] = useState(false)
 
-
+{/*------------------------ Edit Product First start Loading state ------------------------*/}
+    const [loadingScreen, setLoadingScreen] = useState(false);
 
 {/*------------------------ Snackbar states ------------------------*/}
     const [open, setOpen] = useState(false);
@@ -139,7 +160,7 @@ function AdminAllProducts()
       await getAllProductsByCounts(100)
             .then((arg)=>{setFetchedProductsList(arg.data)})
             .catch((err)=>{console.log("error in getting all products",err)})
-    },[BackDropLoading])
+    },[BackDropLoading,open])
 
 
 
@@ -263,7 +284,18 @@ function AdminAllProducts()
             
           <CardActions sx={{display: 'flex',justifyContent: 'space-evenly'}}>
 
-            <Button onClick={()=>{setEditProductDialogOpen(true)}}  startIcon={<EditIcon />}>
+            <Button onClick={()=>{
+              
+              setEditProductDetails(arg)
+              
+              setEditProductDialogOpen(true)
+              setLoadingScreen(true)
+
+              setTimeout(() => {
+                  setLoadingScreen(false)
+              }, 5000);
+
+              }}  startIcon={<EditIcon />}>
               Edit
             </Button>
 
@@ -305,6 +337,13 @@ function AdminAllProducts()
              editProductDialogOpen={editProductDialogOpen}
              setEditProductDialogOpen={setEditProductDialogOpen}
              user={user}
+             editProductDetails={editProductDetails}
+             loadingScreen={loadingScreen}
+             setLoadingScreen={setLoadingScreen}
+             setErrorMessage={setErrorMessage}
+             setError={setError}
+             setSnackBarMessage={setSnackBarMessage}
+             setOpen={setOpen}
              />
 
 

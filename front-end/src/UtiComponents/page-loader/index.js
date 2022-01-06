@@ -2,7 +2,7 @@ import React from 'react';
 
 // Material UI
 import { withStyles } from '@mui/styles';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress} from '@mui/material';
 
 const styles = theme => ({
     progress: {
@@ -10,15 +10,14 @@ const styles = theme => ({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '100vh',
-      margin: theme.spacing.unit * 5,
+      height: '90vh',
     },
   });
 
   const PageLoader = ({ classes }) => {
     return (
       <div className={classes.progress}>
-        <CircularProgress />
+        <CircularProgress size={400}  />
       </div>
     );
   };

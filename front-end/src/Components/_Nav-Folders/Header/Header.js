@@ -320,17 +320,20 @@ function Header() {
 
 
       <List  >
-        {['Dashboard', 'Product', 'Products','Category','Coupons'].map((text, index) => (
+        {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Coupons',"Coupons"]].map((text, index) =>
+        {          
+          
+          return(
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
 
             
-            <Link to={`/admin/${text.split(' ')[0].toLowerCase()}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+             <Link to={`/admin/${text[1]}`} className={sty.link_nav}><ListItemText primary={text[0]} /></Link> 
             
           </ListItem>
-        ))}
+        )})}
       </List>
 
 

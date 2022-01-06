@@ -36,3 +36,35 @@ exports.remove = async (req, res) => {
     res.status(400).send("Create delete failed");
   }
 };
+
+
+
+exports.update = async (req, res) => {
+
+  console.log(req.body)
+  console.log(req.params.slug)
+
+  const { title, description, price, category, subcategory, shipping, quantity, images, color,} = req.body.product;
+  try {
+    const updated = await productModel.findOneAndUpdate(
+      { slug: req.params.slug },
+      { titlee:title,
+        description:description,
+        price:price,
+        category:category,
+        subcategory:subcategory,
+        shipping:shipping,
+        quantity:quantity,
+        images:images,
+        color:color,
+        slug: slugify(title) },
+      { new: true }
+    ).populate('category').populate('subcategory')
+
+      if(updated === null){ return res.json("Please Check --- the Product Name --- That You want to Update")}
+    
+    res.json(updated);
+  } catch (err) {
+    res.status(400).send("Create update failed");
+  }
+};
