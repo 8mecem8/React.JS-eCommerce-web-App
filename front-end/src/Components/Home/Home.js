@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux';
-import { getAllProductsByCounts } from '../../UtiFunctions/utiProduct'
+import { getAllProductsByCounts,getProductsByOrder } from '../../UtiFunctions/utiProduct'
 import  {Link} from "react-router-dom";
 
 
@@ -99,9 +99,13 @@ function Home()
         setEnterPageLoading(true)
 
       //Get products in 100 list 
-      await getAllProductsByCounts(100)
-            .then((arg)=>{setHomeFetchedProductsList(arg.data)})
-            .catch((err)=>{console.log("error in getting all products",err)})
+    //   await getAllProductsByCounts(100)
+    //         .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+    //         .catch((err)=>{console.log("error in getting all products",err)})
+
+          await  getProductsByOrder("createdAt", "desc", 100)
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})
 
             await new Promise((resolve) => setTimeout(resolve, 1000));
         setEnterPageLoading(false)
@@ -109,7 +113,7 @@ function Home()
 
 
 
-    //console.log(HomefetchedProductsList)
+    console.log(HomefetchedProductsList)
 
 
 
@@ -122,7 +126,7 @@ function Home()
 
 
         { /*------------------------ Top Product list Carousel ------------------------*/ }
-             <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
+             <Container maxWidth="lg" sx={{mx: "auto",pt:2}}>
                 <Carousel
                         swipeable={true}
                         draggable={true}

@@ -13,10 +13,12 @@ exports.orderList = async (req, res) =>
 {
   try {
 
-    const { sort , order, limit} = req.body
+    const {sort , order, limit} = req.body
 
-    const products = productModel.find({}).populate('category').populate('subcategory').sort([[sort, order]]).limit(limit).exec()
+    const products = await productModel.find({}).populate('category').populate('subcategory').sort([[sort, order]]).limit(limit).exec()
     
+    console.log(products)
+
     res.json(products)
     
   } catch (error) {

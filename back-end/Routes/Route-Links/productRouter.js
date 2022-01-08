@@ -3,10 +3,10 @@ const productRouter = require('express').Router()
 // imported Controllers-------------------------------------------------------------------------
 const {
   create,
-  read,
   update,
   remove,
   listAll,
+  orderList,
 } = require("../Controllers/productController")
 
 
@@ -22,7 +22,7 @@ productRouter.post("/product", authCheck, adminCheck, create);
 productRouter.get("/products/:count", listAll);
 productRouter.delete("/product/:slug", authCheck, adminCheck, remove);
 productRouter.put("/product/:slug", authCheck, adminCheck, update);
-productRouter.post("/category", orderList);
+productRouter.post("/products", orderList);
 
 
 
