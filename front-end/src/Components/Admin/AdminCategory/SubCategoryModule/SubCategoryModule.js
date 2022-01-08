@@ -452,7 +452,9 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
 
                     <Tooltip describeChild title={`Edit ${value.name} Category`} onClick={()=>{
                                                                                                 setCategoryColOpen(!categoryColOpen)
+                                                                                                
                                                                                                 setEditCategoryName({name:value.name,slug:value.slug,...value})
+                                                                                                setSelectedCategory(value.parent._id)
                                                                                                 }}>
                             <IconButton>
                                 <EditIcon sx={{color:"rgb(37 153 120)"}}/>
@@ -536,8 +538,8 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
       
                                 </Select>
 
-
-            
+                                            {console.log("editCategoryName is ===>",editCategoryName)}                                                            
+                                            {console.log("selectedCategory is ===>",selectedCategory)}                                                     
 
             <Input id="component-simple" required value={editCategoryName.name} onChange={(event) => {setEditCategoryName({...editCategoryName,name:event.target.value})}} fullWidth={true}  />
           </DialogContentText>

@@ -9,6 +9,28 @@ exports.listAll = async (req, res) =>
   .limit(parseInt(req.params.count)).populate('category').populate('subcategory').sort([["createdAt","desc"]]).exec());
 
 
+exports.orderList = async (req, res) => 
+{
+  try {
+
+    const { sort , order, limit} = req.body
+
+    const products = productModel.find({}).populate('category').populate('subcategory').sort([[sort, order]]).limit(limit).exec()
+    
+    res.json(products)
+    
+  } catch (error) {
+    console.log(err.message)
+     
+     //console.log("error is ================>",Reflect.ownKeys(err))
+     
+    res.status(400).json("***Create category failed***"+" | "+"Error Message = "+err.message || err._message+" "+"|| Main Reason =====> "+ Object.entries(err.errors)[0][1].properties.message);
+  }
+}
+  
+
+
+
 exports.create = async (req, res) => {
   try {
 

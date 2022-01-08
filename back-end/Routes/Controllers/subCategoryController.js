@@ -45,7 +45,7 @@ exports.read = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-  //console.log(req.body)
+  console.log(req.body)
   const { subCategory,parent } = req.body;
   try {
     const updated = await subCategoryModel.findOneAndUpdate(

@@ -285,15 +285,11 @@ function AdminAllProducts()
           <CardActions sx={{display: 'flex',justifyContent: 'space-evenly'}}>
 
             <Button onClick={()=>{
-              
-              setEditProductDetails(arg)
-              
-              setEditProductDialogOpen(true)
               setLoadingScreen(true)
-
-              setTimeout(() => {
-                  setLoadingScreen(false)
-              }, 5000);
+              setEditProductDetails(arg)
+              setEditProductDialogOpen(true)
+              
+              /* setTimeout(() => {setLoadingScreen(false)}, 5000); */
 
               }}  startIcon={<EditIcon />}>
               Edit
@@ -332,26 +328,9 @@ function AdminAllProducts()
               
             </Dialog>
 
-
-              <ProductEditDialogModule 
-             editProductDialogOpen={editProductDialogOpen}
-             setEditProductDialogOpen={setEditProductDialogOpen}
-             user={user}
-             editProductDetails={editProductDetails}
-             loadingScreen={loadingScreen}
-             setLoadingScreen={setLoadingScreen}
-             setErrorMessage={setErrorMessage}
-             setError={setError}
-             setSnackBarMessage={setSnackBarMessage}
-             setOpen={setOpen}
-             />
-
-
           </CardActions>
-          
+             
     </Card>
-
-
 
           )
         })}
@@ -388,6 +367,25 @@ function AdminAllProducts()
 
 
   </section>  
+
+
+{/*------------------------ Single Product Edit Popup Dialog Component ------------------------*/}
+            <ProductEditDialogModule 
+             editProductDialogOpen={editProductDialogOpen}
+             setEditProductDialogOpen={setEditProductDialogOpen}
+             user={user}
+             editProductDetails={editProductDetails}
+             loadingScreen={loadingScreen}
+             setLoadingScreen={setLoadingScreen}
+             setErrorMessage={setErrorMessage}
+             setError={setError}
+             setSnackBarMessage={setSnackBarMessage}
+             setOpen={setOpen}
+             />
+
+
+
+
 </>
     )
 }

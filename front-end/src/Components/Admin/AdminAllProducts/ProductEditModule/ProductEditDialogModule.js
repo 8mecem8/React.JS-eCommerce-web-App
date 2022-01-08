@@ -40,6 +40,7 @@ import DOubbleBubble from '../../../DoubleBubble/DoubleBubble';
 import logo from '../../../../logo.png';
 import { getSubCategories } from '../../../../UtiFunctions/utiSubCategory';
 import { getCategories } from '../../../../UtiFunctions/utiCategory';
+import PageLoader from '../../../../UtiComponents/page-loader/index'
 import { updateSingleProduct } from '../../../../UtiFunctions/utiProduct';
 
 
@@ -242,7 +243,7 @@ const editProductSubmit= async(e) =>
 
 
      {loadingScreen ? 
-     <DOubbleBubble /> : 
+     (<DOubbleBubble />) : 
      /*------------------------ Category List Edit Screen------------------------*/
     <Dialog
         open={editProductDialogOpen}

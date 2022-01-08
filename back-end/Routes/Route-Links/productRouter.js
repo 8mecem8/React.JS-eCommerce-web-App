@@ -22,11 +22,7 @@ productRouter.post("/product", authCheck, adminCheck, create);
 productRouter.get("/products/:count", listAll);
 productRouter.delete("/product/:slug", authCheck, adminCheck, remove);
 productRouter.put("/product/:slug", authCheck, adminCheck, update);
-
-// productRouter.get("/category/:slug", read);
-// productRouter.put("/category/:slug", authCheck, adminCheck, update);
-// productRouter.delete("/category/:slug", authCheck, adminCheck, remove);
-
+productRouter.post("/category", orderList);
 
 
 
