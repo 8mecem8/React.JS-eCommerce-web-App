@@ -15,6 +15,12 @@ export const getAllProductsByCounts = async (count) =>
   await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
 
 
+export const getTotalNumberProducts = async () =>
+  await axios.get(`${process.env.REACT_APP_API}/products/total`);
+
+
+
+
 export const removeProduct = async (slug, authtoken) =>
   await axios.delete(`${process.env.REACT_APP_API}/product/${slug}`, {
     headers: {
@@ -31,6 +37,25 @@ export const removeProduct = async (slug, authtoken) =>
   });
 
 
-  export const getProductsByOrder = async (sort, order, limit) =>
-  await axios.post(`${process.env.REACT_APP_API}/products`, {sort, order, limit});
+  export const getProductsByOrder = async (sort, order, page) =>
+  await axios.post(`${process.env.REACT_APP_API}/products`, {sort, order, page});
 
+
+  export const getSingleProductDetails = async (slug) =>
+  await axios.get(`${process.env.REACT_APP_API}/products/:${slug}`);
+
+
+
+
+
+  export const starUpdateProduct= async (authtoken, productId,star) =>
+  await axios.put(`${process.env.REACT_APP_API}/product/star/${productId}`,{star} ,{
+    headers: {
+      authtoken,
+    },
+  });
+
+
+  
+export const getRelated = async (productId) =>
+  await axios.get(`${process.env.REACT_APP_API}/product/related/${productId}`);

@@ -17,7 +17,7 @@ const styles = theme => ({
   const PageLoader = ({ classes }) => {
     return (
       <div className={classes.progress}>
-        <CircularProgress size={400}  />
+        <CircularProgress size={280}  />
       </div>
     );
   };

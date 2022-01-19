@@ -9,7 +9,6 @@ const productSchema = new mongoose.Schema(
       required: true,
       maxlength: [1000,'too long title'],
       text: true,
-      unique:true
     },
     slug: {
       type: String,
@@ -61,12 +60,12 @@ const productSchema = new mongoose.Schema(
     brand: {
       type: String,
     },
-    // ratings: [
-    //   {
-    //     star: Number,
-    //     postedBy: { type: ObjectId, ref: "User" },
-    //   },
-    // ],
+    ratings: [
+      {
+        star: Number,
+        postedBy: { type: ObjectId, ref: "User" },
+      },
+    ],
  
   },
   { timestamps: true }

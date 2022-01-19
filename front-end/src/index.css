@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  overflow-x: hidden;
+}

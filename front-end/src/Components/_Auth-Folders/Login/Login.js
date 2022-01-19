@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {useNavigate,Link} from "react-router-dom";
+import {useNavigate,Link, useLocation} from "react-router-dom";
 import {createUpdateUser, roleBasedRedirect} from '../../../UtiFunctions/utiAuth'
 
 
@@ -58,9 +58,9 @@ function TransitionDown(props) {
 const Login = () => {
 
     const sty = useStyles()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     let navigate = useNavigate();
-
+    let location = useLocation()
 
 
 {/*------------------------ Function's main state ------------------------*/}
@@ -87,9 +87,6 @@ const Login = () => {
     {
         if(user && user.token) navigate("/") 
     },[user])
-
-
-
 
 
 
@@ -127,7 +124,7 @@ const Login = () => {
                     })
 
                   
-                roleBasedRedirect(arg,navigate)
+                roleBasedRedirect(arg,navigate,location)
 
             }).catch((err)=>{
             setErrorMessage(err.message)
@@ -188,7 +185,7 @@ const Login = () => {
                     })
 
 
-                    roleBasedRedirect(arg,navigate)
+                    roleBasedRedirect(arg,navigate,location)
 
             }).catch((err)=>{
             setErrorMessage(err.message)

@@ -17,10 +17,10 @@ export const currentUser = async (authtoken) =>
 
 
 
-export const roleBasedRedirect = (exArg,navigate) =>
+export const roleBasedRedirect = (exArg,navigate,location) =>
 {
- 
-
+  if(location.state.from){navigate(location.state.from)}
+  else{
   if(exArg.data.role === "admin"){navigate('/admin/dashboard')}
-  else navigate('/user/history')
+  else navigate('/user/history')}
 }

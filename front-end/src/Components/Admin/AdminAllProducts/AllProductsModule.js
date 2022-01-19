@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import {createProduct, getAllProductsByCounts, removeProduct} from '../../../UtiFunctions/utiProduct'
 import Resizer from "react-image-file-resizer";
 import axios from "axios"
-
+import  {Link} from "react-router-dom";
 
 
 
@@ -241,7 +241,7 @@ function AdminAllProducts()
           <CardContent>
 
               <Typography gutterBottom variant="h7" component="div">
-                {arg.title}
+                {<Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>{arg.title}</Link>}
               </Typography>
 
               <Divider/>

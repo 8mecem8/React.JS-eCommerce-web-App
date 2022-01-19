@@ -28,3 +28,8 @@
 .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
   background-color: rgb(255 48 48 / 66%) !important;
 }
+
+.slider img {
+  max-height: 580px;
+  object-fit: contain;
+}

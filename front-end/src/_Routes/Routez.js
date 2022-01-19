@@ -15,10 +15,11 @@ import UserWishList from '../Components/User/UserWishList/UserWishList';
 import AdminDashBoard from '../Components/Admin/AdminDashBoard/AdminDashBoard';
 import AdminCategory from '../Components/Admin/AdminCategory/AdminCategory';
 import AdminProduct from '../Components/Admin/AdminProduct/ProductModule';
+import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsModule';
+import SingleProductView from '../Components/Product/SingleProductView/SingleProductView';
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
-import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsModule';
 
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
@@ -58,6 +59,11 @@ const Routez = () => {
                 <Route  path="/admin/category" element={!user && !user?.token ?  <Login /> : <AdminCategory />} />
                 <Route  path="/admin/product" element={!user && !user?.token ?  <Login /> : <AdminProduct />} />
                 <Route  path="/admin/products" element={!user && !user?.token ?  <Login /> : <AdminAllProducts />} />
+
+
+                {/* Sİngle Product Page */}
+                <Route  path="product/:slug" element={<SingleProductView />} />
+
 
                  <Route path="*" element={<NoMatchPage />} />
             </Routes>

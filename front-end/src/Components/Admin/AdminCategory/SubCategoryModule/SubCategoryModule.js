@@ -538,8 +538,8 @@ const filteredCategory = (filterCategory) => (arg) => { return arg.name.toLowerC
       
                                 </Select>
 
-                                            {console.log("editCategoryName is ===>",editCategoryName)}                                                            
-                                            {console.log("selectedCategory is ===>",selectedCategory)}                                                     
+                                            {/* {console.log("editCategoryName is ===>",editCategoryName)}                                                            
+                                            {console.log("selectedCategory is ===>",selectedCategory)}    */}                                                  
 
             <Input id="component-simple" required value={editCategoryName.name} onChange={(event) => {setEditCategoryName({...editCategoryName,name:event.target.value})}} fullWidth={true}  />
           </DialogContentText>
