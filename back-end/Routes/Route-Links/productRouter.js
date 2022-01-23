@@ -10,7 +10,8 @@ const {
   totalNumberProduct,
   getSingleProductInfo,
   productStar,
-  listRelated
+  listRelated,
+  searchFilters
 } = require("../Controllers/productController")
 
 
@@ -39,6 +40,8 @@ productRouter.put("/product/star/:productId", authCheck, productStar);
 productRouter.get("/product/related/:productId", listRelated);
 
 
+// Search-------------------------------------------------------------------------
+productRouter.post("/search/filters", searchFilters);
 
 
 
