@@ -34,6 +34,7 @@ import useStyles from './HeaderStyles'
 
 import logo from '../../../logo.png';
 import { height } from '@mui/system';
+import Search from '../../../UtiComponents/search/SearchProducts';
 
 
 const zurna = false
@@ -370,9 +371,11 @@ function Header() {
 
 
 
-
 </Typography>
 
+
+{/* Search Component */}
+<Search />
 
 
 
@@ -414,7 +417,7 @@ function Header() {
               
 </div> : null}
 
-{/*------------------------ Loging and register ------------------------*/}
+{/*------------------------ Login and register ------------------------*/}
 
 
 {!user && (<Stack spacing={2} direction="row" >

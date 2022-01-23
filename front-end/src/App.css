@@ -33,3 +33,8 @@
   max-height: 580px;
   object-fit: contain;
 }
+
+
+#input-with-icon-Search-for-Product-details{
+  height: 2px !important;
+}
