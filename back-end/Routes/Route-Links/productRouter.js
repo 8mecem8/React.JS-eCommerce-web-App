@@ -25,9 +25,9 @@ const { authCheck,adminCheck } = require('../Middlewares/authMWs')
 // Routes-------------------------------------------------------------------------
 productRouter.post("/product", authCheck, adminCheck, create);
 productRouter.get("/products/total", totalNumberProduct);
-productRouter.get("/products/:slug", getSingleProductInfo);
-productRouter.get("/products/:count", listAll);
+productRouter.get("/product/:count", listAll);
 productRouter.delete("/product/:slug", authCheck, adminCheck, remove);
+productRouter.get("/products/:slug", getSingleProductInfo);
 productRouter.put("/product/:slug", authCheck, adminCheck, update);
 productRouter.post("/products", orderList);
 

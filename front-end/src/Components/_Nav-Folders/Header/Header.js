@@ -18,9 +18,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-
+import SortIcon from '@mui/icons-material/Sort';
 import Drawer from '@mui/material/Drawer';
-
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -363,12 +363,7 @@ function Header() {
  </Drawer>
 
 
-
-
-
-
-
-
+<Button variant="outlined" sx={{color:"white"}} startIcon={<ManageSearchIcon sx={{fontSize:"30px !important"}} />}><Link to="/search" style={{marginLeft:"-8px"}} className={sty.link}>Browse</Link></Button>
 
 
 </Typography>

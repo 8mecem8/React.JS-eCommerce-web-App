@@ -33,7 +33,7 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/shop?${text}`);
+    navigate(`/search?${text}`);
   };
 
   return (

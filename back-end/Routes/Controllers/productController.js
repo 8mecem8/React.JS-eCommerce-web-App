@@ -6,8 +6,14 @@ const userModel = require('../../Models/userModel')
 
 
 exports.listAll = async (req, res) =>
-  res.json(await productModel.find({})
-  .limit(parseInt(req.params.count)).populate('category').populate('subcategory').sort([["createdAt","desc"]]).exec());
+{
+  const products = await productModel.find({})
+  .limit(parseInt(req.params.count)).populate('category').populate('subcategory').sort([["createdAt","desc"]]).exec()
+
+  console.log("products are ==>",products)
+  return res.json(products);
+}
+  
 
 
 exports.totalNumberProduct = async (req, res) =>
@@ -141,7 +147,7 @@ exports.update = async (req, res) => {
 
 
 
-exports.getSingleProductInfo = async(req, res)=>
+exports.getSingleProductInfo = async(req, res, next)=>
 {
   const {slug} = req.params
   try {
@@ -155,7 +161,8 @@ exports.getSingleProductInfo = async(req, res)=>
       const singleProduct = await productModel.findOne({slug:slugtoUse}).populate('category').populate('subcategory').exec()
        
       
-      res.json(singleProduct)
+       return  res.json(singleProduct)
+       next()
 
   } catch (err) {
      console.log(err.message)
@@ -204,7 +211,7 @@ exports.productStar = async (req, res) =>
     ).exec();
 
 
-    console.log("ratingAdded", ratingAdded);
+    //console.log("ratingAdded", ratingAdded);
     res.json(ratingAdded);
   } else {
 
@@ -260,7 +267,7 @@ exports.listRelated = async (req, res) => {
     })
     .exec();
 
-    console.log(related)
+    
 
   res.json(related);
 };
@@ -282,16 +289,61 @@ const handleQuery = async (req, res, query) =>
     })
     .exec();
 
+    console.log("products",products)
+
     return res.json(products)
 }
 
 
+
+
+const handlePrice = async (req, res, price) => {
+  try {
+    let products = await productModel.find({
+      price: {
+        $gte: price[0],
+        $lte: price[1],
+      },
+    })
+    .populate('category')
+    .populate('subcategory')
+    .populate({
+      path: 'ratings',
+     populate: {
+       path: 'postedBy',
+       model: 'User'
+     } 
+    })
+      .exec();
+
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
+
+
+
+
 exports.searchFilters = async (req, res) => 
 {
-  const {query} = req.body
+  const {query,price,} = req.body
 
   if(query){
-    console.log("query",query)
+    
     await handleQuery(req, res, query)
   }
+
+  // price [20, 200]
+  if (price !== undefined) {
+    console.log("price ---> ", price);
+    await handlePrice(req, res, price);
+  }
+
+
+
+
 }

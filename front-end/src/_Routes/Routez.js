@@ -20,6 +20,7 @@ import SingleProductView from '../Components/Product/SingleProductView/SinglePro
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
+import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
 
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
@@ -64,6 +65,8 @@ const Routez = () => {
                 {/* Sİngle Product Page */}
                 <Route  path="product/:slug" element={<SingleProductView />} />
 
+                {/* Search */}
+                <Route  path="search" element={<BrowseSearch />} />
 
                  <Route path="*" element={<NoMatchPage />} />
             </Routes>
