@@ -27,3 +27,5 @@ yarn-error.log*
 /Firebase
 
 serviceAccountKey.json
+
+node_modules

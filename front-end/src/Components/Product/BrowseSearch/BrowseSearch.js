@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {fetchProductsByFilter, getAllProductsByCounts } from '../../../UtiFunctions/utiProduct';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch } from 'react-redux';
 import  {Link} from "react-router-dom";
-
+import './BrowseSearch.css'
 
 
 
@@ -15,7 +15,6 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
@@ -33,6 +32,17 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import CategoryIcon from '@mui/icons-material/Category';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Checkbox from '@mui/material/Checkbox';
 
 
 
@@ -47,6 +57,7 @@ import BarLoader from '../../BarLoader/BarLoader';
 
 import Footer from '../../Footer/Footer';
 import { MainRatingView } from '../RatingsView/MainRatingView';
+import { getCategories } from '../../../UtiFunctions/utiCategory';
 
 
 
@@ -69,7 +80,8 @@ function BrowseSearch() {
 
     const sty = useStyles();
 
-    
+    const dispatch = useDispatch();
+
     {/*------------------------ Redux State ------------------------*/}
     let {search} = useSelector((state)=>{return {...state}})
     const {text} = search
@@ -80,7 +92,16 @@ function BrowseSearch() {
 
     {/*------------------------ Main state ------------------------*/}
     const [HomefetchedProductsList, setHomeFetchedProductsList] = useState([]);
-    
+    const [categoriesList, setCategoriesList] = useState([]);
+
+    {/*------------------------ Range Slider Main state ------------------------*/}
+    const [RangeSlidervalue, setRangeSlidervalue] = useState([0, 10000]);
+
+    {/*------------------------ Check Box Main state ------------------------*/}
+    const [checkboxstate, setCheckboxstate] = useState();
+
+    {/*------------------------ Check Box Main state ------------------------*/}
+    const [checkboxstate, setCheckboxstate] = useState();
 
     {/*------------------------ Function's main Loading state ------------------------*/}
     const [enterPageLoading, setEnterPageLoading] = useState(false);
@@ -105,9 +126,10 @@ function BrowseSearch() {
         setEnterPageLoading(true)
 
 
-         await  getAllProductsByCounts(50)
+         if(componentMounted)
+            {await  getAllProductsByCounts(50)
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
-                .catch((err)=>{console.log("error in getting all products",err)})
+                .catch((err)=>{console.log("error in getting all products",err)})}
 
 
 
@@ -121,7 +143,17 @@ function BrowseSearch() {
     },[SnackbarOpen,resetText])
 
 
+    {/*------------------------ Get all Categories list ------------------------*/} 
+    useEffect( async()=>
+    {
+    const ListOfCategories = await getCategories()
+    setCategoriesList(ListOfCategories.data)
     
+    },[])
+
+
+
+    {/*------------------------ Fetch All Products with Filter ------------------------*/}
     useEffect(async ()=>
     {
         await new Promise((resolve) => setTimeout(resolve, 500));
@@ -132,7 +164,105 @@ function BrowseSearch() {
     },[text])
 
 
+     useEffect(async ()=>
+    {
+        let componentMounted = true;
 
+         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        if(componentMounted)
+            {fetchProductsByFilter({price: RangeSlidervalue})
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})}
+
+
+        return () => {componentMounted = false;}
+
+    },[RangeSlidervalue])
+
+
+
+    useEffect(async ()=>
+    {
+
+
+        dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+
+        
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        fetchProductsByFilter({category: checkboxstate ? Object.values(checkboxstate) : ""})
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})
+    },[checkboxstate])
+ 
+
+
+
+
+
+
+    {/*------------------------ Range Slider Function ------------------------*/}
+    function valuetext(RangeSlidervalue) 
+    {
+        return `${RangeSlidervalue}°C`;
+    }
+
+
+
+    function valueLabelFormat(value) 
+    {
+    
+    return `${value} $`;
+    }
+
+
+    {/*------------------------ Fetch All Products ------------------------*/}
+    const marks = [
+    {
+        value: 0,
+        label: '0$',
+    },
+    {
+        value: 10000,
+        label: '10.000$',
+    },
+    ];
+
+
+
+
+    {/*------------------------ CheckBox Function ------------------------*/}
+    const CheckBoxHandleChange = async (event) => 
+    {
+
+        
+        if(event.target.checked === true)
+        {setCheckboxstate({
+          ...checkboxstate,
+          [event.target.name]: event.target.value,
+        });}
+      else{ 
+        
+        let changedState
+
+        const propKey = event.target.name;
+        const { [propKey]: propValue, ...rest } = checkboxstate;
+        changedState = rest;
+
+        setCheckboxstate({
+          ...changedState
+        })
+      }
+    };
+
+  
+
+    
 
     return (
         <>
@@ -148,22 +278,136 @@ function BrowseSearch() {
                     {/* left of the screen */}
                     <Grid item xs={3}>
                         
-                            <Grid container direction="column" rowSpacing={1} >
+                            <Grid container direction="column" rowSpacing={1} sx={{ml:3,mt:3}}>
                                     <Grid item xs={6}>
                                        
-                                        <Accordion>
+                                        <Accordion sx={{border: 0,boxShadow: 0,}} >
                                             <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
+                                            expandIcon={<ExpandMoreIcon sx={{height:"30px !important",m:0,p:0}} />}
                                             aria-controls="panel1a-content"
                                             id="panel1a-header"
+                                            sx={{maxHeight:"48px !important",m:0,p:0,}}
+                                            
                                             >
-                                            <Typography>Accordion 1</Typography>
+                                             <AttachMoneyIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Price</Typography>
                                             </AccordionSummary>
-                                            <AccordionDetails>
-                                            <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                            </Typography>
+
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,}}>
+                                                <Typography>
+                                                    
+                                                    <Box fullwidth>
+                                                       
+                                                        <Slider
+                                                            getAriaLabel={() => 'Temperature range'}
+                                                            value={RangeSlidervalue}
+                                                            onChange={(event, value)=>{setRangeSlidervalue(value)}}
+                                                            valueLabelDisplay="auto"
+                                                            getAriaValueText={valuetext}
+                                                            valueLabelFormat={valueLabelFormat}
+                                                            marks={marks}
+                                                            min={0}
+                                                            step={100}
+                                                            max={10000}
+                                                            sx={{m:0,p:0}}
+                                                        />
+                                                    </Box>
+
+
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                       
+                                        <Accordion sx={{border: 0,boxShadow: 0,}} >
+                                            <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon sx={{height:"30px !important",m:0,p:0}} />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            sx={{maxHeight:"48px !important",m:0,p:0,}}
+                                            
+                                            >
+                                             <CategoryIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",ml:0.7,p:0}}>Category</Typography>
+                                            </AccordionSummary>
+
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,display:"inline-flex"}}>
+                                                <Typography>
+                                                    
+                                                    <Box  sx={{ display: 'flex', }}>
+
+                                                        <FormControl sx={{ m: 0,}} component="fieldset" variant="standard">
+
+                                                            
+
+                                                            <FormGroup sx={{display: 'flex',flexDirection: 'row',flexWrap: 'wrap'}}>
+
+                                                                {categoriesList.map(arg =>
+                                                                    {
+                                                                            
+
+                                                                        return(
+                                                                            <FormControlLabel
+                                                                                control={
+                                                                                <Checkbox  onChange={CheckBoxHandleChange} value={arg._id} name={arg.name} />
+                                                                                }
+                                                                                label={arg.name}
+                                                                            />
+
+
+                                                                        )
+                                                                    })}
+                                                                
+                                                    
+                                                            </FormGroup>
+
+                                            
+                                                        </FormControl>
+                                                    
+                                                    </Box>
+                                                   
+
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+ 
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        
+                                         <Accordion sx={{border: 0,boxShadow: 0,}} >
+                                            <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon sx={{height:"30px !important",m:0,p:0}} />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            sx={{maxHeight:"48px !important",m:0,p:0,}}
+                                            
+                                            >
+                                             <AttachMoneyIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Price</Typography>
+                                            </AccordionSummary>
+
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,}}>
+                                                <Typography>
+                                                    
+                                                    <Box fullwidth>
+                                                       
+                                                        <Slider
+                                                            getAriaLabel={() => 'Temperature range'}
+                                                            value={RangeSlidervalue}
+                                                            onChange={(event, value)=>{setRangeSlidervalue(value)}}
+                                                            valueLabelDisplay="auto"
+                                                            getAriaValueText={valuetext}
+                                                            valueLabelFormat={valueLabelFormat}
+                                                            marks={marks}
+                                                            min={0}
+                                                            step={100}
+                                                            max={10000}
+                                                            sx={{m:0,p:0}}
+                                                        />
+                                                    </Box>
+
+
+                                                </Typography>
                                             </AccordionDetails>
                                         </Accordion>
 
@@ -171,12 +415,14 @@ function BrowseSearch() {
 
 
 
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                       2
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        3
+
+
+
+
+
+
+
+
                                     </Grid>
                                     <Grid item xs={6}>
                                         4

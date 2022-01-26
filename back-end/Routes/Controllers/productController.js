@@ -298,13 +298,32 @@ const handleQuery = async (req, res, query) =>
 
 
 const handlePrice = async (req, res, price) => {
+  
   try {
-    let products = await productModel.find({
-      price: {
-        $gte: price[0],
-        $lte: price[1],
-      },
+    let products = await productModel.find({ price: { $gt: price[0], $lt: price[1]}})
+    .populate('category')
+    .populate('subcategory')
+    .populate({
+      path: 'ratings',
+     populate: {
+       path: 'postedBy',
+       model: 'User'
+     } 
     })
+      .exec();
+    console.log("products are",products.length)
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
+
+const handleCategory = async (req, res, category) => {
+  try {
+    let products = await productModel.find({ category })
     .populate('category')
     .populate('subcategory')
     .populate({
@@ -327,10 +346,9 @@ const handlePrice = async (req, res, price) => {
 
 
 
-
 exports.searchFilters = async (req, res) => 
 {
-  const {query,price,} = req.body
+  const {query,price,category,} = req.body
 
   if(query){
     
@@ -344,6 +362,12 @@ exports.searchFilters = async (req, res) =>
   }
 
 
-
+  if (category) {
+    console.log("category ---> ", category);
+    await handleCategory(req, res, category);
+  }
 
 }
+
+
+

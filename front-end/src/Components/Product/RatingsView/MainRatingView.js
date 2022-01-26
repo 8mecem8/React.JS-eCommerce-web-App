@@ -12,24 +12,24 @@ import Typography from '@mui/material/Typography';
 export const MainRatingView = ({p}) => {
     
 
-    console.log("p is ==>",p)
+    //console.log("p is ==>",p)
 
   if (p && p.ratings) {
     let ratingsArray = p && p.ratings;
     let total = [];
     let length = ratingsArray.length;
-    console.log("length", length);
+    //console.log("length", length);
 
     ratingsArray.map((r) => total.push(r.star));
     let totalReduced = total.reduce((p, n) => p + n, 0);
-    console.log("totalReduced", totalReduced);
+    //console.log("totalReduced", totalReduced);
 
     let highest = length * 5;
-    console.log("highest", highest);
+    //console.log("highest", highest);
 
     let result = (totalReduced * 5) / highest;
     
-    console.log("result", result);
+    //console.log("result", result);
 
     return(
         
