@@ -101,7 +101,10 @@ function BrowseSearch() {
     const [checkboxstate, setCheckboxstate] = useState();
 
     {/*------------------------ Check Box Main state ------------------------*/}
-    const [checkboxstate, setCheckboxstate] = useState();
+    const [activeUseEffect, setActiveUseEffect] = useState(false);
+
+     {/*------------------------ Check Box activate ------------------------*/}
+    const [activeCheckBox, setActiveCheckBox] = useState(false);
 
     {/*------------------------ Function's main Loading state ------------------------*/}
     const [enterPageLoading, setEnterPageLoading] = useState(false);
@@ -168,8 +171,9 @@ function BrowseSearch() {
     {
         let componentMounted = true;
 
-         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
-
+        dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+        
+        setCheckboxstate([])
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -181,29 +185,29 @@ function BrowseSearch() {
 
         return () => {componentMounted = false;}
 
-    },[RangeSlidervalue])
+    },[activeUseEffect])
 
 
 
     useEffect(async ()=>
     {
 
-
+        
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
 
-        
+        setRangeSlidervalue([0,10000])
 
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         fetchProductsByFilter({category: checkboxstate ? Object.values(checkboxstate) : ""})
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
-    },[checkboxstate])
+    },[activeCheckBox])
  
 
 
 
-
+    
 
 
     {/*------------------------ Range Slider Function ------------------------*/}
@@ -239,13 +243,17 @@ function BrowseSearch() {
     {/*------------------------ CheckBox Function ------------------------*/}
     const CheckBoxHandleChange = async (event) => 
     {
-
+        setActiveCheckBox(!activeCheckBox)
         
         if(event.target.checked === true)
-        {setCheckboxstate({
+        {
+            setCheckboxstate({
           ...checkboxstate,
-          [event.target.name]: event.target.value,
-        });}
+          [event.target.name]: [event.target.value, event.target.checked]
+        });
+        
+    
+        }
       else{ 
         
         let changedState
@@ -254,14 +262,18 @@ function BrowseSearch() {
         const { [propKey]: propValue, ...rest } = checkboxstate;
         changedState = rest;
 
+        
+
         setCheckboxstate({
           ...changedState
         })
+
+        
       }
     };
 
   
-
+    console.log("changedState", checkboxstate !== undefined ? checkboxstate["Samsung"] : "" )
     
 
     return (
@@ -300,7 +312,7 @@ function BrowseSearch() {
                                                         <Slider
                                                             getAriaLabel={() => 'Temperature range'}
                                                             value={RangeSlidervalue}
-                                                            onChange={(event, value)=>{setRangeSlidervalue(value)}}
+                                                            onChange={(event, value)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
                                                             valueLabelDisplay="auto"
                                                             getAriaValueText={valuetext}
                                                             valueLabelFormat={valueLabelFormat}
@@ -349,7 +361,9 @@ function BrowseSearch() {
                                                                         return(
                                                                             <FormControlLabel
                                                                                 control={
-                                                                                <Checkbox  onChange={CheckBoxHandleChange} value={arg._id} name={arg.name} />
+                                                                                <Checkbox 
+                                                                                 /* checked={(event)=>{ return console.log(checkboxstate[event.target.name])}} */ 
+                                                                                onChange={CheckBoxHandleChange} value={arg._id} name={arg.name} />
                                                                                 }
                                                                                 label={arg.name}
                                                                             />

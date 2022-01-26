@@ -4,6 +4,7 @@ const productModel = require('../../Models/productModel');
 
 const userModel = require('../../Models/userModel')
 
+const categoryModel = require('../../Models/categoryModel')
 
 exports.listAll = async (req, res) =>
 {
@@ -323,6 +324,17 @@ const handlePrice = async (req, res, price) => {
 
 const handleCategory = async (req, res, category) => {
   try {
+
+
+    //If No filter is selected then search for all the categories as default
+    const categories = await categoryModel.find({}).exec()
+
+    let searchCat = categories.map(arg => arg._id)
+
+    if(category == ""){category = searchCat}
+
+
+
     let products = await productModel.find({ category })
     .populate('category')
     .populate('subcategory')
