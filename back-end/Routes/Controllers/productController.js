@@ -369,7 +369,7 @@ const handleStar = (req, res, stars) => {
     },
     { $match: { floorAverage: stars } },
   ])
-    .limit(12)
+    .limit(20)
     .exec((err, aggregates) => {
       if (err) console.log("AGGREGATE ERROR", err);
       productModel.find({ _id: aggregates })
