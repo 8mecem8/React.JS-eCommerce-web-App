@@ -43,9 +43,9 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
-
-
-
+import StarBorderPurple500SharpIcon from '@mui/icons-material/StarBorderPurple500Sharp';
+import Rating from '@mui/material/Rating';
+import Button from '@mui/material/Button';
 
 
 
@@ -97,7 +97,8 @@ function BrowseSearch() {
     {/*------------------------ state for Check Box wheather boxes selected or not for initial Main Check Box state ------------------------*/}
     const [zurnastate, setZurnastate] = useState();
     
-    
+    {/*------------------------ Select Rating Main state ------------------------*/}
+    const [ratingStar, setRatingStar] = useState();
 
     {/*------------------------ Range Slider Main state ------------------------*/}
     const [RangeSlidervalue, setRangeSlidervalue] = useState([0, 10000]);
@@ -122,7 +123,7 @@ function BrowseSearch() {
     const [snackBarMessage, setSnackBarMessage] = useState("");
 
 
-
+    console.log("ratingStar",ratingStar)
 
     {/*------------------------ Fetch All Products ------------------------*/}
 
@@ -171,6 +172,10 @@ function BrowseSearch() {
     },[text])
 
 
+
+
+    {/*------------------------ Fetch Products with Price Range  ------------------------*/}
+
      useEffect(async ()=>
     {
         let componentMounted = true;
@@ -194,6 +199,9 @@ function BrowseSearch() {
     },[activeUseEffect])
 
 
+
+
+    {/*------------------------ Fetch Products with Category ids  ------------------------*/}
 
     useEffect(async ()=>
     {
@@ -306,6 +314,22 @@ function BrowseSearch() {
     
     
    
+
+
+
+    const HandleRating = async () => 
+    {
+        dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+
+        setRangeSlidervalue([0,10000])
+
+        setCheckboxstate(zurnastate)
+
+        await fetchProductsByFilter({stars: ratingStar})
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})
+
+    }
    
         
    
@@ -436,6 +460,40 @@ function BrowseSearch() {
                                             sx={{maxHeight:"48px !important",m:0,p:0,}}
                                             
                                             >
+                                             <StarBorderPurple500SharpIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Rating</Typography>
+                                            </AccordionSummary>
+
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,display:"inline-flex"}}>
+                                                <Typography >
+                                                    
+                                                    <Box fullwidth component="fieldset"  sx={{border: 0,boxShadow: 0,flexDirection: 'column',flexWrap: 'no-wrap',display:"-webkit-inline-box"}}>
+                                                       
+                                                       <Button onClick={HandleRating} onMouseEnter={()=>{setRatingStar(5)}} sx={{p:0,m:0}} variant="text"><Rating name="size-large" defaultValue={5} size="large" readOnly /><Box sx={{ ml: 2 }}>Excellent</Box></Button>
+                                                       <Button onClick={HandleRating} onMouseEnter={()=>{setRatingStar(4)}} sx={{p:0,m:0}} variant="text"><Rating name="size-large" defaultValue={4} size="large" readOnly /><Box sx={{ ml: 2 }}>Good</Box></Button>
+                                                       <Button onClick={HandleRating} onMouseEnter={()=>{setRatingStar(3)}} sx={{p:0,m:0}} variant="text"><Rating name="size-large" defaultValue={3} size="large" readOnly /><Box sx={{ ml: 2 }}>Fair</Box></Button>
+                                                       <Button onClick={HandleRating} onMouseEnter={()=>{setRatingStar(2)}} sx={{p:0,m:0}} variant="text"><Rating name="size-large" defaultValue={2} size="large" readOnly /><Box sx={{ ml: 2 }}>Bad</Box></Button>
+                                                       <Button onClick={HandleRating} onMouseEnter={()=>{setRatingStar(1)}} sx={{p:0,m:0}} variant="text"><Rating name="size-large" defaultValue={1} size="large" readOnly /><Box sx={{ ml: 2 }}>Horibble</Box></Button>
+                                                    </Box>
+
+
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+
+
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        
+                                        
+                                     <Accordion sx={{border: 0,boxShadow: 0,}} >
+                                            <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon sx={{height:"30px !important",m:0,p:0}} />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            sx={{maxHeight:"48px !important",m:0,p:0,}}
+                                            
+                                            >
                                              <AttachMoneyIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Price</Typography>
                                             </AccordionSummary>
 
@@ -447,10 +505,11 @@ function BrowseSearch() {
                                                         <Slider
                                                             getAriaLabel={() => 'Temperature range'}
                                                             value={RangeSlidervalue}
-                                                            onChange={(event, value)=>{setRangeSlidervalue(value)}}
+                                                            onChange={(event, value,)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
                                                             valueLabelDisplay="auto"
                                                             getAriaValueText={valuetext}
                                                             valueLabelFormat={valueLabelFormat}
+                                                            
                                                             marks={marks}
                                                             min={0}
                                                             step={100}
@@ -462,7 +521,7 @@ function BrowseSearch() {
 
                                                 </Typography>
                                             </AccordionDetails>
-                                        </Accordion>
+                                        </Accordion>                           
 
 
 
@@ -476,9 +535,11 @@ function BrowseSearch() {
 
 
 
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        4
+
+
+
+
+
                                     </Grid>
                             </Grid>
 
