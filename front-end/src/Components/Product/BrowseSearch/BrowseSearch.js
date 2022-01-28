@@ -319,6 +319,8 @@ function BrowseSearch() {
 
     const HandleRating = async () => 
     {
+        
+
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
 
         setRangeSlidervalue([0,10000])
@@ -329,6 +331,8 @@ function BrowseSearch() {
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
 
+
+        
     }
    
         
