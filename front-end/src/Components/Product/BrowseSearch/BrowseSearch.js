@@ -94,6 +94,11 @@ function BrowseSearch() {
     const [HomefetchedProductsList, setHomeFetchedProductsList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
 
+    {/*------------------------ state for Check Box wheather boxes selected or not for initial Main Check Box state ------------------------*/}
+    const [zurnastate, setZurnastate] = useState();
+    
+    
+
     {/*------------------------ Range Slider Main state ------------------------*/}
     const [RangeSlidervalue, setRangeSlidervalue] = useState([0, 10000]);
 
@@ -116,8 +121,7 @@ function BrowseSearch() {
     const [errorMessage, setErrorMessage] = useState("");
     const [snackBarMessage, setSnackBarMessage] = useState("");
 
-    {/*------------------------ Pagination State ------------------------*/}
-    const [page, setPage] = useState(1);
+
 
 
     {/*------------------------ Fetch All Products ------------------------*/}
@@ -139,7 +143,7 @@ function BrowseSearch() {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         
-        setEnterPageLoading(false)
+        //setEnterPageLoading(false)
 
         return () => {componentMounted = false;}
 
@@ -173,7 +177,9 @@ function BrowseSearch() {
 
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
         
-        setCheckboxstate([])
+        setCheckboxstate(zurnastate)
+        
+        
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -199,14 +205,14 @@ function BrowseSearch() {
 
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        fetchProductsByFilter({category: checkboxstate ? Object.values(checkboxstate) : ""})
+        fetchProductsByFilter({category: checkboxstate ? Object.values(checkboxstate).map(arg=> Object.values(arg)[0]) : ""})
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
     },[activeCheckBox])
  
 
 
-
+    
     
 
 
@@ -249,7 +255,7 @@ function BrowseSearch() {
         {
             setCheckboxstate({
           ...checkboxstate,
-          [event.target.name]: [event.target.value, event.target.checked]
+          [event.target.name]: {1:event.target.value, 2:event.target.checked}
         });
         
     
@@ -259,26 +265,55 @@ function BrowseSearch() {
         let changedState
 
         const propKey = event.target.name;
-        const { [propKey]: propValue, ...rest } = checkboxstate;
+        let { [propKey]: propValue, ...rest } = checkboxstate;
         changedState = rest;
 
-        
-
+       
         setCheckboxstate({
-          ...changedState
+          ...changedState,
+          
         })
 
         
       }
     };
 
-  
-    console.log("changedState", checkboxstate !== undefined ? checkboxstate["Samsung"] : "" )
+    
+    
+    {/*------------------------ Create state with false properities to deselect checked boxes for Check box component Function ------------------------*/}
+    useEffect(()=>
+    {
+
+    const zurna = categoriesList?.map(arg => {return {[arg.name]:{1:arg._id,2:false}}})
+
+    let kurna = {}
+
+    for (let index = 0; index < zurna.length; index++) {
+         
+        //console.log(Object.entries(zurna[index]).map(arg=>arg[1])[0])
+        kurna = {...kurna,
+                [Object.keys(zurna[index])[0]]:Object.entries(zurna[index]).map(arg=>arg[1])[0]}
+                    
+    }
+
+     setZurnastate(kurna)
+
+    
+    setEnterPageLoading(false)
+    
+    },[categoriesList])
+
+    
+    
+   
+   
+        
+   
     
 
     return (
         <>
-              {enterPageLoading ? (<PageLoader />)  : 
+              {enterPageLoading  ? (<PageLoader />)  : 
         (
 
             <>
@@ -312,10 +347,11 @@ function BrowseSearch() {
                                                         <Slider
                                                             getAriaLabel={() => 'Temperature range'}
                                                             value={RangeSlidervalue}
-                                                            onChange={(event, value)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
+                                                            onChange={(event, value,)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
                                                             valueLabelDisplay="auto"
                                                             getAriaValueText={valuetext}
                                                             valueLabelFormat={valueLabelFormat}
+                                                            
                                                             marks={marks}
                                                             min={0}
                                                             step={100}
@@ -356,18 +392,21 @@ function BrowseSearch() {
 
                                                                 {categoriesList.map(arg =>
                                                                     {
-                                                                            
-
+                                                                        
                                                                         return(
                                                                             <FormControlLabel
                                                                                 control={
                                                                                 <Checkbox 
-                                                                                 /* checked={(event)=>{ return console.log(checkboxstate[event.target.name])}} */ 
-                                                                                onChange={CheckBoxHandleChange} value={arg._id} name={arg.name} />
+                                                                                checked={checkboxstate ? Object.getOwnPropertyDescriptors(checkboxstate)[arg.name]?.value[2] : ""}
+                                                                                name={arg.name} 
+                                                                                onChange={CheckBoxHandleChange}  
+                                                                                value={arg._id}
+                                                                                disableRipple={true}
+                                                                                />
+                                                                                
                                                                                 }
                                                                                 label={arg.name}
                                                                             />
-
 
                                                                         )
                                                                     })}
