@@ -274,6 +274,21 @@ exports.listRelated = async (req, res) => {
 };
 
 
+
+
+exports.filterColor = async (req,res)=>
+{
+   
+  const colors = await productModel.find({},{"color":1,"_id":0})
+
+  if(!colors){return res.status(400).send(new Error('No Colors or Product'));}
+
+  res.json(colors)
+}
+
+
+
+
 // Search and Filter-------------------------------------------------------------------------
 
 const handleQuery = async (req, res, query) => 

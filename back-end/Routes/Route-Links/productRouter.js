@@ -11,7 +11,8 @@ const {
   getSingleProductInfo,
   productStar,
   listRelated,
-  searchFilters
+  searchFilters,
+  filterColor
 } = require("../Controllers/productController")
 
 
@@ -43,9 +44,9 @@ productRouter.get("/product/related/:productId", listRelated);
 // Search-------------------------------------------------------------------------
 productRouter.post("/search/filters", searchFilters);
 
+// Search-------------------------------------------------------------------------
 
-
-
+productRouter.get("/filter/color", filterColor);
 
 
 module.exports = productRouter

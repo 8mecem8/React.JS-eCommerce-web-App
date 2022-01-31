@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {fetchProductsByFilter, getAllProductsByCounts } from '../../../UtiFunctions/utiProduct';
+import {fetchProductsByFilter, getAllProductsByCounts, getColors } from '../../../UtiFunctions/utiProduct';
 import { useSelector , useDispatch } from 'react-redux';
 import  {Link} from "react-router-dom";
 import './BrowseSearch.css'
@@ -40,15 +40,16 @@ import CategoryIcon from '@mui/icons-material/Category';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import RadioGroup from '@mui/material/RadioGroup';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import StarBorderPurple500SharpIcon from '@mui/icons-material/StarBorderPurple500Sharp';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 
 
 import PageLoader from '../../../UtiComponents/page-loader/index'
@@ -96,6 +97,7 @@ function BrowseSearch() {
     const [HomefetchedProductsList, setHomeFetchedProductsList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
     const [subCategoriesList, setSubCategoriesList] = useState([]);
+    const [colorsProducts,setColorsProducts] = useState([])
 
     {/*------------------------ state for Check Box wheather boxes selected or not for initial Main Check Box state ------------------------*/}
     const [zurnastate, setZurnastate] = useState();
@@ -161,9 +163,14 @@ function BrowseSearch() {
     setCategoriesList(ListOfCategories.data)
 
     const ListOfSubCategories = await getSubCategories()
-   setSubCategoriesList(ListOfSubCategories.data)
+    setSubCategoriesList(ListOfSubCategories.data)
+
+    
+    const ListOfColors = await getColors()
+    setColorsProducts(ListOfColors.data)
     
     },[])
+
 
 
 
@@ -368,8 +375,7 @@ function BrowseSearch() {
 
         setCheckboxstate([])
 
-
-
+        setRatingStar(0)
 
 
          await fetchProductsByFilter({sub: ar})
@@ -378,7 +384,7 @@ function BrowseSearch() {
     }
   
 
-    console.log("HomefetchedProductsList",HomefetchedProductsList)
+    
 
     return (
         <>
@@ -568,23 +574,63 @@ function BrowseSearch() {
                                         </Accordion>                           
 
 
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        
+                                        
+                                     <Accordion sx={{border: 0,boxShadow: 0,}} >
+                                            <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon sx={{height:"30px !important",m:0,p:0}} />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            sx={{maxHeight:"48px !important",m:0,p:0,}}
+                                            
+                                            >
+                                             <ColorLensOutlinedIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Color</Typography>
+                                            </AccordionSummary>
+
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,display:"inline-flex"}}>
+                                                <Typography>
+                                                    
+                                                    <Box fullwidth component="fieldset" sx={{border: 0,boxShadow: 0,flexDirection: 'column',flexWrap: 'no-wrap',display:"-webkit-inline-box"}}>
+                                                       
+
+
+                                                            <FormControl>
+                                                                    
+                                                                    <RadioGroup  aria-labelledby="demo-radio-buttons-group-label"   defaultValue="female" name="radio-buttons-group">
+                                                                                   
+                                                                            {colorsProducts.map((arg,i)=>
+                                                                                    {
+
+                                                                                        return  <FormControlLabel value={arg.color} key={i}  control={<Radio />} label={arg.color}  />
+                                                                                                    
+                                                                                                
+
+                                                                                    })}
 
 
 
 
+                                                                    </RadioGroup>
+                                                            </FormControl>                
 
 
 
+                                                        
+
+                                                    </Box>
 
 
-
-
-
-
-
+                                                </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>                           
 
 
                                     </Grid>
+
+
                             </Grid>
 
                          
