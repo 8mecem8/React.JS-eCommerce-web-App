@@ -418,7 +418,7 @@ const handleSub = async (req, res, sub) => {
 
 exports.searchFilters = async (req, res) => 
 {
-  const {query,price,category,stars,} = req.body
+  const {query,price,category,stars,sub,} = req.body
 
   if(query){
     

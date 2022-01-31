@@ -334,7 +334,7 @@ function BrowseSearch() {
    
 
 
-
+    {/*------------------------ Rating filter Function ------------------------*/}
     const HandleRating = async () => 
     {
         
@@ -345,6 +345,8 @@ function BrowseSearch() {
 
         setCheckboxstate([])
 
+        setRatingStar(0)
+
         await fetchProductsByFilter({stars: ratingStar})
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
@@ -354,7 +356,29 @@ function BrowseSearch() {
     }
    
         
+
+
+
+    {/*------------------------ Subcategory filter Function ------------------------*/}
+    const HandleSubCatFilter = async (ar) =>
+    {
+        dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+
+        setRangeSlidervalue([0,10000])
+
+        setCheckboxstate([])
+
+
+
+
+
+         await fetchProductsByFilter({sub: ar})
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})
+    }
   
+
+    console.log("HomefetchedProductsList",HomefetchedProductsList)
 
     return (
         <>
@@ -531,7 +555,7 @@ function BrowseSearch() {
                                                                      size="small" 
                                                                      /* color="info"  */ 
                                                                      sx={{m:1,bgcolor:"#0288d1",color:"white",":hover": {boxShadow: 6,cursor:"pointer",scale:"1.1",bgcolor:"#1dadfc"}}}
-                                                                     
+                                                                     onClick={()=>{HandleSubCatFilter(arg)}}
                                                                      />
 
                                                                     })}
