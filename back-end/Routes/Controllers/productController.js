@@ -393,6 +393,21 @@ const handleStar = (req, res, stars) => {
 
 
 
+const handleSub = async (req, res, sub) => {
+  const products = await productModel.find({ subcategory: sub })
+      .populate('category')
+      .populate('subcategory')
+      .populate({
+      path: 'ratings',
+      populate: {
+       path: 'postedBy',
+       model: 'User'
+      }}) 
+    .exec()
+
+  res.json(products);
+};
+
 
 
 
@@ -428,6 +443,10 @@ exports.searchFilters = async (req, res) =>
   }
 
 
+  if (sub) {
+    console.log("sub ---> ", sub);
+    await handleSub(req, res, sub);
+  }
 
 
 }

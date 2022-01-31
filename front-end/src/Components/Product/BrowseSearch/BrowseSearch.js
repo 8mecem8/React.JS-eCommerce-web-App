@@ -46,6 +46,7 @@ import Checkbox from '@mui/material/Checkbox';
 import StarBorderPurple500SharpIcon from '@mui/icons-material/StarBorderPurple500Sharp';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
 
 
@@ -58,6 +59,7 @@ import BarLoader from '../../BarLoader/BarLoader';
 import Footer from '../../Footer/Footer';
 import { MainRatingView } from '../RatingsView/MainRatingView';
 import { getCategories } from '../../../UtiFunctions/utiCategory';
+import { getSubCategories } from '../../../UtiFunctions/utiSubCategory';
 
 
 
@@ -93,6 +95,7 @@ function BrowseSearch() {
     {/*------------------------ Main state ------------------------*/}
     const [HomefetchedProductsList, setHomeFetchedProductsList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
+    const [subCategoriesList, setSubCategoriesList] = useState([]);
 
     {/*------------------------ state for Check Box wheather boxes selected or not for initial Main Check Box state ------------------------*/}
     const [zurnastate, setZurnastate] = useState();
@@ -123,7 +126,7 @@ function BrowseSearch() {
     const [snackBarMessage, setSnackBarMessage] = useState("");
 
 
-    console.log("ratingStar",ratingStar)
+   
 
     {/*------------------------ Fetch All Products ------------------------*/}
 
@@ -156,6 +159,9 @@ function BrowseSearch() {
     {
     const ListOfCategories = await getCategories()
     setCategoriesList(ListOfCategories.data)
+
+    const ListOfSubCategories = await getSubCategories()
+   setSubCategoriesList(ListOfSubCategories.data)
     
     },[])
 
@@ -348,8 +354,7 @@ function BrowseSearch() {
     }
    
         
-   console.log("HomefetchedProductsList",HomefetchedProductsList)  
-   console.log("checkboxstate",checkboxstate)
+  
 
     return (
         <>
@@ -510,28 +515,27 @@ function BrowseSearch() {
                                             sx={{maxHeight:"48px !important",m:0,p:0,}}
                                             
                                             >
-                                             <AttachMoneyIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Price</Typography>
+                                             <DashboardOutlinedIcon sx={{height:"30px !important",fontSize:"medium",m:0,p:0}} />  <Typography sx={{height:"30px !important",m:0,p:0}}>Subcategory</Typography>
                                             </AccordionSummary>
 
-                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,}}>
+                                            <AccordionDetails sx={{maxHeight:"48px !important",mb:2,mt:0,p:0,display:"inline-flex"}}>
                                                 <Typography>
                                                     
-                                                    <Box fullwidth>
+                                                    <Box fullwidth component="fieldset" sx={{border: 0,boxShadow: 0,flexDirection: 'row',flexWrap: 'wrap',display:"-webkit-inline-box"}}>
                                                        
-                                                        <Slider
-                                                            getAriaLabel={() => 'Temperature range'}
-                                                            value={RangeSlidervalue}
-                                                            onChange={(event, value,)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
-                                                            valueLabelDisplay="auto"
-                                                            getAriaValueText={valuetext}
-                                                            valueLabelFormat={valueLabelFormat}
-                                                            
-                                                            marks={marks}
-                                                            min={0}
-                                                            step={100}
-                                                            max={10000}
-                                                            sx={{m:0,p:0}}
-                                                        />
+                                                        {subCategoriesList.map((arg,i)=>
+                                                                    {
+
+                                                                    return <Chip
+                                                                     label={arg.name} 
+                                                                     size="small" 
+                                                                     /* color="info"  */ 
+                                                                     sx={{m:1,bgcolor:"#0288d1",color:"white",":hover": {boxShadow: 6,cursor:"pointer",scale:"1.1",bgcolor:"#1dadfc"}}}
+                                                                     
+                                                                     />
+
+                                                                    })}
+
                                                     </Box>
 
 
