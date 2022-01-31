@@ -182,7 +182,7 @@ function BrowseSearch() {
 
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
         
-        setCheckboxstate([])
+        setCheckboxstate(zurnastate)
         
         setRatingStar(0)
         
@@ -195,7 +195,11 @@ function BrowseSearch() {
                 .catch((err)=>{console.log("error in getting all products",err)})}
 
 
+
+        setCheckboxstate([])        
         return () => {componentMounted = false;}
+
+        
 
     },[activeUseEffect])
 
