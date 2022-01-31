@@ -424,7 +424,20 @@ const handleSub = async (req, res, sub) => {
 };
 
 
+const handleColor = async (req, res, color) => {
+  const products = await productModel.find({ color })
+      .populate('category')
+      .populate('subcategory')
+      .populate({
+      path: 'ratings',
+      populate: {
+       path: 'postedBy',
+       model: 'User'
+      }}) 
+    .exec();
 
+  res.json(products);
+};
 
 
 
@@ -433,7 +446,7 @@ const handleSub = async (req, res, sub) => {
 
 exports.searchFilters = async (req, res) => 
 {
-  const {query,price,category,stars,sub,} = req.body
+  const {query,price,category,stars,sub,color,} = req.body
 
   if(query){
     
@@ -463,6 +476,10 @@ exports.searchFilters = async (req, res) =>
     await handleSub(req, res, sub);
   }
 
+    if (color) {
+    console.log("color ---> ", color);
+    await handleColor(req, res, color);
+  }
 
 }
 

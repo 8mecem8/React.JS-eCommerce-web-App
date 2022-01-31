@@ -48,7 +48,7 @@ import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
+import Avatar from '@mui/material/Avatar';
 import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 
 
@@ -386,6 +386,30 @@ function BrowseSearch() {
 
     
 
+    {/*------------------------ Color filter Function ------------------------*/}
+
+    const HandleColor = async (ar)=>
+    {
+        dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
+
+        setRangeSlidervalue([0,10000])
+
+        setCheckboxstate([])
+
+        setRatingStar(0)
+
+
+
+
+        await fetchProductsByFilter({color: ar})
+                .then((arg)=>{setHomeFetchedProductsList(arg.data)})
+                .catch((err)=>{console.log("error in getting all products",err)})
+    }
+
+
+
+
+
     return (
         <>
               {enterPageLoading  ? (<PageLoader />)  : 
@@ -595,30 +619,23 @@ function BrowseSearch() {
                                                     
                                                     <Box fullwidth component="fieldset" sx={{border: 0,boxShadow: 0,flexDirection: 'column',flexWrap: 'no-wrap',display:"-webkit-inline-box"}}>
                                                        
-
-
-                                                            <FormControl>
-                                                                    
-                                                                    <RadioGroup  aria-labelledby="demo-radio-buttons-group-label"   defaultValue="female" name="radio-buttons-group">
-                                                                                   
+   
                                                                             {colorsProducts.map((arg,i)=>
                                                                                     {
-
-                                                                                        return  <FormControlLabel value={arg.color} key={i}  control={<Radio />} label={arg.color}  />
-                                                                                                    
-                                                                                                
+                                                                                        console.log(arg.color.split(' ')[1] === undefined ? arg.color.split(' ')[0] : arg.color.split(' ')[1])
+                                                                                        return  <Chip
+                                                                                                key={i}                                                            
+                                                                                                label={arg.color} 
+                                                                                                size="big" 
+                                                                                                onClick={()=>{HandleColor(arg.color)}}
+                                                                                                sx={{m:1,bgcolor:"#0288d1",color:"white",":hover": {boxShadow: 6,cursor:"pointer",scale:"1.1",bgcolor:"#1dadfc"}}}
+                                                                                                avatar={<Avatar sx={{bgcolor:`${arg.color.split(' ')[1] === undefined ? arg.color.split(' ')[0] : arg.color.split(' ')[1]}`}}>#</Avatar>}
+                                                                                                /> 
+                                                                                                        
 
                                                                                     })}
 
 
-
-
-                                                                    </RadioGroup>
-                                                            </FormControl>                
-
-
-
-                                                        
 
                                                     </Box>
 
