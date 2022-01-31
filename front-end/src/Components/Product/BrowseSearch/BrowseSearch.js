@@ -184,6 +184,7 @@ function BrowseSearch() {
         
         setCheckboxstate(zurnastate)
         
+        setRatingStar(0)
         
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -210,6 +211,10 @@ function BrowseSearch() {
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
 
         setRangeSlidervalue([0,10000])
+
+        setRatingStar(0)
+
+        
 
         await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -257,6 +262,9 @@ function BrowseSearch() {
     {/*------------------------ CheckBox Function ------------------------*/}
     const CheckBoxHandleChange = async (event) => 
     {
+
+        setCheckboxstate([])
+
         setActiveCheckBox(!activeCheckBox)
         
         if(event.target.checked === true)
@@ -325,19 +333,19 @@ function BrowseSearch() {
 
         setRangeSlidervalue([0,10000])
 
-        setCheckboxstate(zurnastate)
+        setCheckboxstate([])
 
         await fetchProductsByFilter({stars: ratingStar})
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
 
-
+        
         
     }
    
         
-   
-    
+   console.log("HomefetchedProductsList",HomefetchedProductsList)  
+   console.log("checkboxstate",checkboxstate)
 
     return (
         <>

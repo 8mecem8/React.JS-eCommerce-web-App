@@ -360,18 +360,20 @@ const handleStar = (req, res, stars) => {
   productModel.aggregate([
     {
       $project: {
-        document: "$$ROOT",
+        document: "$$ROOT", // "$$ROOT" means all properities of the object will be  called and write to the document
         // title: "$title",
         floorAverage: {
           $floor: { $avg: "$ratings.star" }, // floor value of 3.33 will be 3
         },
       },
     },
-    { $match: { floorAverage: stars } },
+    { $match: { floorAverage: stars } }, //All documents called since $project used, here we are matching floorAverage properity with the value of rating coming from frontend 
   ])
     .limit(20)
     .exec((err, aggregates) => {
       if (err) console.log("AGGREGATE ERROR", err);
+
+      
       productModel.find({ _id: aggregates })
       .populate('category')
       .populate('subcategory')

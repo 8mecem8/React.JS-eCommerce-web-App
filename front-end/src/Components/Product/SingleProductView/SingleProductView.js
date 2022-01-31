@@ -394,7 +394,7 @@ function SingleProductView() {
                             sx={{fontSize:"4.5rem",overflow: 'hidden'}}
                             name="hover-feedback"
                             value={rateValue}
-                            precision={0.5}
+                            precision={1}
                             onChange={startHandleFunc}
                             onChangeActive={(event, newHover) => {
                             setRAteHover(newHover);
