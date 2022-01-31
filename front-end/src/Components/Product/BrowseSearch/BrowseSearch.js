@@ -182,7 +182,7 @@ function BrowseSearch() {
 
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
         
-        setCheckboxstate(zurnastate)
+        setCheckboxstate([])
         
         setRatingStar(0)
         
