@@ -1,5 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import  {Link} from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import _ from "lodash";
+
 
 
 // Material UI
@@ -37,6 +40,8 @@ import PageLoader from '../../../UtiComponents/page-loader/index'
 
 
 function NewArrivals() {
+
+    const dispatch = useDispatch()
 
     {/*------------------------ Function's main state ------------------------*/}
     const [HomefetchedProductsListNewArrival, setHomeFetchedProductsListNewArrival] = useState([]);
@@ -82,6 +87,54 @@ function NewArrivals() {
     };
 
 
+
+
+    {/*------------------------ Add to cart button Function ------------------------*/}
+    const HandleAddToCart = (product) => 
+    {
+        // create cart array
+        let cart = [];
+
+
+        if (typeof window !== "undefined") {
+        // if cart is in local storage GET it
+
+            if (localStorage.getItem("cart")) {
+                 cart = JSON.parse(localStorage.getItem("cart"));
+        }
+
+
+        // push new product to cart
+        cart.push({
+            ...product,
+            count: 1,
+        });
+
+
+        // remove duplicates
+        let unique = _.uniqWith(cart, _.isEqual);
+        // save to local storage
+        // console.log('unique', unique)
+        localStorage.setItem("cart", JSON.stringify(unique));
+        // show tooltip
+        //setTooltip("Added");
+
+        // add to reeux state
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+    }
+
+
+    }
+
+
+
+
+
+
+
     return (
         <>
             {enterPageLoading ? (<PageLoader />)  : 
@@ -104,7 +157,7 @@ function NewArrivals() {
                         //console.log("args  in the main list are ===>",arg)
                         return(
 
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=>HandleAddToCart(arg)} title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon  /></Fab></Tooltip>} >
 
                                 <Paper elevation={0} sx={{height:328,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
                                 <Card sx={{height:208,width:205,p:"20px",m:"0 !important"}}>
