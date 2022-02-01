@@ -305,7 +305,7 @@ const handleQuery = async (req, res, query) =>
     })
     .exec();
 
-    console.log("products",products)
+    
 
     return res.json(products)
 }
@@ -449,7 +449,7 @@ exports.searchFilters = async (req, res) =>
   const {query,price,category,stars,sub,color,} = req.body
 
   if(query){
-    
+    console.log("query ---> ", query)
     await handleQuery(req, res, query)
   }
 

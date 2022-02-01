@@ -174,7 +174,7 @@ function BrowseSearch() {
 
 
 
-    {/*------------------------ Fetch All Products with Filter ------------------------*/}
+    {/*------------------------ Fetch Products with Query Filter ------------------------*/}
     useEffect(async ()=>
     {
         await new Promise((resolve) => setTimeout(resolve, 500));
