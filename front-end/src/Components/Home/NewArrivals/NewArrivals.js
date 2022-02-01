@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
-
+import Drawer from '@mui/material/Drawer';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
@@ -51,6 +51,11 @@ function NewArrivals() {
     {/*------------------------ Pagination State ------------------------*/}
     const [page, setPage] = useState(1);
 
+    {/*------------------------ Cart Drawer State ------------------------*/}
+    const [drawerActiveState, setDrawerActiveState] = useState(false);
+
+    {/*------------------------ Change Tooltip Title ------------------------*/}
+    const [tTipTitle, setTTipTitle] = useState([]);
 
     {/*------------------------ Function's main Loading state ------------------------*/}
 
@@ -61,6 +66,7 @@ function NewArrivals() {
     {
         setEnterPageLoading(true)
 
+        setTTipTitle([])
 
         await getTotalNumberProducts() 
                 .then((arg)=>{setfetchedTotalNumberforProducts(arg.data)})
@@ -78,6 +84,26 @@ function NewArrivals() {
     },[page])
 
 
+
+
+    {/*------------------------ Change Tooltip Title if products added to cart or not ------------------------*/}
+    useEffect(()=>
+    {
+        let cart = [];
+        let items = []
+
+        if (typeof window !== "undefined"){if (localStorage.getItem("cart")) {cart = JSON.parse(localStorage.getItem("cart"));}}
+
+
+        cart.map(arg => { items.push(arg.slug)})
+
+        setTTipTitle({"msg":"Added to Cart","slug":items})
+       
+
+
+    },[drawerActiveState])
+
+
     
 
     {/*------------------------ Pagination Function ------------------------*/}
@@ -92,6 +118,8 @@ function NewArrivals() {
     {/*------------------------ Add to cart button Function ------------------------*/}
     const HandleAddToCart = (product) => 
     {
+
+
         // create cart array
         let cart = [];
 
@@ -116,8 +144,7 @@ function NewArrivals() {
         // save to local storage
         // console.log('unique', unique)
         localStorage.setItem("cart", JSON.stringify(unique));
-        // show tooltip
-        //setTooltip("Added");
+        
 
         // add to reeux state
         dispatch({
@@ -137,10 +164,10 @@ function NewArrivals() {
 
     return (
         <>
-            {enterPageLoading ? (<PageLoader />)  : 
+    {     enterPageLoading ? (<PageLoader />)  : 
       (      
           
-          <>
+        <>
           
           <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
 
@@ -154,10 +181,10 @@ function NewArrivals() {
             {HomefetchedProductsListNewArrival.map(arg =>
                     {
                     
-                        //console.log("args  in the main list are ===>",arg)
+                        console.log("args  in the main list are ===>",tTipTitle)
                         return(
 
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=>HandleAddToCart(arg)} title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon  /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true)} } title={tTipTitle.slug.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon  /></Fab></Tooltip>} >
 
                                 <Paper elevation={0} sx={{height:328,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
                                 <Card sx={{height:208,width:205,p:"20px",m:"0 !important"}}>
@@ -215,17 +242,24 @@ function NewArrivals() {
 
 
 
+            
 
+
+            {/* Show this drawer when new items added to shopping cart */}
+            <Drawer  anchor={"right"} open={drawerActiveState} onClose={()=>setDrawerActiveState(false)} sx={{bgcolor:"rgba(0, 0, 0, 0.5) !important"}} >
+                    
+            </Drawer>
 
 
 
                     
 
 
-</>
+        </>
 
 
-       ) }
+       ) 
+    }
         </>
     )
 }

@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import  {Link} from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import _ from "lodash";
 
 // Material UI
 import { CircularProgress} from '@mui/material';
@@ -10,18 +11,16 @@ import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import Fab from '@mui/material/Fab';
 import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
 import Pagination from '@mui/material/Pagination';
+import Drawer from '@mui/material/Drawer';
 
 
 
@@ -43,6 +42,8 @@ import { MainRatingView } from '../../Product/RatingsView/MainRatingView';
 function BestSellers() {
 
 
+    const dispatch = useDispatch()
+
     
     {/*------------------------ Function's main state ------------------------*/}
     const [HomefetchedProductsListBestSellers, setHomeFetchedProductsListBestSellers] = useState([]);
@@ -51,6 +52,9 @@ function BestSellers() {
 
     {/*------------------------ Pagination State ------------------------*/}
     const [page, setPage] = useState(1);
+
+    {/*------------------------ Cart Drawer State ------------------------*/}
+    const [drawerActiveState, setDrawerActiveState] = useState(false);
 
 
     {/*------------------------ Function's main Loading state ------------------------*/}
@@ -90,7 +94,44 @@ function BestSellers() {
 
 
 
+    {/*------------------------ Add to cart button Function ------------------------*/}
+    const HandleAddToCart = (product) => 
+    {
+        // create cart array
+        let cart = [];
 
+
+        if (typeof window !== "undefined") {
+        // if cart is in local storage GET it
+
+            if (localStorage.getItem("cart")) {
+                 cart = JSON.parse(localStorage.getItem("cart"));
+        }
+
+
+        // push new product to cart
+        cart.push({
+            ...product,
+            count: 1,
+        });
+
+
+        // remove duplicates
+        let unique = _.uniqWith(cart, _.isEqual);
+        // save to local storage
+        // console.log('unique', unique)
+        localStorage.setItem("cart", JSON.stringify(unique));
+       
+
+        // add to reeux state
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+    }
+
+
+    }
 
 
 
@@ -120,7 +161,7 @@ function BestSellers() {
                         
                         return(
                             
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true)} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
                                 <Paper elevation={0} sx={{height:348,minWidth:228,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
 
@@ -188,13 +229,16 @@ function BestSellers() {
 
 
 
-
+            
 
 
 
         )}
 
-
+            {/* Show this drawer when new items added to shopping cart */}
+            <Drawer  anchor={"right"} open={drawerActiveState} onClose={()=>setDrawerActiveState(false)} sx={{bgcolor:"rgba(0, 0, 0, 0.5) !important"}} >
+                    
+            </Drawer>
 
 
         </>

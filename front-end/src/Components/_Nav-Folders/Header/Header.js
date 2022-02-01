@@ -142,10 +142,7 @@ function Header() {
     setBurgerMEnu(event.currentTarget);
   };
 
-  const burgerMenuHandleClose = () => {
-    setBurgerMEnu(false);
-  };
-
+ 
 
 
 
@@ -243,7 +240,7 @@ function Header() {
 
 
 
-<Drawer  anchor={"left"} open={burgerMenu} onClose={burgerMenuHandleClose} >
+<Drawer  anchor={"left"} open={burgerMenu} onClose={() => {setBurgerMEnu(false)}} >
 
 
 <Box >

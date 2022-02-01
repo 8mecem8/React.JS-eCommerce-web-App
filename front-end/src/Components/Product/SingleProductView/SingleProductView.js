@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import  {useParams,useNavigate} from "react-router-dom";
 import { getRelated, getSingleProductDetails, starUpdateProduct } from '../../../UtiFunctions/utiProduct';
-import { useSelector } from 'react-redux';
-
+import { useSelector,useDispatch } from 'react-redux';
+import _ from "lodash";
 
 
 
@@ -31,7 +31,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-
+import Drawer from '@mui/material/Drawer';
 
 
 
@@ -83,6 +83,7 @@ function SingleProductView() {
     const {slug} = useParams();
     let navigate = useNavigate();
     const sty = useStyles();
+    const dispatch = useDispatch()
 
     {/*------------------------ İf there is logged user ------------------------*/}
     const user = useSelector(state => state.user)
@@ -94,6 +95,9 @@ function SingleProductView() {
 
     {/*------------------------ Function's main Loading state ------------------------*/}
     const [enterPageLoading, setEnterPageLoading] = useState(false);
+
+    {/*------------------------ Cart Drawer State ------------------------*/}
+    const [drawerActiveState, setDrawerActiveState] = useState(false);
 
     {/*------------------------ Tab component state ------------------------*/}
     const [value, setValue] = useState('1');
@@ -193,7 +197,51 @@ function SingleProductView() {
 
 
 
-    console.log("fetchedRelated are", fetchedRelated)
+    
+
+
+    {/*------------------------ Add to cart button Function ------------------------*/}
+    const HandleAddToCart = (product) => 
+    {
+        // create cart array
+        let cart = [];
+
+
+        if (typeof window !== "undefined") {
+        // if cart is in local storage GET it
+
+            if (localStorage.getItem("cart")) {
+                 cart = JSON.parse(localStorage.getItem("cart"));
+        }
+
+
+        // push new product to cart
+        cart.push({
+            ...product,
+            count: 1,
+        });
+
+
+        // remove duplicates
+        let unique = _.uniqWith(cart, _.isEqual);
+        // save to local storage
+        // console.log('unique', unique)
+        localStorage.setItem("cart", JSON.stringify(unique));
+        
+        
+
+        // add to reeux state
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+    }
+
+
+    }
+
+
+
 
 
     return (
@@ -271,7 +319,7 @@ function SingleProductView() {
                                                 <Grid item xs={6} md={8}>
                                                         <Grid container direction="row" spacing={2} sx={{mx:"auto",width:"100%"}}>
                                                                 <Grid item xs={4} sx={{textAlign:"center"}} >
-                                                                        <Button variant="contained" startIcon={<ShoppingBasketRoundedIcon />} sx={{textTransform:"none", backgroundColor:"linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"}}>
+                                                                        <Button variant="contained" onClick={()=> { return HandleAddToCart(fetchedSingleProductDetails), setDrawerActiveState(true)} } startIcon={<ShoppingBasketRoundedIcon />} sx={{textTransform:"none", backgroundColor:"linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"}}>
                                                                             Add to Shopping Bag 
                                                                         </Button>
                                                                 </Grid>
@@ -442,7 +490,10 @@ function SingleProductView() {
 
 
 
-
+         {/* Show this drawer when new items added to shopping cart */}
+            <Drawer  anchor={"right"} open={drawerActiveState} onClose={()=>setDrawerActiveState(false)} sx={{bgcolor:"rgba(0, 0, 0, 0.5) !important"}} >
+                    
+            </Drawer>
 
 
 
