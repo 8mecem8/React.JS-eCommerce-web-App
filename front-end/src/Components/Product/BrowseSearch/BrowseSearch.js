@@ -422,10 +422,10 @@ function BrowseSearch() {
 
 
                     {/* left of the screen */}
-                    <Grid item xs={3}>
+                    <Grid item xs={10} sm={11} md={4} lg={3} sx={{mx:"auto",ml:0}}>
                         
                             <Grid container direction="column" rowSpacing={1} sx={{ml:3,mt:3}}>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} md={3} lg={6}>
                                        
                                         <Accordion sx={{border: 0,boxShadow: 0,}} >
                                             <AccordionSummary
@@ -465,7 +465,7 @@ function BrowseSearch() {
                                         </Accordion>
                                     </Grid>
 
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} md={3} lg={6}>
                                        
                                         <Accordion sx={{border: 0,boxShadow: 0,}} >
                                             <AccordionSummary
@@ -525,7 +525,7 @@ function BrowseSearch() {
  
                                     </Grid>
 
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} md={3} lg={6}>
                                         
                                          <Accordion sx={{border: 0,boxShadow: 0,}} >
                                             <AccordionSummary
@@ -558,7 +558,7 @@ function BrowseSearch() {
 
                                     </Grid>
 
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} md={3} lg={6}>
                                         
                                         
                                      <Accordion sx={{border: 0,boxShadow: 0,}} >
@@ -600,7 +600,7 @@ function BrowseSearch() {
 
                                     </Grid>
 
-                                    <Grid item xs={6}>
+                                    <Grid item xs={6} md={3} lg={6}>
                                         
                                         
                                      <Accordion sx={{border: 0,boxShadow: 0,}} >
@@ -663,7 +663,7 @@ function BrowseSearch() {
 
 
                     {/* right of the screen */}
-                    <Grid item xs={9}>
+                    <Grid item xs={9} sm={12} md={8} lg={9} sx={{mx:"auto"}}>
 
 
                   
