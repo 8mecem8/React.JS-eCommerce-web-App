@@ -17,10 +17,11 @@ import AdminCategory from '../Components/Admin/AdminCategory/AdminCategory';
 import AdminProduct from '../Components/Admin/AdminProduct/ProductModule';
 import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsModule';
 import SingleProductView from '../Components/Product/SingleProductView/SingleProductView';
+import ShoppingCart from '../Components/ShoppingCart/ShoppingCart';
+import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
-import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
 
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
@@ -62,13 +63,19 @@ const Routez = () => {
                 <Route  path="/admin/products" element={!user && !user?.token ?  <Login /> : <AdminAllProducts />} />
 
 
-                {/* Sİngle Product Page */}
+                {/* Single Product Page */}
                 <Route  path="product/:slug" element={<SingleProductView />} />
 
                 {/* Search */}
                 <Route  path="search" element={<BrowseSearch />} />
 
-                 <Route path="*" element={<NoMatchPage />} />
+                {/* Cart*/}
+                <Route  path="cart" element={<ShoppingCart />} />
+                
+                
+                
+                
+                <Route path="*" element={<NoMatchPage />} />
             </Routes>
 
         </Suspense>

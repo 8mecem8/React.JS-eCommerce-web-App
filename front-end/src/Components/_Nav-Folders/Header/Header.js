@@ -18,7 +18,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import SortIcon from '@mui/icons-material/Sort';
+import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
+import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import Drawer from '@mui/material/Drawer';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import List from '@mui/material/List';
@@ -28,6 +29,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Badge from '@mui/material/Badge';
+
+
+
 
 /* Custom Css */
 import useStyles from './HeaderStyles'
@@ -89,8 +94,8 @@ const StyledMenuItem = withStyles((theme) => ({
 
 function Header() {
 
-  const user = useSelector(state => state.user)
   
+  let {user,cart} = useSelector(state => ({...state}))
   
 
   const dispatch = useDispatch()
@@ -154,6 +159,11 @@ function Header() {
           payload: null
       })
   }
+
+
+
+
+
 
 
   return (
@@ -360,7 +370,13 @@ function Header() {
  </Drawer>
 
 
+
+{/*------------------------Browse Link to BrowseSearch ------------------------*/}
 <Button variant="outlined" sx={{color:"white"}} startIcon={<ManageSearchIcon sx={{fontSize:"30px !important"}} />}><Link to="/search" style={{marginLeft:"-8px"}} className={sty.link}>Browse</Link></Button>
+
+{/*------------------------Cart ------------------------*/}
+<Link to="/cart" style={{marginLeft:"5px"}} className={sty.link}><Badge badgeContent={cart.length == 0 ? undefined : cart.length} anchorOrigin={{vertical: 'top', horizontal: 'left',}} color={cart.length == 0 ? undefined : "error"} ><LocalGroceryStoreOutlinedIcon sx={{fontSize:"30px !important"}} /></Badge>Cart</Link>
+
 
 
 </Typography>
