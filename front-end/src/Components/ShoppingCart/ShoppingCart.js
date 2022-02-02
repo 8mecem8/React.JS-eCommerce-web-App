@@ -6,6 +6,7 @@ import { useDispatch,useSelector } from 'react-redux';
 
 // Material UI
 import { CircularProgress} from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -22,6 +23,13 @@ import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 import useStyles from './ShoppingCartStyles'
 import PageLoader from '../../UtiComponents/page-loader';
 import pic1 from "./a1.png"
+
+
+
+//Main import components
+import Footer from '../Footer/Footer';
+
+
 
 function ShoppingCart() {
 
@@ -136,6 +144,14 @@ function ShoppingCart() {
     
     
     }
+
+    <Divider variant="middle" sx={{mx:12}}/>
+
+           
+
+
+            {/* Footer Component */}
+            <Footer/>
       
       
 </>
