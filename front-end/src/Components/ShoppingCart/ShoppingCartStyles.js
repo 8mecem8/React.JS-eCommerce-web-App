@@ -4,16 +4,18 @@ import { margin } from '@mui/system';
 export default makeStyles(() => ({
     link: {
         textTransform: "none",
-        color:"white",
+        color:"#ff8622",
         textDecoration:"none",
     },
     link_nav: {
         textTransform: "none",
         textDecoration:"none",
     },
-    proP:{
-        fontSize:"18px",
-        marginLeft:"7px"
-    }
-    
+    container: 
+    {
+    borderRadius: 6,
+    margin: '0 auto',
+    marginTop: '50px'
+
+    },
 }));
