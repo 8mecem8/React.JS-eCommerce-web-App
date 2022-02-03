@@ -105,7 +105,7 @@ function ShoppingCart() {
                 ) :
 
                 /*------------------------ Cart with products------------------------*/
-                (<Grid container direction="row" justifyContent="center" alignItems="center" sx={{mx:"auto",mt:3,px:{
+                (<Grid container direction="row" justifyContent="center"  sx={{mx:"auto",mt:3,px:{
                         xs: "0px !important", 
                         sm: "60px !important", 
                         md: "0px !important", 
@@ -114,7 +114,13 @@ function ShoppingCart() {
                         }}}>
 
                     {/* left side */}
-                    <Grid item xs={12} sm={12} md={6.5} lg={8.5} xl={9.5} sx={{width:"100%"}}>
+                    <Grid item xs={12} sm={12} md={6.5} lg={8.5} xl={9.5} sx={{width:"100%",pt:5,pb:5,px:0,mx:{
+                        xs: "27px !important", 
+                        sm: "0px !important", 
+                        md: "0px !important", 
+                        lg: "0px !important", 
+                        xl: "0px !important", 
+                        }}}>
 
 
                             <Grid container direction="column" sx={{width:"100%"}}>
@@ -124,34 +130,53 @@ function ShoppingCart() {
                                 {
                                     console.log("arg",arg)
                                     return  <Grid item>
-                                                <Grid container direction="row" spacing={2}>
+                                                <Grid container direction={{
+                                                        xs: "column", 
+                                                        sm: "row", 
+                                                        md: "row", 
+                                                        lg: "row", 
+                                                        xl: "row",}} spacing={2}>
 
-                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
+                                                    <Grid item xs={6} sx={{m:"0px !important",p:"0px !important"}}>
 
-                                                        {arg.images[0].url}
-                                                
+                                                            <Grid container direction="row" spacing={2}>
+
+                                                                <Grid item xs={6} sx={{m:"0px !important",height:208,width:250,p:"0 !important",}}>
+
+                                                                    <CardMedia
+                                                                        component="img"
+                                                                        height="194"
+                                                                        image={arg.images[0].url}
+                                                                        alt="image"
+                                                                        sx={{p:0,t:0,my:"auto",objectFit:"contain !important"}}
+                                                                    />
+
+                                                                </Grid>
+
+                                                                <Grid item xs={6} sm={3} md={3} lg={3} xl={3} sx={{m:"0px !important",p:"0 !important",}}>
+                                                                    <Typography>{arg.title}</Typography>
+                                                                </Grid>
+
+                                                                <Grid item xs={12} sm={3} md={3} lg={3} xl={3} sx={{m:"0px !important",p:"0 !important",}}>
+                                                                    <Typography>{arg.color}</Typography>
+                                                                </Grid>
+                                                        
+                                                        
+                                                        
+                                                            </Grid>
                                                     </Grid>
 
 
                                                     <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
 
-                                                        {arg.title}
-
-                                                        {arg.color}
+                                                        <Typography>{arg.quantity}</Typography>
 
                                                     </Grid>
 
 
                                                     <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
 
-                                                        {arg.quantity}
-
-                                                    </Grid>
-
-
-                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
-
-                                                        ${arg.price*arg.count}
+                                                        <Typography>${arg.price*arg.count}</Typography>
 
                                                     </Grid>
 
@@ -191,13 +216,13 @@ function ShoppingCart() {
                         md: "0px !important", 
                         lg: "0px !important", 
                         xl: "0px !important", 
-                        },p:{
+                        },px:{
                         xs: "0px !important", 
                         sm: "auto !important", 
                         md: "20px !important", 
                         lg: "30px !important", 
                         xl: "30px !important", 
-                        }}}>
+                        },pt:"2px !important"}}>
 
                         <Box sx={{mx:"auto !important",alignItems:"center",display:"flex"}}>
                             <Typography gutterBottom variant="h5" sx={{mx:"auto !important"}}>Order Summary</Typography>
