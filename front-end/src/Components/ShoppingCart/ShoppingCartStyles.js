@@ -7,9 +7,10 @@ export default makeStyles(() => ({
         color:"#ff8622",
         textDecoration:"none",
     },
-    link_nav: {
+    link_login: {
         textTransform: "none",
         textDecoration:"none",
+        color:"#040c13",
     },
     container: 
     {

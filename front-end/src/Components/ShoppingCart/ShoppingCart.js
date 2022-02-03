@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react'
-import  {Link} from "react-router-dom";
+import  {Link,useNavigate} from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux';
 
 
 
 // Material UI
-import { CircularProgress} from '@mui/material';
+import { Button, CircularProgress} from '@mui/material';
+import { Box } from '@mui/system';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -35,17 +36,22 @@ function ShoppingCart() {
 
     const sty = useStyles()
     const dispatch = useDispatch()
-
+    let navigate = useNavigate();
 
     let {user,cart} = useSelector(state => ({...state}))
-
 
     {/*------------------------ Function's main Loading state ------------------------*/}
 
     const [enterPageLoading, setEnterPageLoading] = useState(false);
 
+    useEffect( async ()=>
+    {
+    setEnterPageLoading(true)
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setEnterPageLoading(false)
 
-
+    },[])
+    
 
 
   return (
@@ -98,33 +104,175 @@ function ShoppingCart() {
                 
                 ) :
 
+                /*------------------------ Cart with products------------------------*/
+                (<Grid container direction="row" justifyContent="center" alignItems="center" sx={{mx:"auto",mt:3,px:{
+                        xs: "0px !important", 
+                        sm: "60px !important", 
+                        md: "0px !important", 
+                        lg: "30px !important", 
+                        xl: "60px !important", 
+                        }}}>
 
-                (<Grid container direction="row" justifyContent="center" alignItems="center" sx={{mx:"auto"}}>
+                    {/* left side */}
+                    <Grid item xs={12} sm={12} md={6.5} lg={8.5} xl={9.5} sx={{width:"100%"}}>
 
-                    <Grid item xs={8}>
 
-                    <h1>LEFT side</h1>
+                            <Grid container direction="column" sx={{width:"100%"}}>
+
+
+                                {cart.map((arg,i)=>
+                                {
+                                    console.log("arg",arg)
+                                    return  <Grid item>
+                                                <Grid container direction="row" spacing={2}>
+
+                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
+
+                                                        {arg.images[0].url}
+                                                
+                                                    </Grid>
+
+
+                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
+
+                                                        {arg.title}
+
+                                                        {arg.color}
+
+                                                    </Grid>
+
+
+                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
+
+                                                        {arg.quantity}
+
+                                                    </Grid>
+
+
+                                                    <Grid item xs={3} sx={{m:"0px !important",p:"0px !important"}}>
+
+                                                        ${arg.price*arg.count}
+
+                                                    </Grid>
+
+
+                                                </Grid>
+                                            </Grid>
+
+
+
+
+                                })}
+                                
+
+                                <Grid item>
+
+                                    
+                                </Grid>
+
+                                <Grid item>
+
+                                    
+                                </Grid>
+
+
+                            </Grid>
+ 
 
 
                     </Grid>
 
 
 
+                    {/* right side */}
+                    <Grid item xs={12} sm={12} md={4.5} lg={3.5} xl={2.5} sx={{margin: {
+                        xs: "0px !important", 
+                        sm: "auto !important", 
+                        md: "0px !important", 
+                        lg: "0px !important", 
+                        xl: "0px !important", 
+                        },p:{
+                        xs: "0px !important", 
+                        sm: "auto !important", 
+                        md: "20px !important", 
+                        lg: "30px !important", 
+                        xl: "30px !important", 
+                        }}}>
 
-                    <Grid item xs={4}>
+                        <Box sx={{mx:"auto !important",alignItems:"center",display:"flex"}}>
+                            <Typography gutterBottom variant="h5" sx={{mx:"auto !important"}}>Order Summary</Typography>
+                        </Box>
 
-                    <h1>RİGHT side</h1>
+                        
 
-                        <Grid container direction="column" justifyContent="center" alignItems="start" spacing={2}>
+                        <Grid container direction="column" justifyContent="center" alignItems="start" spacing={2} sx={{mx:"auto !important",m:0,p:0,maxWidth:"500px !important"}}>
 
-                            <Grid item xs={6} >
+                        
 
-                                upside
+                            {/* ------------------------ Upper part of right side------------------------ */}
+                            <Grid item xs={6}  sx={{width:"100%",m:"6px !important",p:"0 !important"}}>
+
+                                <Divider />
+
+
+                                <Grid container direction="row" justifyContent="space-between" alignItems="start" spacing={2} sx={{width:"100%",mt:"1px !important"}}>
+                                    
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body2">Item(s) Total</Typography> 
+                                    </Grid>
+
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body2">${cart.reduce((pre,cur)=>{ return pre+(cur.price * cur.count)},0)}</Typography> 
+                                    </Grid>
+
+                                </Grid> 
+                                
+                                 <Grid container direction="row" justifyContent="space-between" alignItems="start" spacing={2} sx={{width:"100%",mb:"1px !important",}}>
+                                    
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body2">Estimated Sales Tax</Typography> 
+                                    </Grid>
+
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body2">${Math.floor(cart.reduce((pre,cur)=>{ return pre+(cur.price * cur.count)},0)* 0.085)}</Typography> 
+                                    </Grid>
+
+                                </Grid>
+
+                                <Divider />
+
+                                {/* ------------------------ Total Price for Products------------------------ */}
+                                <Grid container direction="row" justifyContent="space-between" alignItems="start" spacing={2} sx={{width:"100%",mt:"1px !important"}}>
+                                    
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body1">Total</Typography> 
+                                    </Grid>
+
+                                    <Grid item >
+                                     <Typography component="div" gutterBottom variant="body1">${Math.floor(cart.reduce((pre,cur)=>{ return pre+(cur.price * cur.count)},0) + cart.reduce((pre,cur)=>{ return pre+(cur.price * cur.count)},0)* 0.085)}</Typography> 
+                                    </Grid>
+
+                                </Grid> 
+
+                                <Box sx={{mx:"auto !important",alignItems:"center",display:"flex"}}>
+                                    <Button 
+                                        sx={{mx:"auto",width:"360px !important",height:"50px !important",bgcolor:"#ffe000",color:"#040c13",'&:hover': {backgroundColor: '#ffe94d',},}}
+                                        size="medium" 
+                                        variant="contained"
+                                        
+                                        
+                                        onClick={user ? ()=>{} : ()=>{navigate("/login",{state:{from: `/cart`}})}}
+                                            
+                                        
+                                        /* startIcon={} */
+                                        >{user ? <Typography component="div" variant="body1" sx={{m:0,p:0}}>Checkout</Typography> : <Typography component="div" variant="body1" sx={{m:0,p:0}}>Login to Checkout</Typography>} </Button>
+                                </Box>
+
 
                             </Grid>
 
-
-                            <Grid item xs={6}>
+                            {/* ------------------------ Down part of right side------------------------ */}
+                            <Grid item xs={6} sx={{m:0,p:0,}}>
 
                                 downside
 
