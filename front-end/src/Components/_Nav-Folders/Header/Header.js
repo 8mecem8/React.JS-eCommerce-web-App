@@ -95,7 +95,7 @@ const StyledMenuItem = withStyles((theme) => ({
 function Header() {
 
   
-  let {user,cart} = useSelector(state => ({...state}))
+  let {user,cart} = useSelector((state) => ({...state}))
   
 
   const dispatch = useDispatch()
@@ -388,7 +388,9 @@ function Header() {
 
 
       {/*------------------------ Account------------------------*/}    
-{user ? <div>
+{
+
+user ? <div>
 
   <IconButton
                 size="large"

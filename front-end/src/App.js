@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useLayoutEffect} from 'react'
 
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -59,7 +59,7 @@ function App() {
 
 /*------------------------ Firebase get user info and update redux state ------------------------*/
 
-useEffect(
+useLayoutEffect(
   ()=>
 
   {
