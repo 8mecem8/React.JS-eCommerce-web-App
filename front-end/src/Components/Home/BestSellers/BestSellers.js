@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import  {Link} from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import _ from "lodash";
 
 // Material UI
@@ -43,6 +43,7 @@ function BestSellers() {
 
 
     const dispatch = useDispatch()
+    let {user,cart} = useSelector(state => ({...state}))
 
     
     {/*------------------------ Function's main state ------------------------*/}

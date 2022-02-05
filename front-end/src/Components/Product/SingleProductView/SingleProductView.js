@@ -85,8 +85,10 @@ function SingleProductView() {
     const sty = useStyles();
     const dispatch = useDispatch()
 
+    
+
     {/*------------------------ İf there is logged user ------------------------*/}
-    const user = useSelector(state => state.user)
+    let {user,cart} = useSelector(state => ({...state}))
 
     {/*------------------------ Main state ------------------------*/}
     const [fetchedSingleProductDetails,setFetchedSingleProductDetails] = useState([])
@@ -252,7 +254,7 @@ function SingleProductView() {
             <>
 
             
-            <Grid container direction="column" spacing={2}>
+            <Grid container direction="column" spacing={2} sx={{mx:{xs:"0px !important", sm:"0", md:"0",lg:"0px !important",xl:"0px !important"}}}>
 
 
                     {/* upside of the screen */}
@@ -284,7 +286,7 @@ function SingleProductView() {
                                         <Grid item xs={window.innerWidth < 774 ? 12 : 6 } >
                                             
 
-                                            <Grid container direction="column" justifyContent={"end"} spacing={2} sx={{m:0,p:{xs: 4,sm: 4,md: 5,lg: 5, xl: 5,},pl:"0 !important"}}>
+                                            <Grid  container direction="column" justifyContent={"end"} spacing={2} sx={{m:0,p:{xs: 4,sm: 4,md: 5,lg: 5, xl: 5,},pl:"0 !important"}}>
                                                 <Grid item xs={6} md={8} >
                                                     <Typography variant="h4" component="h4" >{fetchedSingleProductDetails?.title}</Typography>
                                                 </Grid>
