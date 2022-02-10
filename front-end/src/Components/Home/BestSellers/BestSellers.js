@@ -31,6 +31,7 @@ import { getProductsByOrder,getTotalNumberProducts } from '../../../UtiFunctions
 import PageLoader from '../../../UtiComponents/page-loader/index'
 import { AverageRatingView } from '../../Product/RatingsView/RatingsView';
 import { MainRatingView } from '../../Product/RatingsView/MainRatingView';
+import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
 
 
 
@@ -162,7 +163,7 @@ function BestSellers() {
                         
                         return(
                             
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true)} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
                                 <Paper elevation={0} sx={{height:348,minWidth:228,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
 
@@ -237,9 +238,7 @@ function BestSellers() {
         )}
 
             {/* Show this drawer when new items added to shopping cart */}
-            <Drawer  anchor={"right"} open={drawerActiveState} onClose={()=>setDrawerActiveState(false)} sx={{bgcolor:"rgba(0, 0, 0, 0.5) !important"}} >
-                    
-            </Drawer>
+            <CartDrawer />
 
 
         </>

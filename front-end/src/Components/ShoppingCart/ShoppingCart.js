@@ -235,7 +235,7 @@ function ShoppingCart() {
                                                     sx={{m:"0px !important",
                                                     p:"0px !important",
                                                     display:"inline-grid",
-                                                    transform:{xs:"translate3d(50px,-50px,0px)", sm:"translate3d(-5px,0px,0px)", md:"translate3d(-35px,0px,0px)",lg:"translate3d(-55px,0px,0px)",xl:"translate3d(-20px,0px,0px)"},
+                                                    transform:{xs:"translate3d(30px,-50px,0px)", sm:"translate3d(-5px,0px,0px)", md:"translate3d(-35px,0px,0px)",lg:"translate3d(-55px,0px,0px)",xl:"translate3d(-20px,0px,0px)"},
                                                     justifyItems:{xs:"center", sm:"center", md:"center",lg:"center",xl:"center"}}}>
 
                                                     
@@ -261,12 +261,12 @@ function ShoppingCart() {
 
 
                                                     <Grid item xs={6} sm={1} md={1} lg={1} xl={1} sx={{
-                                                    transform:{xs:"translate3d(5px,-55px,0px)", sm:"translate3d(-40px,0px,0px)", md:"translate3d(0px,0px,0px)",lg:"translate3d(-20px,0px,0px)",xl:"translate3d(0px,0px,0px)"},
+                                                    transform:{xs:"translate3d(-15px,-55px,0px)", sm:"translate3d(-40px,0px,0px)", md:"translate3d(0px,0px,0px)",lg:"translate3d(-20px,0px,0px)",xl:"translate3d(0px,0px,0px)"},
                                                     m:"0px !important",p:"0px !important",display:"inline-grid",justifyItems:{xs:"flex-start", sm:"center", md:"flex-end",lg:"flex-end",xl:"flex-end"}}}>
 
                                                         <Typography component="div" variant="body1" sx={{fontSize:{xs:"40px", sm:"35px", md:"35px",lg:"35px",xl:"35px"}}} fontWeight={{xs:"700", sm:"700", md:"700",lg:"700",xl:"700"}}>${arg.price*arg.count}</Typography>
 
-                                                        <Button onClick={()=>{HandleCartProductDelete(arg)}} variant="text"  sx={{textTransform: "none",height:{xs:"18px", sm:"15px", md:"15px",lg:"10px",xl:"10px"},fontSize:{xs:"25px", sm:"15px", md:"15px",lg:"10px",xl:"10px"},transform:{xs:"translate3d(110px,-41px,0px)", sm:"translate3d(20px,-40px,0px)", md:"translate3d(10px,-45px,0px)",lg:"translate3d(15px,-40px,0px)",xl:"translate3d(13px,-60px,0px)"},}}>remove</Button>
+                                                        <Button onClick={()=>{HandleCartProductDelete(arg)}} variant="text"  sx={{textTransform: "none",height:{xs:"18px", sm:"15px", md:"15px",lg:"10px",xl:"10px"},fontSize:{xs:"25px", sm:"15px", md:"15px",lg:"10px",xl:"10px"},transform:{xs:"translate3d(137px,-41px,0px)", sm:"translate3d(20px,-40px,0px)", md:"translate3d(10px,-45px,0px)",lg:"translate3d(15px,-40px,0px)",xl:"translate3d(13px,-60px,0px)"},}}>remove</Button>
 
                                                     </Grid>
 
@@ -376,8 +376,8 @@ function ShoppingCart() {
                                         size="medium" 
                                         variant="contained"
                                         
-                                        
-                                        onClick={user ? ()=>{} : ()=>{navigate("/login",{state:{from: `/cart`}})}}
+                                        checkout
+                                        onClick={user ? ()=>{navigate("/checkout")} : ()=>{navigate("/login",{state:{from: `/cart`}})}}
                                             
                                         
                                         /* startIcon={} */

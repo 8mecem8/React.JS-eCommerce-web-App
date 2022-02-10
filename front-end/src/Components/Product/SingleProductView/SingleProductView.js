@@ -48,6 +48,7 @@ import BarLoader from '../../../Components/BarLoader/BarLoader';
 import {AverageRatingView} from '../RatingsView/RatingsView';
 import Footer from '../../Footer/Footer';
 import RelatedProducts from '../../../UtiComponents/RelatedProducts/RelatedProducts';
+import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
 
 
 const labels = {
@@ -321,7 +322,7 @@ function SingleProductView() {
                                                 <Grid item xs={6} md={8}>
                                                         <Grid container direction="row" spacing={2} sx={{mx:"auto",width:"100%"}}>
                                                                 <Grid item xs={4} sx={{textAlign:"center"}} >
-                                                                        <Button variant="contained" onClick={()=> { return HandleAddToCart(fetchedSingleProductDetails), setDrawerActiveState(true)} } startIcon={<ShoppingBasketRoundedIcon />} sx={{textTransform:"none", backgroundColor:"linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"}}>
+                                                                        <Button variant="contained" onClick={()=> { return HandleAddToCart(fetchedSingleProductDetails), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,})} } startIcon={<ShoppingBasketRoundedIcon />} sx={{textTransform:"none", backgroundColor:"linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"}}>
                                                                             Add to Shopping Bag 
                                                                         </Button>
                                                                 </Grid>
@@ -493,9 +494,7 @@ function SingleProductView() {
 
 
          {/* Show this drawer when new items added to shopping cart */}
-            <Drawer  anchor={"right"} open={drawerActiveState} onClose={()=>setDrawerActiveState(false)} sx={{bgcolor:"rgba(0, 0, 0, 0.5) !important"}} >
-                    
-            </Drawer>
+            <CartDrawer />
 
 
 

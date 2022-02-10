@@ -1,4 +1,7 @@
-.css-1160xiw-MuiPaper-root-MuiDrawer-paper{
-    width: 50%;
-    overflow-x: hidden;
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  overflow-x: hidden;
+  max-width: 30%;
+  background-color: #d8e3e6 !important;
 }
+
+

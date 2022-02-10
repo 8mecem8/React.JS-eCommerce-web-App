@@ -19,6 +19,7 @@ import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsMo
 import SingleProductView from '../Components/Product/SingleProductView/SingleProductView';
 import ShoppingCart from '../Components/ShoppingCart/ShoppingCart';
 import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
+import Checkout from '../Components/Checkout/Checkout';
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
@@ -37,7 +38,6 @@ const Routez = () => {
      
 
         
-    
 
 
     return (
@@ -70,9 +70,10 @@ const Routez = () => {
                 <Route  path="search" element={<BrowseSearch />} />
 
                 {/* Cart*/}
-                <Route  path="cart" element={<ShoppingCart />} />
+                <Route  path="cart" element={<ShoppingCart />} /> 
                 
-                
+                {/* Checkout*/}
+                <Route  path="checkout" element={<Checkout />} />
                 
                 
                 <Route path="*" element={<NoMatchPage />} />
