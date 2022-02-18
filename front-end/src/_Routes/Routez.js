@@ -20,6 +20,9 @@ import SingleProductView from '../Components/Product/SingleProductView/SinglePro
 import ShoppingCart from '../Components/ShoppingCart/ShoppingCart';
 import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
 import Checkout from '../Components/Checkout/Checkout';
+import Payment from '../Components/Payment/Payment';
+
+
 
 
 import LoadPage from '../UtiComponents/page-loader/index'
@@ -74,6 +77,9 @@ const Routez = () => {
                 
                 {/* Checkout*/}
                 <Route  path="checkout" element={<Checkout />} />
+
+                {/* Payment*/}
+                <Route  path="payment" element={<Payment />} />
                 
                 
                 <Route path="*" element={<NoMatchPage />} />

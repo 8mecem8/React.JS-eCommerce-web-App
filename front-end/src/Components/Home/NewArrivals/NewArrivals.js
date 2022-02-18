@@ -196,7 +196,7 @@ function NewArrivals() {
                         console.log("args  in the main list are ===>",tTipTitle)
                         return(
 
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon  /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon   /></Fab></Tooltip>} >
 
                                 <Paper elevation={0} sx={{height:328,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
                                 <Card sx={{height:208,width:205,p:"20px",m:"0 !important"}}>

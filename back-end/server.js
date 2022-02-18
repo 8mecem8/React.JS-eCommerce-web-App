@@ -14,6 +14,7 @@ const categoryRouter = require('./Routes/Route-Links/categoryRouter.js');
 const subCategoryRouter = require('./Routes/Route-Links/subCategoryRouter.js');
 const productRouter = require('./Routes/Route-Links/productRouter.js');
 const cloudinaryRouter = require('./Routes/Route-Links/cloudinaryRouter.js');
+const stripeRouter = require('./Routes/Route-Links/stripeRouter.js');
 
 
 
@@ -28,13 +29,13 @@ app.use(express.json({ strict: false,limit: '50mb' }))
 //app.use(express.static(path.join(__dirname, '/../Front-end')))
 
 
+app.use("/api/", stripeRouter)
 app.use("/api", userRouter);
-app.use("/api/auth", authRouter);
 app.use("/api/", categoryRouter);
 app.use("/api/", subCategoryRouter);
 app.use("/api/", productRouter);
 app.use("/api/", cloudinaryRouter);
-
+app.use("/api/auth", authRouter);
 
 
 //Database------------------------------------------------------------------------------

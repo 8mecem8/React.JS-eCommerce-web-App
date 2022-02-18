@@ -29,6 +29,7 @@ import pic1 from "./a1.png"
 
 //Main import components
 import Footer from '../Footer/Footer';
+import { userCart } from '../../UtiFunctions/utiUSer';
 
 
 
@@ -112,6 +113,22 @@ function ShoppingCart() {
       });  
     }
     }
+
+
+
+
+    const saveOrderToDb = () => {
+    // console.log("cart", JSON.stringify(cart, null, 4));
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("CART POST RES", res);
+        if (res.data.ok) navigate("/checkout");
+      })
+      .catch((err) => console.log("cart save err", err));
+  };
+
+
+
 
 
 
@@ -377,7 +394,7 @@ function ShoppingCart() {
                                         variant="contained"
                                         
                                         checkout
-                                        onClick={user ? ()=>{navigate("/checkout")} : ()=>{navigate("/login",{state:{from: `/cart`}})}}
+                                        onClick={user ? ()=>{saveOrderToDb()} : ()=>{navigate("/login",{state:{from: `/cart`}})}}
                                             
                                         
                                         /* startIcon={} */
