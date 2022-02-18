@@ -26,20 +26,19 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
 /* Custom Css */
-import useStyles from './OrdersTableStyles'
+import useStyles from './TableContentStyles'
 
 
 
 //Main import components
-import PageLoader from '../../../../UtiComponents/page-loader';
-import TableContent from './TableContent/TableContent';
+import PageLoader from '../../../../../UtiComponents/page-loader';
 
 
 
 
 
 
-function OrdersTable({userOrders}) 
+function TableContent({userOrders}) 
 {
 
     const sty = useStyles()
@@ -56,34 +55,29 @@ function OrdersTable({userOrders})
 
     
 
-    console.log("userOrders1111",userOrders?.length > 0 ? userOrders[0]  :"yok" )
+    
 
 return (
 <>   
-    <TableContainer component={Paper} sx={{mt:2,mb:2}}>
-        <Typography>Order İnformation</Typography>
-        <Table aria-label="collapsible table">
+    {userOrders?.map((arg,i)=>
+        {
+
+            console.log("args are",arg)
+
+            return(
+                <>
 
 
-            <TableHead>
-            <TableRow>
-                <TableCell />
-                <TableCell>Order Title</TableCell>
-                <TableCell align="right">Order Date</TableCell>
-                <TableCell align="right">Total Price</TableCell>
-                <TableCell align="right">Count</TableCell>
-                <TableCell align="right">Shipping</TableCell>
-            </TableRow>
-            </TableHead>
 
-                <TableContent userOrders={userOrders} />
 
-            <TableBody>
-            
-            </TableBody>
 
-        </Table>
-    </TableContainer>
+
+
+                </>
+                )
+
+
+        })}
     
         
 
@@ -91,4 +85,4 @@ return (
 )
 }
 
-export default OrdersTable
+export default TableContent
