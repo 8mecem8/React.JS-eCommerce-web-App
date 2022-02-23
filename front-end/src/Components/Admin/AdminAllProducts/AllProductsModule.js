@@ -156,6 +156,10 @@ function AdminAllProducts()
 
     useEffect( async()=>
     {
+      //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
       //Get products in 100 list 
       await getAllProductsByCounts(100)
             .then((arg)=>{setFetchedProductsList(arg.data)})

@@ -7,7 +7,7 @@ const filledOrderModel = require('../../Models/filledOrderModel')
 
 exports.user = (req,res,next)=>
 {
-    res.send("user")
+    res.send("user list is working")
 
 }
 
@@ -221,7 +221,66 @@ exports.orders = async (req, res) => {
 
   let userOrders = await filledOrderModel.find({ orderdBy: user._id })
     .populate("products.product")
+    .populate({
+      path: 'orderdBy',
+     model: 'User'
+    })
     .exec();
 
   res.json(userOrders);
+};
+
+
+
+
+// addToWishlist wishlist removeFromWishlist
+exports.addToWishlist = async (req, res) => {
+
+try {
+
+  const { productId } = req.body;
+
+  
+
+  const user = await userModel.findOneAndUpdate(
+    { email: req.body.user.email },
+    { $addToSet: { wishlist: productId } }
+  ).populate({
+      path: 'wishlist',
+     model: 'Product'
+    })
+  .exec();
+
+  res.json({ ok: true });
+
+  } catch (err) {
+     console.log("err.errors is =============================>",err & err.message && Object.entries(err.errors)[0][1].properties.message);
+     console.table(err.message);
+    res.status(400).json("***Adding item to wishlist has Failed***"+" | "+ " " +"Error Message == "+ err.message || err._message+" "+"|| Main Reason =====> "+ err & err.message && Object.entries(err.errors)[0][1].properties.message);
+}
+};
+
+exports.wishlist = async (req, res) => {
+  const list = await userModel.findOne({ email: req.body.user.email })
+    .select("wishlist")
+    .populate({
+      path: 'wishlist',
+     model: 'Product'
+    })
+    .exec();
+
+  res.json(list);
+};
+
+exports.removeFromWishlist = async (req, res) => {
+  const { productId } = req.params;
+  const user = await userModel.findOneAndUpdate(
+    { email: req.body.user.email },
+    { $pull: { wishlist: productId } }
+  ).populate({
+      path: 'wishlist',
+     model: 'Product'
+    }).exec();
+
+  res.json({ ok: true });
 };

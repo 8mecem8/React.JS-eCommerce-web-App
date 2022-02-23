@@ -128,6 +128,10 @@ function AdminProduct()
 {/*------------------------ Get all Categories and Subcategories list ------------------------*/} 
 useEffect( async()=>
 {
+  //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
     const ListOfSubCategories = await getSubCategories()
     const ListOfCategories = await getCategories()
 
@@ -301,7 +305,7 @@ const deletePicture = (public_id) =>
         <form onSubmit={inputFormHandleSubmit}>
 
        
-        <Grid container  spacing={4} sx={{m:0, bgcolor:"#ffffffcc",mx:"auto",maxHeight:"1780px" ,borderRadius:"5px",pb:"50px",
+      <Grid container  spacing={4} sx={{m:0, bgcolor:"#ffffffcc",mx:"auto",maxHeight:"1780px" ,borderRadius:"5px",pb:"50px",
         width:{xs: "460px",sm: "540px",md: "800px",lg: "800px", xl: "800px",} ,
         ml:{xs: 1.5,sm: "auto",md: "auto",lg: "auto", xl: "auto",}, 
         mr:{xs: 5,sm: "auto",md: "auto",lg: "auto", xl: "auto",}}} className={sty.mGrid}>
@@ -319,7 +323,7 @@ const deletePicture = (public_id) =>
                 sx={{width: {xs: 175,sm: 200,md: 244,lg: 244, xl: 244,}}}/>
             </Grid>
 
-             <Grid item xs={6} sx={{pl:{xs: "24px !important",sm: "30px !important",md: "62px !important",lg: "62px !important", xl: "82px !important",}}}>
+            <Grid item xs={6} sx={{pl:{xs: "24px !important",sm: "30px !important",md: "62px !important",lg: "62px !important", xl: "82px !important",}}}>
                 <InputLabel id="demo-multiple-name-label">Shipping</InputLabel>
                 <Select onChange={inputHandleChange} helperText="Some important text"   id="simple-select" label="Shipping" name='shipping' sx={{width: {xs: 175,sm: 200,md: 244,lg: 244, xl: 244,}}}  variant="standard">
 
@@ -407,7 +411,7 @@ const deletePicture = (public_id) =>
             <Grid item xs={6} sx={{pl:{xs: "24px !important",sm: "30px !important",md: "62px !important",lg: "62px !important", xl: "82px !important",}}}>
             { createLoading ? <BarLoader speed={2} /> :<Button variant="contained" disabled={!values.title || !values.description || !values.price || !values.quantity || !values.category || !values.subcategory || !values.shipping || !values.images || !values.color} type="submit" sx={{width:"244px"}}>Submit</Button>}
             </Grid>
-        </Grid>
+      </Grid>
 
 
 

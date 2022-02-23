@@ -258,15 +258,15 @@ function Header() {
 
       <List  >
         {['History', 'Password', 'Wishlist',].map((text, index) => (
-          <ListItem button key={text}>
+          <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
 
             
-            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+            <ListItemText primary={text} />
             
-          </ListItem>
+          </ListItem></Link>
         ))}
       </List>
 
@@ -328,19 +328,19 @@ function Header() {
 
 
       <List  >
-        {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Coupons',"Coupons"]].map((text, index) =>
+        {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Orders',"orders"]].map((text, index) =>
         {          
           
           return(
-          <ListItem button key={text}>
+          <Link to={`/admin/${text[1]}`} className={sty.link_nav}><ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
 
             
-             <Link to={`/admin/${text[1]}`} className={sty.link_nav}><ListItemText primary={text[0]} /></Link> 
+             <ListItemText primary={text[0]} />
             
-          </ListItem>
+          </ListItem></Link> 
         )})}
       </List>
 

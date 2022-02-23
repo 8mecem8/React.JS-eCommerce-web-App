@@ -2,8 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {fetchProductsByFilter, getAllProductsByCounts, getColors } from '../../../UtiFunctions/utiProduct';
 import { useSelector , useDispatch } from 'react-redux';
 import  {Link} from "react-router-dom";
-import './BrowseSearch.css'
 
+import _ from "lodash";
 
 
 
@@ -49,6 +49,7 @@ import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 
 import PageLoader from '../../../UtiComponents/page-loader/index'
 
+import './BrowseSearch.css'
 import useStyles from './BrowseSearchStyles'
 import BarLoader from '../../BarLoader/BarLoader';
 
@@ -56,6 +57,7 @@ import Footer from '../../Footer/Footer';
 import { MainRatingView } from '../RatingsView/MainRatingView';
 import { getCategories } from '../../../UtiFunctions/utiCategory';
 import { getSubCategories } from '../../../UtiFunctions/utiSubCategory';
+import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
 
 
 
@@ -405,6 +407,48 @@ function BrowseSearch() {
 
 
 
+    {/*------------------------ Add to cart button Function ------------------------*/}
+    const HandleAddToCart = (product) => 
+    {
+        // create cart array
+        let cart = [];
+
+
+        if (typeof window !== "undefined") {
+        // if cart is in local storage GET it
+
+            if (localStorage.getItem("cart")) {
+                 cart = JSON.parse(localStorage.getItem("cart"));
+        }
+
+
+        // push new product to cart
+        cart.push({
+            ...product,
+            count: 1,
+        });
+
+
+        // remove duplicates
+        let unique = _.uniqWith(cart, _.isEqual);
+        // save to local storage
+        // console.log('unique', unique)
+        localStorage.setItem("cart", JSON.stringify(unique));
+       
+
+        // add to reeux state
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+    }
+
+
+    }
+
+
+
+
     return (
         <>
               {enterPageLoading  ? (<PageLoader />)  : 
@@ -617,7 +661,7 @@ function BrowseSearch() {
    
                                                                             {colorsProducts.map((arg,i)=>
                                                                                     {
-                                                                                        console.log(arg.color.split(' ')[1] === undefined ? arg.color.split(' ')[0] : arg.color.split(' ')[1])
+                                                                                        //console.log(arg.color.split(' ')[1] === undefined ? arg.color.split(' ')[0] : arg.color.split(' ')[1])
                                                                                         return  <Chip
                                                                                                 key={i}                                                            
                                                                                                 label={arg.color} 
@@ -676,7 +720,7 @@ function BrowseSearch() {
                         
                         return(
                             
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip onClick={()=> { return HandleAddToCart(arg), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
                                 <Paper elevation={0} sx={{height:348,minWidth:228,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
 
@@ -785,7 +829,8 @@ function BrowseSearch() {
 
 
 
-
+            {/* Show this drawer when new items added to shopping cart */}
+                <CartDrawer />
 
 
 

@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useLayoutEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate,Link, useLocation} from "react-router-dom";
 import {createUpdateUser, roleBasedRedirect} from '../../../UtiFunctions/utiAuth'
@@ -83,8 +83,12 @@ const Login = () => {
 
    
 
-    useEffect(()=>
+    useLayoutEffect(()=>
     {
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
         if(user && user.token) navigate("/") 
     },[user])
 

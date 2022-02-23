@@ -63,6 +63,11 @@ useLayoutEffect(
   ()=>
 
   {
+    //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
     const unsubscribe = auth.onAuthStateChanged(async (user) =>
     {
       if(user){
@@ -85,9 +90,6 @@ useLayoutEffect(
             setErrorMessage(err.message)
             setError(true)
             setLoading(false)})
-
-
-
 
       }
     })
@@ -128,8 +130,6 @@ useLayoutEffect(
        <Header />
        <Routez/>
     </Router>
-
-
 
 
 

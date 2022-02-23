@@ -31,7 +31,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import Drawer from '@mui/material/Drawer';
+
 
 
 
@@ -49,6 +49,7 @@ import {AverageRatingView} from '../RatingsView/RatingsView';
 import Footer from '../../Footer/Footer';
 import RelatedProducts from '../../../UtiComponents/RelatedProducts/RelatedProducts';
 import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
+import { addToWishlist } from '../../../UtiFunctions/utiUSer';
 
 
 const labels = {
@@ -126,6 +127,14 @@ function SingleProductView() {
 
     useEffect( async()=>
     {
+
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
+
+
         let componentMounted = true;
 
         setEnterPageLoading(true)
@@ -211,39 +220,65 @@ function SingleProductView() {
 
 
         if (typeof window !== "undefined") {
-        // if cart is in local storage GET it
+                    // if cart is in local storage GET it
 
-            if (localStorage.getItem("cart")) {
-                 cart = JSON.parse(localStorage.getItem("cart"));
-        }
-
-
-        // push new product to cart
-        cart.push({
-            ...product,
-            count: 1,
-        });
+                        if (localStorage.getItem("cart")) {
+                            cart = JSON.parse(localStorage.getItem("cart"));
+                    }
 
 
-        // remove duplicates
-        let unique = _.uniqWith(cart, _.isEqual);
-        // save to local storage
-        // console.log('unique', unique)
-        localStorage.setItem("cart", JSON.stringify(unique));
-        
-        
+                    // push new product to cart
+                    cart.push({
+                        ...product,
+                        count: 1,
+                    });
 
-        // add to reeux state
-        dispatch({
-            type: "ADD_TO_CART",
-            payload: unique,
-        });
+
+                    // remove duplicates
+                    let unique = _.uniqWith(cart, _.isEqual);
+                    // save to local storage
+                    // console.log('unique', unique)
+                    localStorage.setItem("cart", JSON.stringify(unique));
+                    
+                    
+
+                    // add to reeux state
+                    dispatch({
+                        type: "ADD_TO_CART",
+                        payload: unique,
+                    });
+            }
+
+
     }
 
 
+
+    
+
+
+    {/*------------------------ Add to Wish List button Function ------------------------*/}
+    const HandleAddToWishList = async(product) => 
+    {
+
+         await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        addToWishlist(fetchedSingleProductDetails._id,user.token)
+                .then((arg)=>
+            {
+                
+            setSnackBarMessage(`Product ${fetchedSingleProductDetails.title} is succesfuly added to your Wishlist`)
+            setSnackbarOpen(true)
+            
+            })
+            .catch((error)=>
+            {
+
+            setErrorMessage(error?.response?.data || error.message)
+            setError(true)
+           
+            })
     }
-
-
 
 
 
@@ -273,11 +308,6 @@ function SingleProductView() {
                                             <Carousel showArrows={true} showThumbs={true} autoPlay infiniteLoop emulateTouch={true} >
                                                 {fetchedSingleProductDetails?.images?.map(arg =>{return(<div><img key={arg.public_id} src={arg.url} /></div>)})}                                                
                                             </Carousel>
-
-
-
-
-
 
                                             
                                         </Grid>
@@ -328,9 +358,13 @@ function SingleProductView() {
                                                                 </Grid>
 
                                                                 <Grid item xs={4} sx={{textAlign:"center"}}>
-                                                                         <Button  startIcon={<StarsRoundedIcon />} sx={{textTransform:"none"}}>
+                                                                         
+                                                                        {user === null ? <Button variant="contained" startIcon={<StarsRoundedIcon />} onClick={()=>{ navigate("/login",{state:{from: `/product/${slug}`}})}} sx={{textTransform:"none",textDecoration:"none"}}>
+                                                                            Login to Add item Wishlist 
+                                                                        </Button>  :
+                                                                         <Button variant="contained" startIcon={<StarsRoundedIcon/>} onClick={HandleAddToWishList}  sx={{textTransform:"none"}}>
                                                                             Add to Wishlist
-                                                                        </Button>
+                                                                        </Button>}
                                                                 </Grid>
                                                                 <Grid item xs={4} sx={{textAlign:"center"}}> 
                                                                         {user === null ? <Button variant="contained" startIcon={<ThumbsUpDownRoundedIcon />} onClick={()=>{ navigate("/login",{state:{from: `/product/${slug}`}})}} sx={{textTransform:"none",textDecoration:"none"}}>
@@ -457,13 +491,7 @@ function SingleProductView() {
                     </DialogContent>
 
                     <DialogActions sx={{overflow: 'hidden'}} >
-                    <Button onClick={()=>{setGiveRatingdialogOpen(false)}}>Close</Button>
-                    
-                    
-                   
-                    
-                         
-                    
+                        <Button onClick={()=>{setGiveRatingdialogOpen(false)}}>Close</Button>   
                     </DialogActions>
 
                     

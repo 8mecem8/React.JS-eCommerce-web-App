@@ -50,7 +50,7 @@ function Payment() {
 
     
 
-    const {user,cart} = useSelector(state => ({...state}))
+    const {user} = useSelector(state => ({...state}))
 
 
 
@@ -59,19 +59,19 @@ function Payment() {
     const [enterPageLoading, setEnterPageLoading] = useState(false);
   
 
-    {/*------------------------ Fetched User Cart state ------------------------*/}
-
-    const [fuc, setFuc] = useState([]);
 
     useEffect( async ()=>
     {
-    setEnterPageLoading(true)
-    
 
-    
-    
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setEnterPageLoading(false)
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+        setEnterPageLoading(true)
+        
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        setEnterPageLoading(false)
 
     },[user])
     
@@ -132,11 +132,6 @@ const options = {
                     </div>
                     </Box>
                     </Card>
-
-
-                   
-
-
 
 
 

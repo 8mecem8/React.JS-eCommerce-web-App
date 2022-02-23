@@ -49,6 +49,12 @@ function UserHistory()
 
     useEffect( async ()=>
     {
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
+
     setEnterPageLoading(true)
     
 
@@ -62,9 +68,6 @@ function UserHistory()
     },[])
 
 
-
-    //console.log("userOrders",userOrders)
-
     return (
 <>   
 
@@ -74,25 +77,9 @@ function UserHistory()
         (
 
             <>
-
-                <OrdersTable userOrders={userOrders} />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <Box sx={{mx:5,my:5}}>
+                    <OrdersTable userOrders={userOrders} />
+                </Box>
 
                 <Divider variant="middle" sx={{mx:12}}/>
 
@@ -102,7 +89,6 @@ function UserHistory()
         )
     }
         
-
 </> 
 )
 }

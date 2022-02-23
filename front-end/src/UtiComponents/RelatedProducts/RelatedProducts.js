@@ -98,7 +98,7 @@ function RelatedProducts({exArg}) {
             {relatedList.map(arg =>
                     {
                     
-                        console.log(arg)
+                        
                         return(
                             
                             <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >

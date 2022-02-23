@@ -55,8 +55,6 @@ function BestSellers() {
     {/*------------------------ Pagination State ------------------------*/}
     const [page, setPage] = useState(1);
 
-    {/*------------------------ Cart Drawer State ------------------------*/}
-    const [drawerActiveState, setDrawerActiveState] = useState(false);
 
 
     {/*------------------------ Function's main Loading state ------------------------*/}
@@ -66,6 +64,11 @@ function BestSellers() {
     {/*------------------------ Fetch All Products as Component Started ------------------------*/}
     useEffect( async()=>
     {
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
         setEnterPageLoading(true)
 
 
@@ -80,7 +83,7 @@ function BestSellers() {
                 .catch((err)=>{console.log("error in getting all products",err)})
 
 
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 100));
         setEnterPageLoading(false)
     },[page])
 
@@ -148,7 +151,7 @@ function BestSellers() {
             {enterPageLoading ? (<PageLoader />)  : 
         (
 
-                   <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
+            <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
 
             <p>Best Sellers</p>
 
@@ -163,7 +166,7 @@ function BestSellers() {
                         
                         return(
                             
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0} onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0} onClick={()=> { return HandleAddToCart(arg), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
                                 <Paper elevation={0} sx={{height:348,minWidth:228,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
 

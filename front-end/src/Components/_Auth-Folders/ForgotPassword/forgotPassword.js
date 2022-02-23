@@ -75,6 +75,10 @@ function ForgotPassword() {
 
     useEffect(()=>
     {
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
         if(user && user.token) navigate("/")
     },[user])
 

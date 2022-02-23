@@ -1,7 +1,7 @@
-const authRouter = require('express').Router()
+const userRouter = require('express').Router()
 
 // imported Controllers-------------------------------------------------------------------------
-const { user, userCart, getUserCart, emptyCart, saveAddress, createOrder, createCashOrder, orders } = require('../Controllers/userController')
+const { user, userCart, getUserCart, emptyCart, saveAddress, createOrder, createCashOrder, orders, addToWishlist, wishlist, removeFromWishlist } = require('../Controllers/userController')
 
 
 
@@ -10,18 +10,23 @@ const { authCheck} = require('../Middlewares/authMWs')
 
 
 // Routes-------------------------------------------------------------------------
-authRouter.get('/user',user)
-authRouter.post('/user/cart',authCheck,userCart)
-authRouter.get("/user/cart", authCheck, getUserCart); // get cart
-authRouter.delete("/user/cart", authCheck, emptyCart); // empty cart
-authRouter.post("/user/address", authCheck, saveAddress);
+userRouter.get('/user',user)
+userRouter.post('/user/cart',authCheck,userCart)
+userRouter.get("/user/cart", authCheck, getUserCart); // get cart
+userRouter.delete("/user/cart", authCheck, emptyCart); // empty cart
+userRouter.post("/user/address", authCheck, saveAddress);
 
 
-authRouter.post("/user/order", authCheck, createOrder); // stripe
-authRouter.post("/user/cash-order", authCheck, createCashOrder); // cod
-authRouter.get("/user/orders", authCheck, orders);
+userRouter.post("/user/order", authCheck, createOrder); // stripe
+userRouter.post("/user/cash-order", authCheck, createCashOrder); // cod
+userRouter.get("/user/orders", authCheck, orders);
 
 
-module.exports = authRouter
+// wishlist
+userRouter.post("/user/wishlist", authCheck, addToWishlist);
+userRouter.get("/user/wishlist", authCheck, wishlist);
+userRouter.put("/user/wishlist/:productId", authCheck, removeFromWishlist);
+
+module.exports = userRouter
 
 

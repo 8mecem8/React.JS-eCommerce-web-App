@@ -82,6 +82,10 @@ const RegisterComplete = () => {
 useEffect(
   ()=>
   {
+    //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
     setEmail(window.localStorage.getItem('emailForSignIn'))    
   },
   [])

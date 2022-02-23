@@ -13,26 +13,20 @@ import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
-import Drawer from '@mui/material/Drawer';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Grid from '@mui/material/Grid';
-import SentimentVerySatisfiedOutlinedIcon from '@mui/icons-material/SentimentVerySatisfiedOutlined';
-import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Fab from '@mui/material/Fab';
 import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
 import Pagination from '@mui/material/Pagination';
-import Divider from '@mui/material/Divider';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 
 
 
@@ -44,6 +38,25 @@ import PageLoader from '../../../UtiComponents/page-loader/index'
 
 
 import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer'
+import { addToWishlist } from '../../../UtiFunctions/utiUSer';
+
+
+
+
+{/*------------------------ Snackbar color setting ------------------------*/}
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+{/*------------------------ Snackbar slide effect ------------------------*/}
+function TransitionDown(props) {
+  return <Slide {...props} direction="down" />;
+}
+
+
+
+
+
 
 
 
@@ -69,9 +82,19 @@ function NewArrivals() {
     {/*------------------------ Change Tooltip Title ------------------------*/}
     const [tTipTitle, setTTipTitle] = useState([]);
 
+    
+
     {/*------------------------ Function's main Loading state ------------------------*/}
 
     const [enterPageLoading, setEnterPageLoading] = useState(false);
+
+
+     {/*------------------------ Snackbar states ------------------------*/}
+    const [SnackbarOpen, setSnackbarOpen] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [snackBarMessage, setSnackBarMessage] = useState("");
+
 
     {/*------------------------ Fetch All Products as Component Started ------------------------*/}
     useEffect( async()=>
@@ -91,7 +114,7 @@ function NewArrivals() {
                 .catch((err)=>{console.log("error in getting all products",err)})
 
 
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 100));
         setEnterPageLoading(false)
     },[page])
 
@@ -173,6 +196,34 @@ function NewArrivals() {
 
 
 
+     {/*------------------------ Add to Wish List button Function ------------------------*/}
+    const HandleAddToWishList = async(id,title) => 
+    {
+
+         await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        addToWishlist(id,user.token)
+                .then((arg)=>
+            {
+             
+            
+            setSnackBarMessage(`Product ${title} is succesfuly added to your Wishlist`)
+            setSnackbarOpen(true)
+            
+            })
+            .catch((error)=>
+            {
+            
+            setErrorMessage(error?.response?.data || error.message)
+            setError(true)
+           
+            })
+    }
+
+
+
+
+
 
     return (
         <>
@@ -192,8 +243,10 @@ function NewArrivals() {
 
             {HomefetchedProductsListNewArrival.map(arg =>
                     {
+
+                        
                     
-                        console.log("args  in the main list are ===>",tTipTitle)
+                        //console.log("args  in the main list are ===>",tTipTitle)
                         return(
 
                             <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon   /></Fab></Tooltip>} >
@@ -227,11 +280,11 @@ function NewArrivals() {
                                         </CardContent>
 
 
-                                        <CardActions disableSpacing sx={{display:"grid",gridTemplateColumns: 'repeat(3, 1fr)',m:"0 !important",p:"0 !important"}}>
-                                            <IconButton aria-label="add to favorites" sx={{m:"0 !important",p:"0 !important"}}>
-                                            <FavoriteIcon sx={{color:"red",p:"0 !important"}} />
+                                        <CardActions disableSpacing sx={{display:"grid",gridTemplateColumns: 'repeat(3, 1fr)',m:"0 !important",p:"0 !important",}}>
+                                            <IconButton aria-label="add to favorites" sx={{m:"0 !important",p:"0 !important",}}>
+                                              <FavoriteBorderIcon  onClick={()=>{HandleAddToWishList(arg._id,arg.title)}} sx={{color:"red",p:"0 !important",borderRadius:"50%",":hover": {bgcolor: "#f7cdcd"},}} />
                                             </IconButton>
-                     
+                                                {/* FavoriteIcon */}
                                         </CardActions>
                                 </Card>
 
@@ -253,6 +306,33 @@ function NewArrivals() {
                     </Box>
 
             </Container>
+
+
+
+
+                
+            
+            {/*------------------------ Snackbar ------------------------*/}
+        <Snackbar open={SnackbarOpen} autoHideDuration={10000} onClose={()=>{setSnackbarOpen(!SnackbarOpen)}}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} TransitionComponent={TransitionDown}>
+            <Alert onClose={()=>{setSnackbarOpen(!SnackbarOpen)}} severity="success" sx={{ width: '100%' }}>
+                {snackBarMessage}
+            </Alert>
+        </Snackbar>
+
+
+
+         <Snackbar open={error} autoHideDuration={10000} onClose={()=>{setError(false)}}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} TransitionComponent={TransitionDown}>
+
+            <Alert onClose={()=>{setError(false)}} severity="error" sx={{ width: '100%' }}>
+                {`${errorMessage}`}
+            </Alert>
+
+         </Snackbar>
+
+
+
 
 
 

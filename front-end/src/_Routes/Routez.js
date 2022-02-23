@@ -3,29 +3,31 @@ import { Routes, Route} from "react-router-dom";
 import {useDispatch,useSelector} from 'react-redux'
 
 
-import PageLoader from '../UtiComponents/page-loader';
-import Login from "../Components/_Auth-Folders/Login/Login"
-import Register from "../Components/_Auth-Folders/Register/Register"
-import Home from "../Components/Home/Home"
-import RegisterComplete from '../Components/_Auth-Folders/RegisterComplete/RegisterComplete';
-import ForgotPassword from '../Components/_Auth-Folders/ForgotPassword/forgotPassword';
-import History from '../Components/User/UserHistory/UserHistory';
-import UserPassword from '../Components/User/UserPassword/UserPassword';
-import UserWishList from '../Components/User/UserWishList/UserWishList';
-import AdminDashBoard from '../Components/Admin/AdminDashBoard/AdminDashBoard';
-import AdminCategory from '../Components/Admin/AdminCategory/AdminCategory';
-import AdminProduct from '../Components/Admin/AdminProduct/ProductModule';
-import AdminAllProducts from '../Components/Admin/AdminAllProducts/AllProductsModule';
-import SingleProductView from '../Components/Product/SingleProductView/SingleProductView';
-import ShoppingCart from '../Components/ShoppingCart/ShoppingCart';
-import BrowseSearch from '../Components/Product/BrowseSearch/BrowseSearch';
-import Checkout from '../Components/Checkout/Checkout';
-import Payment from '../Components/Payment/Payment';
+import pageLoader from '../UtiComponents/page-loader';
+//const PageLoader = lazy(() => import('../UtiComponents/page-loader')) ;
+const Login = lazy(() => import('../Components/_Auth-Folders/Login/Login')) 
+const Register = lazy(() => import('../Components/_Auth-Folders/Register/Register')) 
+const Home = lazy(() => import('../Components/Home/Home')) 
+const RegisterComplete = lazy(() => import('../Components/_Auth-Folders/RegisterComplete/RegisterComplete'))
+const ForgotPassword = lazy(() => import('../Components/_Auth-Folders/ForgotPassword/forgotPassword'))
+const History = lazy(() => import('../Components/User/UserHistory/UserHistory')) 
+const UserPassword = lazy(() => import('../Components/User/UserPassword/UserPassword')) 
+const UserWishList = lazy(() => import('../Components/User/UserWishList/UserWishList')) 
+const AdminDashBoard = lazy(() => import('../Components/Admin/AdminDashBoard/AdminDashBoard')) 
+const AdminCategory = lazy(() => import('../Components/Admin/AdminCategory/AdminCategory'))
+const AdminProduct = lazy(() => import('../Components/Admin/AdminProduct/ProductModule')) 
+const AdminAllProducts = lazy(() => import('../Components/Admin/AdminAllProducts/AllProductsModule')) 
+const SingleProductView = lazy(() => import('../Components/Product/SingleProductView/SingleProductView'))
+const ShoppingCart = lazy(() => import('../Components/ShoppingCart/ShoppingCart')) 
+const BrowseSearch = lazy(() => import('../Components/Product/BrowseSearch/BrowseSearch'))
+const Checkout = lazy(() => import('../Components/Checkout/Checkout')) 
+const Payment = lazy(() => import('../Components/Payment/Payment')) 
+const AdminOrders = lazy(() => import('../Components/Admin/AdminOrders/AdminOrders'))
 
 
 
 
-import LoadPage from '../UtiComponents/page-loader/index'
+
 
 
 const NoMatchPage = lazy(() => import('../UtiComponents/not-found/NoMatchPage'));
@@ -45,7 +47,7 @@ const Routez = () => {
 
     return (
         <>
-        <Suspense fallback={<PageLoader />}>
+        <Suspense fallback={<pageLoader />}>
              <Routes>
                 <Route index element={<Home />} />
                 <Route  path="login" element={<Login />} />
@@ -64,6 +66,7 @@ const Routez = () => {
                 <Route  path="/admin/category" element={!user && !user?.token ?  <Login /> : <AdminCategory />} />
                 <Route  path="/admin/product" element={!user && !user?.token ?  <Login /> : <AdminProduct />} />
                 <Route  path="/admin/products" element={!user && !user?.token ?  <Login /> : <AdminAllProducts />} />
+                <Route  path="/admin/orders" element={!user && !user?.token ?  <Login /> : <AdminOrders />} />
 
 
                 {/* Single Product Page */}

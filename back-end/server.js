@@ -15,6 +15,7 @@ const subCategoryRouter = require('./Routes/Route-Links/subCategoryRouter.js');
 const productRouter = require('./Routes/Route-Links/productRouter.js');
 const cloudinaryRouter = require('./Routes/Route-Links/cloudinaryRouter.js');
 const stripeRouter = require('./Routes/Route-Links/stripeRouter.js');
+const adminRouter = require('./Routes/Route-Links/adminRouter.js');
 
 
 
@@ -35,6 +36,7 @@ app.use("/api/", categoryRouter);
 app.use("/api/", subCategoryRouter);
 app.use("/api/", productRouter);
 app.use("/api/", cloudinaryRouter);
+app.use("/api/", adminRouter);
 app.use("/api/auth", authRouter);
 
 

@@ -14,17 +14,18 @@ import Paper from '@mui/material/Paper';
 
 
 /* Custom Css */
-import useStyles from './OrdersTableStyles'
+import useStyles from './AdminOrdersTableStyles'
 
 
 
 //Main import components
-import ContentRow from './TableContent/ContentRow';
+import ContentRow from './TableContent/AdminContentRow';
+import AdminContentRow from './TableContent/AdminContentRow';
 
 
 
 
-function OrdersTable({userOrders}) 
+function AdminOrdersTable({userOrders,userToken}) 
 {
     const sty = useStyles()
     
@@ -36,13 +37,14 @@ function OrdersTable({userOrders})
 return (
 <>   
     <TableContainer component={Paper} sx={{mb:2}}>
-        <Typography variant='h3' textAlign="center" fontWeight="500" sx={{mx:"auto",my:3}}>Order History Information</Typography>
+        <Typography variant='h3' textAlign="center" fontWeight="500" sx={{mx:"auto",my:3}}>All Orders</Typography>
         <Table aria-label="collapsible table">
 
             <TableHead sx={{backgroundColor:"#e1efff"}}>
             <TableRow>
                 <TableCell />
                 <TableCell >Order Title</TableCell>
+                <TableCell >Ordered By</TableCell>
                 <TableCell align="right">Order Date</TableCell>
                 <TableCell align="right">Total Price</TableCell>
                 <TableCell align="right">Order Status</TableCell>
@@ -51,7 +53,7 @@ return (
             </TableHead>
 
             <TableBody>
-                {userOrders?.map((order,i)=>{return(<> <ContentRow arg={order} />  </>)})}
+                {userOrders?.map((order,i)=>{return(<> <AdminContentRow arg={order} userToken={userToken} />  </>)})}
             </TableBody>
 
         </Table>
@@ -60,4 +62,4 @@ return (
 )
 }
 
-export default OrdersTable
+export default AdminOrdersTable

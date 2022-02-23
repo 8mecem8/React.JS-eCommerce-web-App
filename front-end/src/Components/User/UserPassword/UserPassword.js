@@ -25,7 +25,7 @@ import { updatePassword } from "firebase/auth";
 
 import pic1 from "./0.jpg"
 
-
+import PageLoader from '../../../UtiComponents/page-loader';
 
 
 /*------------------------ Snackbar color setting ------------------------*/
@@ -59,11 +59,28 @@ function UserPassword() {
       
     
 /*------------------------ Function's main states ------------------------*/
+      const [enterPageLoading, setEnterPageLoading] = useState(false);
       const [newPassword,setNewPassword] = useState("")
 
 
 
+  useEffect( async() => {
+     //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
 
+
+      setEnterPageLoading(true)
+    
+
+     
+    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setEnterPageLoading(false)
+
+
+  }, [])
+  
 
 
     /*------------------------ User Email verified, password added to user's account ------------------------*/
@@ -128,92 +145,103 @@ function UserPassword() {
 
 
     return (
-        <div>
-            {/*------------------------ Register Division ------------------------*/}
-<Card sx={{ maxWidth: 800, width: {
-      xs: 400, 
-      sm: 600, 
-      md: 700, 
-      lg: 700, 
-      xl: 800, 
-    }, }} className={sty.container}>
+<>
+              {    
+                  enterPageLoading ? (<PageLoader />)  : 
+              
+                  (
 
-        <CardMedia component="img" image={pic1} alt="Register"/>
+                      <>
+                                          {/*------------------------ Register Division ------------------------*/}
+                          <Card sx={{ maxWidth: 800, width: {
+                                xs: 400, 
+                                sm: 600, 
+                                md: 700, 
+                                lg: 700, 
+                                xl: 800, 
+                              }, }} className={sty.container}>
 
-    <CardContent>
+                                  <CardMedia component="img" image={pic1} alt="Register"/>
 
-        <Typography gutterBottom variant="h5" component="div">
-          Change Password
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Please Enter your New Password to change your Current Password
-        </Typography>
+                              <CardContent>
 
-
-    </CardContent>
-
-<form onSubmit={inputSubmit}>
-    <CardContent>
-
-        
-
-       <TextField
-        label="Password"
-        type="password"
-        autoComplete="current-password"
-        value={newPassword}
-        name="todo"
-        onChange={(e)=>{setNewPassword(e.target.value);}}
-        
-        fullWidth
-      />
-
-  
-    </CardContent>
+                                  <Typography gutterBottom variant="h5" component="div">
+                                    Change Password
+                                  </Typography>
+                                  <Typography variant="body2" color="text.secondary">
+                                    Please Enter your New Password to change your Current Password
+                                  </Typography>
 
 
-    <CardActions>
+                              </CardContent>
 
-        <Button 
-        size="small" 
-        variant={"outlined"}
-        color="primary"
-        disabled={!newPassword}
-        type="submit"
-        size="medium"    
-        
-        
-        >{Loading ? <CircularProgress size={35} /> : 'Submit'}</Button>
-        
+                          <form onSubmit={inputSubmit}>
+                              <CardContent>
 
-    </CardActions>
-</form>
+                                  
 
+                                <TextField
+                                  label="Password"
+                                  type="password"
+                                  autoComplete="current-password"
+                                  value={newPassword}
+                                  name="todo"
+                                  onChange={(e)=>{setNewPassword(e.target.value);}}
+                                  
+                                  fullWidth
+                                />
 
-</Card>
-
-
-{/*------------------------ Snackbar ------------------------*/}
+                            
+                              </CardContent>
 
 
-      <Snackbar open={open} autoHideDuration={10000} onClose={snackCloseAction}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} TransitionComponent={TransitionDown}>
-        <Alert onClose={snackCloseAction} severity="success" sx={{ width: '100%' }}>
-          {`Your Password Has been updated successfully`}
-          
-        </Alert>
-      </Snackbar>
+                              <CardActions>
+
+                                  <Button 
+                                  size="small" 
+                                  variant={"outlined"}
+                                  color="primary"
+                                  disabled={!newPassword}
+                                  type="submit"
+                                  size="medium"    
+                                  
+                                  
+                                  >{Loading ? <CircularProgress size={35} /> : 'Submit'}</Button>
+                                  
+
+                              </CardActions>
+                          </form>
 
 
-       <Snackbar open={error} autoHideDuration={10000} onClose={ErrorsnackCloseAction}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} TransitionComponent={TransitionDown}>
-        <Alert onClose={ErrorsnackCloseAction} severity="error" sx={{ width: '100%' }}>
-          {`${errorMessage}`}
-          
-        </Alert>
-      </Snackbar>
-        </div>
-    )
+                          </Card>
+
+
+                          {/*------------------------ Snackbar ------------------------*/}
+
+
+                                <Snackbar open={open} autoHideDuration={10000} onClose={snackCloseAction}
+                                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} TransitionComponent={TransitionDown}>
+                                  <Alert onClose={snackCloseAction} severity="success" sx={{ width: '100%' }}>
+                                    {`Your Password Has been updated successfully`}
+                                    
+                                  </Alert>
+                                </Snackbar>
+
+
+                                <Snackbar open={error} autoHideDuration={10000} onClose={ErrorsnackCloseAction}
+                                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }} TransitionComponent={TransitionDown}>
+                                  <Alert onClose={ErrorsnackCloseAction} severity="error" sx={{ width: '100%' }}>
+                                    {`${errorMessage}`}
+                                    
+                                  </Alert>
+                                </Snackbar>
+                      </>
+                  )
+              }
+
+</>
+      
+)
 }
 
 export default UserPassword
