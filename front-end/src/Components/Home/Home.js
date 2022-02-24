@@ -40,6 +40,7 @@ import PageLoader from '../../UtiComponents/page-loader/index'
 import Footer from '../Footer/Footer';
 import NewArrivals from './NewArrivals/NewArrivals';
 import BestSellers from './BestSellers/BestSellers';
+import AllProductsHome from './AllProductsHome/AllProductsHome';
 
 
 
@@ -168,7 +169,7 @@ function Home()
 
             <BestSellers />
            
-
+            <AllProductsHome />
 
      
 

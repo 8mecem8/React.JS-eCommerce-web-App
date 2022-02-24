@@ -6,12 +6,20 @@ const userModel = require('../../Models/userModel')
 
 const categoryModel = require('../../Models/categoryModel')
 
+
+
+
+
+
+
+
+
 exports.listAll = async (req, res) =>
 {
   const products = await productModel.find({})
   .limit(parseInt(req.params.count)).populate('category').populate('subcategory').sort([["createdAt","desc"]]).exec()
 
-  console.log("products are ==>",products)
+  //console.log("products are ==>",products)
   return res.json(products);
 }
   
@@ -50,10 +58,12 @@ exports.orderList = async (req, res) =>
 {
   try {
 
-    const {sort , order, page} = req.body
+    const {sort , order, page, perPAge} = req.body
+
+    
 
     const currentPage = page || 1
-    const perPAge = 3
+    //const perPAge = 7
 
     const products = await productModel.find({}).skip((currentPage - 1) * perPAge).populate('category').populate('subcategory').sort([[sort, order]]).limit(perPAge).exec()
     
@@ -113,8 +123,8 @@ exports.remove = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-  console.log(req.body)
-  console.log(req.params.slug)
+  //console.log(req.body)
+  //console.log(req.params.slug)
 
   const { title, description, price, category, subcategory, shipping, quantity, images, color,} = req.body.product;
   try {

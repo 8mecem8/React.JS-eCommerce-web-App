@@ -67,6 +67,7 @@ function NewArrivals() {
     const {user,cart} = useSelector(state => ({...state}))
 
 
+    const ProductPerPage = 6
 
     {/*------------------------ Function's main state ------------------------*/}
     const [HomefetchedProductsListNewArrival, setHomeFetchedProductsListNewArrival] = useState([]);
@@ -108,8 +109,9 @@ function NewArrivals() {
                 .catch((err)=>{console.log("error in getting all products",err)})
 
 
+            if (page > 2){setPage(2)}
 
-        await  getProductsByOrder("createdAt", "desc", page)
+        await  getProductsByOrder("createdAt", "desc", page, ProductPerPage)
                 .then((arg)=>{setHomeFetchedProductsListNewArrival(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
 
@@ -237,7 +239,7 @@ function NewArrivals() {
             <p>New arrivals</p>
 
             <Box
-            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto" }}>
+            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto",justifyContent:"center",backgroundColor:"#69d2ea",borderRadius:"23px" }}>
 
 
 
@@ -249,44 +251,49 @@ function NewArrivals() {
                         //console.log("args  in the main list are ===>",tTipTitle)
                         return(
 
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-18px,0)"}}><AddShoppingCartSharpIcon   /></Fab></Tooltip>} >
+                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(!drawerActiveState), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug?.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="medium" variant="extended" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", transform:"translate3d(-51px,6px,0)",textTransform:"none"}}><AddShoppingCartSharpIcon   /> <Typography sx={{ml:"-5px !important",p:0,fontFamily:"ui-monospace"}}> Add to Cart </Typography> </Fab></Tooltip>} >
 
-                                <Paper elevation={0} sx={{height:328,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
-                                <Card sx={{height:208,width:205,p:"20px",m:"0 !important"}}>
-                                <Chip  label={`${arg.category.name}`} size="small" color="warning" variant="outlined" sx={{ml:"-15px !important", mt:"-17px !important"}} />
-                                <CardMedia
-                                component="img"
-                                image={arg.images[0].url}
-                                alt={arg.images[0].public_id}
-                                sx={{pt:"5%",t:0,my:"auto"}}
-                                />  
-                               
-                                
-                                
-                                </Card>
-
-                                <Card sx={{height:140,width:205,p:"0px !important",m:"0 !important"}}>
-
-                                        <CardContent sx={{p:"0px !important",m:"0 !important"}}>
-                                            <Typography variant="caption" color="text.secondary" sx={{display:"-webkit-box",letterSpacing: 0,fontWeight: 'light',lineHeight: '-10px important',fontSize:"12px",p:"0px !important",mb:"0 !important",mt:"0 !important",ml:"0.1 !important",mr:"0.1 !important"}}>
-                                            { <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>{arg.title.slice(0,50)}..</Link>} 
-                                            </Typography>
-                                        </CardContent>
-
-                                        <CardContent sx={{p:"0px !important",m:"0 !important"}}>
-                                            <Typography variant="caption" color="text.secondary" sx={{p:"0px !important",mr:"0 !important",mt:"0 !important",mb:"0 !important",display:"-webkit-box",fontFamily:"Helvetica",letterSpacing: 0,fontWeight: 600,color:"#1d252c",lineHeight: '29px important',fontSize:"25px"}}>
-                                            {`$${arg.price}`}
-                                            </Typography>
-                                        </CardContent>
+                                <Paper elevation={0} sx={{height:311,m:"1.5 !important",mt:"23px !important",p:"0px",":hover": {boxShadow: 6,},borderRadius:"104px"}}>
+                                        <Card sx={{height:208,width:205,p:"20px",m:"0 !important",borderTopRightRadius:"100px",borderTopLeftRadius:"15px"}}>
 
 
-                                        <CardActions disableSpacing sx={{display:"grid",gridTemplateColumns: 'repeat(3, 1fr)',m:"0 !important",p:"0 !important",}}>
-                                            <IconButton aria-label="add to favorites" sx={{m:"0 !important",p:"0 !important",}}>
-                                              <FavoriteBorderIcon  onClick={()=>{HandleAddToWishList(arg._id,arg.title)}} sx={{color:"red",p:"0 !important",borderRadius:"50%",":hover": {bgcolor: "#f7cdcd"},}} />
-                                            </IconButton>
-                                                {/* FavoriteIcon */}
-                                        </CardActions>
-                                </Card>
+                                            <Chip  label={`${arg.category.name}`} size="small" color="warning" variant="outlined" sx={{ml:"-15px !important", mt:"-17px !important"}} />
+                                            
+                                            
+                                            <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>
+                                            <CardMedia
+                                            component="img"
+                                            image={arg.images[0].url}
+                                            alt={arg.images[0].public_id}
+                                            sx={{pt:"5%",t:0,my:"auto"}}
+                                            />  
+                                            </Link>
+                                    
+                                                                            
+                                        </Card>
+
+                                        <Card sx={{height:140,width:205,p:"0px !important",m:"0 !important"}}>
+
+                                                <CardContent sx={{p:"0px !important",m:"0 !important"}}>
+                                                    <Typography variant="caption" color="text.secondary" sx={{display:"-webkit-box",letterSpacing: 0,fontWeight: '600',fontFamily:"system-ui",lineHeight: '-10px important',fontSize:"13.1px",p:"0px !important",mb:"0 !important",mt:"0 !important",ml:"0.1 !important",mr:"0.1 !important"}}>
+                                                    { <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>{arg.title.slice(0,50)}..</Link>} 
+                                                    </Typography>
+                                                </CardContent>
+
+                                                <CardContent sx={{p:"0px !important",m:"0 !important"}}>
+                                                    <Typography variant="caption" color="text.secondary" sx={{transform:"translate3d(48px,-1px ,10px)",p:"0px !important",mr:"0 !important",mt:"0 !important",mb:"0 !important",display:"-webkit-box",fontFamily:"monospace !important",letterSpacing: 0,fontWeight: 600,color:"#1d252c",lineHeight: '29px important',fontSize:"28px"}}>
+                                                    {`$${arg.price}`}
+                                                    </Typography>
+                                                </CardContent>
+
+
+                                                <CardActions disableSpacing sx={{display:"grid",gridTemplateColumns: 'repeat(3, 1fr)',m:"0 !important",p:"0 !important",}}>
+                                                    <IconButton aria-label="add to favorites" sx={{m:"0 !important",p:"0 !important",":hover": {"& svg ":{borderStyle:"double"}}}}>
+                                                        <FavoriteIcon  onClick={()=>{HandleAddToWishList(arg._id,arg.title)}} sx={{transform:"translate3d(3px,-4px ,10px)",color:"red",p:"0 !important",borderRadius:"50%",scale:"1.4 !important",}} />
+                                                    </IconButton>
+                                                        {/* ":hover": {borderStyle:"double"},  */}
+                                                </CardActions>
+                                        </Card>
 
 
                                 </Paper>
@@ -302,7 +309,7 @@ function NewArrivals() {
             </Box>
 
                     <Box sx={{mx:"auto !important", display:"grid", alignContent:"center", justifyContent:"center",m:2,p:2}}>
-                        <Pagination count={Math.round(fetchedTotalNumberforProducts / 3)} page={page} onChange={handleChange}  />
+                        <Pagination count={Math.ceil(fetchedTotalNumberforProducts / ProductPerPage)} page={page} onChange={handleChange}  />
                     </Box>
 
             </Container>

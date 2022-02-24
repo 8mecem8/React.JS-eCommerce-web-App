@@ -172,128 +172,128 @@ function Header() {
 <Box sx={{ flexGrow: 1 }}>
 
   <AppBar position="static" sx={{ height: [80,54] }} >
-    <Toolbar >
-
-
-
-{/*------------------------ logo ------------------------*/}
-<Typography
-            
-            noWrap
-            component="div"
-             sx={{ mr: 2,ml: 0 }} 
-             underline="none"
-          >
-  {/* <Link  color="inherit" underline="none" sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }}><img src={logo} className="App-logo" alt="logo" /></Link> */}
-
-<Link className="AppLogo" to="/"><img src={logo} style={{mixBlendMode: "screen",pointerEvents:"none",display:"flex",height: "40px",zIndex:1000}}   alt="logo" /></Link>
-</Typography>
-
-
-{/*------------------------ Burger Menu ------------------------*/}
-<IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 0 }}
-            onClick={burgerMenuHandleClick}
-          >
-            <MenuIcon />
-</IconButton>
+          <Toolbar >
+
+
+
+                {/*------------------------ logo ------------------------*/}
+                <Typography
+                            
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2,ml: 0 }} 
+                            underline="none"
+                          >
+                  {/* <Link  color="inherit" underline="none" sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }}><img src={logo} className="App-logo" alt="logo" /></Link> */}
+
+                <Link className="AppLogo" to="/"><img src={logo} style={{mixBlendMode: "screen",pointerEvents:"none",display:"flex",height: "40px",zIndex:1000}}   alt="logo" /></Link>
+                </Typography>
+
+
+                {/*------------------------ Burger Menu ------------------------*/}
+                <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 0 }}
+                            onClick={burgerMenuHandleClick}
+                          >
+                            <MenuIcon />
+                </IconButton>
 
 
-{/* <StyledMenu
-        
-      >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Sent mail" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <DraftsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <InboxIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </StyledMenuItem>
-</StyledMenu> */}
+                {/* <StyledMenu
+                        
+                      >
+                        <StyledMenuItem>
+                          <ListItemIcon>
+                            <SendIcon fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Sent mail" />
+                        </StyledMenuItem>
+                        <StyledMenuItem>
+                          <ListItemIcon>
+                            <DraftsIcon fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Drafts" />
+                        </StyledMenuItem>
+                        <StyledMenuItem>
+                          <ListItemIcon>
+                            <InboxIcon fontSize="small" />
+                          </ListItemIcon>
+                          <ListItemText primary="Inbox" />
+                        </StyledMenuItem>
+                </StyledMenu> */}
 
 
-{/* <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={burgerMenu}
-        open={Boolean(burgerMenu)}
-        onClose={burgerMenuHandleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
- */}
+                {/* <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={burgerMenu}
+                        open={Boolean(burgerMenu)}
+                        onClose={burgerMenuHandleClose}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                      >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                      </Menu>
+                */}
 
 
 
-<Drawer  anchor={"left"} open={burgerMenu} onClose={() => {setBurgerMEnu(false)}} >
+                <Drawer  anchor={"left"} open={burgerMenu} onClose={() => {setBurgerMEnu(false)}} >
 
 
-<Box >
+                <Box >
 
 
-      <List  >
-        {['History', 'Password', 'Wishlist',].map((text, index) => (
-          <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+                      <List  >
+                        {['History', 'Password', 'Wishlist',].map((text, index) => (
+                          <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav}><ListItem button key={text}>
+                            <ListItemIcon>
+                              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
 
-            
-            <ListItemText primary={text} />
-            
-          </ListItem></Link>
-        ))}
-      </List>
+                            
+                            <ListItemText primary={text} />
+                            
+                          </ListItem></Link>
+                        ))}
+                      </List>
 
 
-      <Divider />
+                      {/* <Divider />
 
 
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+                      <List>
+                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                          <ListItem button key={text}>
 
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+                            <ListItemIcon>
+                              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
 
-            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav} underline="none"><ListItemText primary={text} /></Link>
-          </ListItem>
-        ))}
-      </List>
+                            <Link to={`/user/${text.split(' ')[0]}`} className={sty.link_nav} underline="none"><ListItemText primary={text} /></Link>
+                          </ListItem>
+                        ))}
+                      </List> */}
 
 
-</Box>
+                </Box>
 
 
 
 
- </Drawer>
+                </Drawer>
 
 
 
@@ -302,144 +302,144 @@ function Header() {
 
 
 
-{/*------------------------Admin DashBoard ------------------------*/}
-<Typography  component="div" sx={{ flexGrow: 1 }}>
+                {/*------------------------Admin DashBoard ------------------------*/}
+                <Typography  component="div" sx={{ flexGrow: 1 }}>
 
-{user?.role === "admin" ?<Button
-        id="demo-positioned-button"
-        aria-controls="demo-positioned-menu"
-        aria-haspopup="true"
-        
-        onClick={aDashboardClick}
-        sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}
-        
-      >
-       <p className={sty.link}>Admin Dashboard</p>
-  </Button> 
- :[]} 
-  
+                {user?.role === "admin" ?<Button
+                        id="demo-positioned-button"
+                        aria-controls="demo-positioned-menu"
+                        aria-haspopup="true"
+                        
+                        onClick={aDashboardClick}
+                        sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}
+                        
+                      >
+                      <p className={sty.link}>Admin Dashboard</p>
+                  </Button> 
+                :[]} 
+                  
 
 
 
-<Drawer  anchor={"right"} open={adminDashboardStatus} onClose={aDashboardClose} >
+                <Drawer  anchor={"right"} open={adminDashboardStatus} onClose={aDashboardClose} >
 
 
-<Box >
+                <Box >
 
 
-      <List  >
-        {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Orders',"orders"]].map((text, index) =>
-        {          
-          
-          return(
-          <Link to={`/admin/${text[1]}`} className={sty.link_nav}><ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+                      <List  >
+                        {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Orders',"orders"]].map((text, index) =>
+                        {          
+                          
+                          return(
+                          <Link to={`/admin/${text[1]}`} className={sty.link_nav}><ListItem button key={text}>
+                            <ListItemIcon>
+                              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
 
-            
-             <ListItemText primary={text[0]} />
-            
-          </ListItem></Link> 
-        )})}
-      </List>
+                            
+                            <ListItemText primary={text[0]} />
+                            
+                          </ListItem></Link> 
+                        )})}
+                      </List>
 
 
-      <Divider />
+                      {/* <Divider />
 
 
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+                      <List>
+                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                          <ListItem button key={text}>
 
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+                            <ListItemIcon>
+                              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
 
-            <Link to={`/admin/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
-          </ListItem>
-        ))}
-      </List>
+                            <Link to={`/admin/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+                          </ListItem>
+                        ))}
+                      </List> */}
 
 
-</Box>
+                </Box>
 
 
 
 
- </Drawer>
+                </Drawer>
 
 
 
-{/*------------------------Browse Link to BrowseSearch ------------------------*/}
-<Button variant="outlined" sx={{color:"white"}} startIcon={<ManageSearchIcon sx={{fontSize:"30px !important"}} />}><Link to="/search" style={{marginLeft:"-8px"}} className={sty.link}>Browse</Link></Button>
+                {/*------------------------Browse Link to BrowseSearch ------------------------*/}
+                <Button variant="outlined" sx={{color:"white"}} startIcon={<ManageSearchIcon sx={{fontSize:"30px !important"}} />}><Link to="/search" style={{marginLeft:"-8px"}} className={sty.link}>Browse</Link></Button>
 
-{/*------------------------Cart ------------------------*/}
-<Link to="/cart" style={{marginLeft:"5px"}} className={sty.link}><Badge badgeContent={cart.length == 0 ? undefined : cart.length} anchorOrigin={{vertical: 'top', horizontal: 'left',}} color={cart.length == 0 ? undefined : "error"} ><LocalGroceryStoreOutlinedIcon sx={{fontSize:"30px !important"}} /></Badge>Cart</Link>
+                {/*------------------------Cart ------------------------*/}
+                <Link to="/cart" style={{marginLeft:"5px"}} className={sty.link}><Badge badgeContent={cart.length == 0 ? undefined : cart.length} anchorOrigin={{vertical: 'top', horizontal: 'left',}} color={cart.length == 0 ? undefined : "error"} ><LocalGroceryStoreOutlinedIcon sx={{fontSize:"30px !important"}} /></Badge>Cart</Link>
 
 
 
-</Typography>
+                </Typography>
 
 
-{/* Search Component */}
-<Search />
+                {/* Search Component */}
+                <Search />
 
 
 
-      {/*------------------------ Account------------------------*/}    
-{
+                      {/*------------------------ Account------------------------*/}    
+                {
 
-user ? <div>
+                user ? <div>
 
-  <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'h5.fontSize' }}
-              >
-                <AccountCircle sx={{fontSize: [80,40],m:"0",p:"0" }}/><p className={sty.proP}>{user.email.split('@')[0]}</p>
-  </IconButton>
+                  <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleMenu}
+                                color="inherit"
+                                sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'h5.fontSize' }}
+                              >
+                                <AccountCircle sx={{fontSize: [80,40],m:"0",p:"0" }}/><p className={sty.proP}>{user.email.split('@')[0]}</p>
+                  </IconButton>
 
 
-  <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={anchorEl}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
-  </Menu>
-              
-</div> : null}
+                  <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'right',
+                                }}
+                                open={anchorEl}
+                                onClose={handleClose}
+                              >
+                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
+                  </Menu>
+                              
+                </div> : null}
 
-{/*------------------------ Login and register ------------------------*/}
+                {/*------------------------ Login and register ------------------------*/}
 
 
-{!user && (<Stack spacing={2} direction="row" >
-            
-           
-          <Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/login" className={sty.link}>Login</Link></Button>
-          <Button variant="text"  startIcon={<PersonAddAltSharpIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/register" className={sty.link}>Register</Link></Button>
-  </Stack> )}
-   
+                {!user && (<Stack spacing={2} direction="row" >
+                            
+                          
+                          <Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/login" className={sty.link}>Login</Link></Button>
+                          <Button variant="text"  startIcon={<PersonAddAltSharpIcon />} sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize' }}><Link to="/register" className={sty.link}>Register</Link></Button>
+                  </Stack> )}
+                  
 
 
-    </Toolbar>
+          </Toolbar>
   </AppBar>
 </Box>
  </> 

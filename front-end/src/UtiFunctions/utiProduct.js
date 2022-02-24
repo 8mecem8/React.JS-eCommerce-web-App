@@ -37,8 +37,8 @@ export const removeProduct = async (slug, authtoken) =>
   });
 
 
-  export const getProductsByOrder = async (sort, order, page) =>
-  await axios.post(`${process.env.REACT_APP_API}/products`, {sort, order, page});
+  export const getProductsByOrder = async (sort, order, page , perPAge) =>
+  await axios.post(`${process.env.REACT_APP_API}/products`, {sort, order, page, perPAge});
 
 
   export const getSingleProductDetails = async (slug) =>

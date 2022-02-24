@@ -40,21 +40,16 @@ import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
 
 
 
-function BestSellers() {
+function AllProductsHome() {
 
 
     const dispatch = useDispatch()
     let {user,cart} = useSelector(state => ({...state}))
 
-    const ProductPerPage = 5
     
     {/*------------------------ Function's main state ------------------------*/}
-    const [HomefetchedProductsListBestSellers, setHomeFetchedProductsListBestSellers] = useState([]);
-    const [fetchedTotalNumberforProducts, setfetchedTotalNumberforProducts] = useState(0);
+    const [fetchedAllProductsHome, setFetchedAllProductsHome] = useState([]);
 
-
-    {/*------------------------ Pagination State ------------------------*/}
-    const [page, setPage] = useState(1);
 
 
 
@@ -71,29 +66,17 @@ function BestSellers() {
         setEnterPageLoading(true)
 
 
-        await getTotalNumberProducts() 
-                .then((arg)=>{setfetchedTotalNumberforProducts(arg.data)})
-                .catch((err)=>{console.log("error in getting all products",err)})
-
-            if (page > 2){setPage(2)}
-
-         await  getProductsByOrder("sold", "desc", page, ProductPerPage)
-                .then((arg)=>{setHomeFetchedProductsListBestSellers(arg.data)})
+         await  getProductsByOrder("quantity", "desc", 0, 50)
+                .then((arg)=>{setFetchedAllProductsHome(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
 
 
             await new Promise((resolve) => setTimeout(resolve, 100));
         setEnterPageLoading(false)
-    },[page])
+    },[])
 
 
     
-
-    {/*------------------------ Pagination Function ------------------------*/}
-    const handleChange = (event, value) => 
-    {
-    setPage(value);
-    };
 
 
 
@@ -151,14 +134,14 @@ console.log()
 
             <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
 
-            <p>Best Sellers</p>
+           
 
             <Box
-            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto", justifyContent:"center" ,backgroundColor:"#ff4913",borderRadius:"23px" }}>
+            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto",justifyContent:"center" }}>
                 
             
 
-            {HomefetchedProductsListBestSellers.map(arg =>
+            {fetchedAllProductsHome.map(arg =>
                     {
                         //console.log("arg",arg.quantity)
                         
@@ -166,10 +149,10 @@ console.log()
                             
                             <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0} onClick={()=> { return HandleAddToCart(arg), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
-                                <Paper elevation={0} sx={{height:311,minWidth:228,m:"1.5 !important",mt:"23px !important",p:"0px",":hover": {boxShadow: 6,},borderTopRightRadius:"100px",borderTopLeftRadius:"15px",borderBottomRightRadius:"100px",borderBottomLeftRadius:"100px"}}>
+                                <Paper elevation={0} sx={{height:348,minWidth:228,m:"1.5 !important",p:"0px",":hover": {boxShadow: 6,},}}>
 
 
-                                        <Card sx={{height:208,width:250,p:"20px",m:"0 !important",borderTopRightRadius:"100px",borderTopLeftRadius:"15px"}}>
+                                        <Card sx={{height:208,width:250,p:"20px",m:"0 !important"}}>
                                                 <Chip  label={`${arg.category.name}`} size="small" color="warning" variant="outlined" sx={{ml:"-15px !important", mt:"-17px !important"}} />
                                                 
                                                 <CardMedia
@@ -181,16 +164,16 @@ console.log()
                                         
                                         </Card>
 
-                                        <Card sx={{height:140,width:250,p:"0px !important",m:"0 !important",borderBottomLeftRadius:"100px"}}>
+                                        <Card sx={{height:140,width:250,p:"0px !important",m:"0 !important"}}>
 
                                                 <CardContent sx={{p:"0px !important",m:"0 !important"}}>
-                                                    <Typography variant="caption" color="text.secondary" sx={{display:"-webkit-box",letterSpacing: 0,fontWeight: '700',lineHeight: '-10px important',fontFamily:"system-ui",fontSize:"12px",p:"0px !important",mb:"0 !important",mt:"2 !important",ml:"0.1 !important",mr:"0.1 !important"}}>
+                                                    <Typography variant="caption" color="text.secondary" sx={{display:"-webkit-box",letterSpacing: 0,fontWeight: 'light',lineHeight: '-10px important',fontSize:"12px",p:"0px !important",mb:"0 !important",mt:"2 !important",ml:"0.1 !important",mr:"0.1 !important"}}>
                                                     { <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>{arg.title.slice(0,62)}..</Link>} 
                                                     </Typography>
                                                 </CardContent>
 
                                                 <CardContent sx={{p:"0px !important",m:"0 !important"}}>
-                                                    <Typography variant="caption" color="text.secondary" sx={{transform:"translate3d(48px,-22px,0)",fontFamily:"fantasy",p:"0px !important",mr:"0 !important",mt:"3 !important",mb:"0 !important",display:"-webkit-box",letterSpacing: 0,fontWeight: 500,color:"#1d252c",lineHeight: '29px important',fontSize:"52px"}}>
+                                                    <Typography variant="caption" color="text.secondary" sx={{p:"0px !important",mr:"0 !important",mt:"3 !important",mb:"0 !important",display:"-webkit-box",fontFamily:"Helvetica",letterSpacing: 0,fontWeight: 600,color:"#1d252c",lineHeight: '29px important',fontSize:"25px"}}>
                                                     {`$${arg.price}`}
                                                     </Typography>
                                                     
@@ -200,7 +183,7 @@ console.log()
                                                     
 
                                                 <CardActions disableSpacing sx={{display:"grid",gridTemplateColumns: 'repeat(3, 1fr)',m:"0 !important",p:"0 !important"}}>
-                                                    <IconButton aria-label="rating" sx={{m:"0 !important",p:"0 !important",transform:"translate3d(92px,-53px,0)"}}>
+                                                    <IconButton aria-label="rating" sx={{m:"0 !important",p:"0 !important",transform:"translate3d(-12px,-10px,0)"}}>    
                                                         <MainRatingView p={arg} />
                                                     </IconButton>
                                                     
@@ -220,9 +203,7 @@ console.log()
         
             </Box>
 
-                        <Box sx={{mx:"auto !important", display:"grid", alignContent:"center", justifyContent:"center",m:2,p:2}}>
-                            <Pagination count={Math.ceil(fetchedTotalNumberforProducts / ProductPerPage)} page={page} onChange={handleChange}  />
-                        </Box>
+                   
 
 
                         <Box sx={{ bgcolor: '#ffffff00', height: '50px', width:"100vw",mx:"auto",overflowX:"hidden" }} />
@@ -232,7 +213,6 @@ console.log()
 
 
             
-
 
 
         )}
@@ -245,4 +225,4 @@ console.log()
     )
 }
 
-export default BestSellers
+export default AllProductsHome
