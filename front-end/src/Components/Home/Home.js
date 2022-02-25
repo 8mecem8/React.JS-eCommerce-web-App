@@ -126,7 +126,7 @@ function Home()
         <>
         {enterPageLoading ? (<PageLoader />)  : 
         (
-        <section style={{backgroundColor:"#f6f9fc",width:"100vw",height:"100%",overflowY:"hidden",overflowX:"hidden"}}>
+        <section style={{backgroundColor:"#f6f9fc",width:"100vw",height:"100%",overflowY:"hidden",overflowX:"hidden",marginTop:"0px"}}>
 
 
         { /*------------------------ Top Product list Carousel ------------------------*/ }
