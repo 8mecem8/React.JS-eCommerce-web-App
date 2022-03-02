@@ -234,7 +234,7 @@ function NewArrivals() {
           
         <>
           
-          <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
+          <Container maxWidth="xl" sx={{mx: "auto",pt:2,pl:"6px !important",pr:"27px !important"}}>
 
             <p>New arrivals</p>
 
@@ -251,9 +251,9 @@ function NewArrivals() {
                         //console.log("args  in the main list are ===>",tTipTitle)
                         return(
 
-                            <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(!drawerActiveState), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug?.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="medium" variant="extended" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", transform:"translate3d(-51px,6px,0)",textTransform:"none"}}><AddShoppingCartSharpIcon   /> <Typography sx={{ml:"-5px !important",p:0,fontFamily:"ui-monospace"}}> Add to Cart </Typography> </Fab></Tooltip>} >
+                            <Badge sx={{m:"6px !important"}}  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0}  onClick={()=> { return HandleAddToCart(arg), setDrawerActiveState(!drawerActiveState), dispatch({type: "SET_DRAWER", payload: true,});} } title={tTipTitle.slug?.includes(arg.slug)? tTipTitle.msg :"Add to Shopping Cart"} placement="top"><Fab  size="medium" variant="extended" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", transform:"translate3d(-51px,6px,0)",textTransform:"none"}}><AddShoppingCartSharpIcon   /> <Typography sx={{ml:"-5px !important",p:0,fontFamily:"ui-monospace"}}> Add to Cart </Typography> </Fab></Tooltip>} >
 
-                                <Paper elevation={0} sx={{height:311,m:"1.5 !important",mt:"23px !important",p:"0px",":hover": {boxShadow: 6,},borderRadius:"104px"}}>
+                                <Paper elevation={0} sx={{height:311,m:{xs:"1.5 !important", sm:"1.5 !important", md:"1.5 !important",lg:"1.5 !important",xl:"1.5 !important"},mt:"23px !important",p:"0px",":hover": {boxShadow: 6,},borderRadius:"104px"}}>
                                         <Card sx={{height:208,width:205,p:"20px",m:"0 !important",borderTopRightRadius:"100px",borderTopLeftRadius:"15px"}}>
 
 

@@ -149,7 +149,7 @@ console.log()
             {enterPageLoading ? (<PageLoader />)  : 
         (
 
-            <Container maxWidth="xl" sx={{mx: "auto",pt:2}}>
+            <Container maxWidth="xl" sx={{mx: "auto",pt:2,pl:"6px !important",pr:"22px !important"}}>
 
             <p>Best Sellers</p>
 

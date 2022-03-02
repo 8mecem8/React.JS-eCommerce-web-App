@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import  {useNavigate} from "react-router-dom";
 
@@ -17,6 +17,8 @@ import useStyles from './SearchProductsStyles'
 
 const Search = () => {
 
+  const [first, setfirst] = useState()
+
   const sty = useStyles();
   const dispatch = useDispatch();
   const { search } = useSelector((state) => ({ ...state }));
@@ -25,17 +27,36 @@ const Search = () => {
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    dispatch({
+
+if(text){dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });}
+
+    setfirst(e.target.value)
+    
+
+    /* dispatch({
       type: "SEARCH_QUERY",
       payload: { text: e.target.value },
-    });
+    }); */
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+
+     dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: first },
+    });
+
     navigate(`/search?${text}`);
   };
 
+
+
+
+  console.log(first)
   return (
 
 
@@ -43,7 +64,9 @@ const Search = () => {
 
                   <TextField
                   id="input-with-icon-Search-for-Product-details"
+                  type="search"
                   placeholder="Search..."
+                  value={text|| first}
                   onChange={handleChange}
                   sx={{borderRadius: '50% !important',width:"100%","& .css-1q6at85-MuiInputBase-root-MuiOutlinedInput-root ":{borderRadius:"18px",height:"49px"}}}
                   InputProps={{

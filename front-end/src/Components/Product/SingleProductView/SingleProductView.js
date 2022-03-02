@@ -317,7 +317,7 @@ function SingleProductView() {
                                         <Grid item xs={window.innerWidth < 774 ? 12 : 6 } >
                                             
 
-                                            <Grid  container direction="column" justifyContent={"end"} spacing={2} sx={{m:0,p:{xs: 4,sm: 4,md: 5,lg: 5, xl: 5,},pl:"0 !important"}}>
+                                            <Grid  container direction="column" justifyContent={"end"} spacing={2} sx={{m:0,px:{xs: 4,sm: 4,md: 5,lg: 5, xl: 5,},pl:"0 !important"}}>
                                                 <Grid item xs={6} md={8} >
                                                     <Typography variant="h4" component="h4" >{fetchedSingleProductDetails?.title}</Typography>
                                                 </Grid>
@@ -350,7 +350,7 @@ function SingleProductView() {
                                                 </Grid>
 
                                                 <Grid item xs={6} md={8}>
-                                                        <Grid container direction="row" spacing={2} sx={{mx:"auto",width:"100%"}}>
+                                                        <Grid container direction="row" spacing={2} sx={{width:"100%"}}>
                                                                 <Grid item xs={4} sx={{textAlign:"center"}} >
                                                                         <Button variant="contained" onClick={()=> { return HandleAddToCart(fetchedSingleProductDetails), setDrawerActiveState(true), dispatch({type: "SET_DRAWER", payload: true,})} } startIcon={<ShoppingBasketRoundedIcon />} sx={{textTransform:"none", backgroundColor:"linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"}}>
                                                                             Add to Shopping Bag 

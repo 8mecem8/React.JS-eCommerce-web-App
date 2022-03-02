@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { getAllProductsByCounts,getProductsByOrder } from '../../UtiFunctions/utiProduct'
 import  {Link} from "react-router-dom";
 
@@ -80,7 +80,7 @@ const responsive = {
 function Home()
 {
     const sty = useStyles()
-
+    const dispatch = useDispatch();
 
    
 
@@ -105,7 +105,10 @@ function Home()
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
 
-
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" },
+            })
 
         setEnterPageLoading(true)
        

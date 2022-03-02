@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import { useSelector, useDispatch } from 'react-redux'
 
 /* Material Uİ */
+import { Divider } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -26,6 +27,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Badge from '@mui/material/Badge';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
+import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 
 
 
@@ -107,7 +118,12 @@ function Header(props) {
 
 
  const aDashboardClick = (event) => {
-    setAdminDashboardStatus(event.currentTarget);
+    //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
+    setAdminDashboardStatus(!adminDashboardStatus);
   };
 
 
@@ -209,7 +225,7 @@ function ElevationScroll(props) {
 
     if(window.scrollY > 3){el.style.marginTop = "0px"}
 
-    if(window.scrollY <= 1){el.style.marginTop = "40px"}
+    if(window.scrollY <= 1){return  el.style.transition = "all 0.0001ms !important" ,el.style.marginTop = "40px"}
  })
 
 
@@ -220,47 +236,47 @@ function ElevationScroll(props) {
   return (
 <>
   
-<Box sx={{ display:"flex",flexDirection:"column", flexGrow: 1 }}>
+<Box sx={{ display:"flex",flexDirection:"column", flexGrow: 1 , backgroundColor:"#f6f9fc"}}>
 
      
-              
+          {/* ------------------------------------------------Top Bar for Phone number, Info email, Help page,Currency change------------------------------------------------------------------ */}    
           <HideOnScroll {...props}>
                   <AppBar   sx={{position:"inherit",height:35,boxShadow:"none !important"}}>
                     
                       
                         <Grid container direction="row" sx={{height:"100% !important"}}>
 
-                              <Grid container direction="row" sx={{height:"100% !important",justifyContent:"center"}} item xs={6}>
+                              <Grid container direction="row" sx={{height:"100% !important",justifyContent:{xs:"start !important", sm:"center !important", md:"center !important",lg:"center !important",xl:"center !important"}}} item xs={6}>
 
-                                  <Grid item xs={3} sx={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+                                  <Grid item xs={6} sm={6} sx={{display:"flex",alignItems:"center",justifyContent:{xs:"start !important", sm:"center !important", md:"center !important",lg:"center !important",xl:"center !important"}}}>
                                 
-                                    <LocalPhoneIcon sx={{fontFamily:"inherit",fontSize:"25px !important"}} />
-                                    <Typography sx={{fontFamily:"inherit",fontSize:"15px !important"}}>+1 646 334 67 33</Typography>
+                                    <LocalPhoneIcon sx={{fontFamily:"inherit",fontSize:{xs:"20px !important", sm:"21px !important", md:"22px !important",lg:"24px !important",xl:"25px !important"}}} />
+                                    <Typography sx={{fontFamily:"inherit",fontSize:{xs:"10px !important", sm:"11px !important", md:"12px !important",lg:"14px !important",xl:"15px !important"}}}>+1 646 334 67 33</Typography>
 
                                   </Grid>
 
-                                  <Grid item xs={2} sx={{display:"flex",alignItems:"center"}}>
+                                  <Grid item xs={2} sm={2} sx={{display:"flex",alignItems:"center"}}>
                                 
-                                    <EmailIcon sx={{fontFamily:"inherit",fontSize:"25px !important"}} />
-                                    <Typography sx={{fontFamily:"inherit",fontSize:"15px !important"}}>&nbsp;info@pazaar.com</Typography>
+                                    <EmailIcon sx={{fontFamily:"inherit",fontSize:{xs:"20px !important", sm:"21px !important", md:"22px !important",lg:"24px !important",xl:"25px !important"}}} />
+                                    <Typography sx={{fontFamily:"inherit",fontSize:{xs:"10px !important", sm:"11px !important", md:"12px !important",lg:"14px !important",xl:"15px !important"}}}>&nbsp;info@pazaar.com</Typography>
                                 
                                   </Grid>
                                 
                               </Grid>
 
-                              <Grid container direction="row" sx={{height:"100% !important",justifyContent:"center"}} item xs={6}>
+                              <Grid container direction="row" sx={{height:"100% !important",justifyContent:{xs:"end !important", sm:"center !important", md:"center !important",lg:"center !important",xl:"center !important"}}} item xs={6}>
                                 
-                                  <Grid item xs={2} sx={{display:"flex",alignItems:"center"}}>
+                                  <Grid item xs={4} sm={4} sx={{display:"flex",alignItems:"center"}}>
 
-                                    <ContactSupportIcon sx={{fontFamily:"inherit",fontSize:"25px !important"}} />
-                                    <Typography sx={{fontFamily:"inherit",fontSize:"15px !important"}}>Help Page</Typography>
+                                    <ContactSupportIcon sx={{fontFamily:"inherit",fontSize:{xs:"20px !important", sm:"21px !important", md:"22px !important",lg:"24px !important",xl:"25px !important"}}} />
+                                    <Typography sx={{fontFamily:"inherit",fontSize:{xs:"10px !important", sm:"11px !important", md:"12px !important",lg:"14px !important",xl:"15px !important"}}}>Help Page</Typography>
 
                                   </Grid>
                                   
 
-                                  <Grid item xs={4} sx={{display:"flex",alignItems:"center"}}>
+                                  <Grid item xs={4} sm={4} sx={{display:"flex",alignItems:"center"}}>
 
-                                    <CurrencyExchangeIcon sx={{fontFamily:"inherit",fontSize:"22px !important"}} />
+                                    <CurrencyExchangeIcon sx={{fontFamily:"inherit",fontSize:{xs:"18px !important", sm:"19px !important", md:"20px !important",lg:"21px !important",xl:"22px !important"}}} />
                                     {/* <Typography>Choose Currency</Typography> */}
                                     <Select
                                         variant="standard"
@@ -268,7 +284,7 @@ function ElevationScroll(props) {
                                         id="demo-simple-select"
                                         defaultValue="USD"
                                         label="Currency"
-                                        sx={{color:"white",m:0,p:0,ml:1,"&& > *":{m:0,p:0,color:"white",border:"none",fontFamily:"inherit",fontSize:"15px !important"}}}
+                                        sx={{color:"white",m:0,p:0,ml:1,"&& > *":{m:0,p:0,color:"white",border:"none",fontFamily:"inherit",fontSize:{xs:"10px !important", sm:"11px !important", md:"12px !important",lg:"14px !important",xl:"15px !important"}}}}
                                       >
                                         <MenuItem value={"USD"}>USD</MenuItem>
                                         <MenuItem value={"EUR"}>EUR</MenuItem>
@@ -287,12 +303,15 @@ function ElevationScroll(props) {
           </HideOnScroll>
           
 
-
+          {/* ------------------------------------------------Main Bar for Logo, Search , Cart------------------------------------------------------------------ */}
+          
           <ElevationScroll {...props}>
-                  <AppBar id="secondappbar"  sx={{mt:5,position:"fixed",boxShadow:"none !important",backgroundColor:"#f6f9fc"}}>
+                  <AppBar id="secondappbar"  sx={{mt:"35px",position:"fixed",boxShadow:"none !important",backgroundColor:"#f6f9fc",transition:"all 1s !important"}}>
                     
-                        <Grid container direction="row"  spacing={2} sx={{height:"100% !important",alignItems:"center",textAlign:"-webkit-center"}}> {/* height:80, */}
+                        <Grid container direction="row"  spacing={0} sx={{m:"0px !important",height:"100% !important",alignItems:"center",textAlign:"-webkit-center"}}> {/* height:80, */}
 
+
+                              {/*------------------------ logo ------------------------*/}
                               <Grid item xs={3}>
                                 
                                   <Typography
@@ -300,34 +319,38 @@ function ElevationScroll(props) {
                                   component="div"
                                   sx={{ mr: 2,ml: 0,display:"flex",justifyContent:"center", alignItems:"center" }} 
                                   underline="none"
-                                            >
+                                  >
                                     {/* <Link  color="inherit" underline="none" sx={{ mr: 2,ml: 0, display: { xs: 'block', md: 'flex' } }}><img src={logo} className="App-logo" alt="logo" /></Link> */}
 
-                                  <Link className="AppLogo" to="/"><img src={logo} style={{/* mixBlendMode: "screen", pointerEvents:"none",display:"flex",*/height: "64px",zIndex:1000}}   alt="logo" /></Link>
-                                  <Typography sx={{color:"black !important",display:"flex",alignItems:"center"}}><Typography sx={{color:"black !important",fontSize:"40px",fontFamily:"math"}}>P</Typography>azaar</Typography>
+                                      <Link className="AppLogo" to="/"><img src={logo} style={{/* mixBlendMode: "screen", pointerEvents:"none",display:"flex",*/height: "64px",zIndex:1000,marginTop:"10px"}}   alt="logo" /></Link>
+                                      <Typography sx={{m:"0px !important",color:"black !important",display:{xs:"none", sm:"none", md:"flex",lg:"flex",xl:"flex"},alignItems:"center"}}><Typography sx={{color:"black !important",fontSize:"40px",fontFamily:"math"}}>P</Typography>azaar</Typography>
                                   </Typography>
 
                               </Grid>
 
 
-                              <Grid item xs={6}>
-                                
-                                  {/* Search Component */}
-                                        <Search />
 
+
+
+                              {/*--------------------- Search Component --------------------- */}
+                              <Grid item xs={5.5} sm={6}>
+                                
+                                        <Search />
 
                               </Grid>
 
 
 
+
+
                               <Grid container direction="row" item xs={3} sx={{height:"100% !important",alignItems:"center",textAlign:"-webkit-center"}}>
 
-                                  <Grid item xs={6}>
 
-                                   {/*------------------------ Account------------------------*/}    
-                                      {
 
-                                      user ? <div>
+                                  {/*------------------------ Account------------------------*/}    
+                                  <Grid item xs={6} sm={6}>
+
+                                     
 
                                         <IconButton
                                                       size="large"
@@ -338,11 +361,28 @@ function ElevationScroll(props) {
                                                       color="inherit"
                                                       sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize' }}
                                                     >
-                                                      <AccountCircle sx={{fontSize: [45,40],m:"0",p:"0" }}/><p className={sty.proP}>{user.email.split('@')[0]}</p>
+                                                      <AccountCircle sx={{fontSize: [45,40],m:"0",p:"0" }}/><Typography  sx={{display:{xs:"none", sm:"none", md:"none",lg:"none",xl:"inline"}}} className={sty.proP}>{user?.email.split('@')[0]}</Typography>
                                         </IconButton>
 
 
-                                        <Menu
+                                        {user ? <Menu
+                                                      id="menu-appbar"
+                                                      anchorEl={anchorEl}
+                                                      keepMounted
+                                                      onMouseLeave={handleClose}
+                                                      onPointerLeave={handleClose}
+                                                      
+                                                      open={anchorEl}
+                                                      onClose={handleClose}
+                                                    >
+                                                      <Link to="/user/History" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>History</Button></MenuItem></Link>
+                                                      <Link to="/user/Password" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Password</Button></MenuItem></Link>
+                                                      <Link to="/user/Wishlist" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Wishlist</Button></MenuItem></Link>
+                                                      <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
+                                        </Menu>
+                                        
+                                        
+                                        : <Menu
                                                       id="menu-appbar"
                                                       anchorEl={anchorEl}
                                                       
@@ -351,20 +391,33 @@ function ElevationScroll(props) {
                                                       open={anchorEl}
                                                       onClose={handleClose}
                                                     >
-                                                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                                                      <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
+                                                      {/*------------------------ Login and register ------------------------*/}
+                                                      <MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize'  }}><Link to="/login" className={sty.link} style={{color: 'black',fontSize: '0.7em',fontWeight:400}}>Login</Link></Button></MenuItem>
+                                                      <MenuItem><Button variant="text"  startIcon={<PersonAddAltSharpIcon />} sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize' }}><Link to="/register" className={sty.link} style={{color: 'black',fontSize: '0.7em',fontWeight:400}}>Register</Link></Button></MenuItem>
+                  
                                         </Menu>
-                                                    
-                                      </div> : null
+                                        
+                                   
                                       
                                       
                                       }
+
+                                      {/*------------------------ Login and register ------------------------*/}
+
+
+                                      {/* {false && (<Stack spacing={0.5} divider={<Divider orientation="vertical" flexItem />} direction="row" >
+                                                  
+                                                
+                                                <Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize'  }}><Link to="/login" className={sty.link} style={{color: 'black',fontSize: '0.7em',fontWeight:400}}>Login</Link></Button>
+                                                <Button variant="text"  startIcon={<PersonAddAltSharpIcon />} sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize' }}><Link to="/register" className={sty.link} style={{color: 'black',fontSize: '0.7em',fontWeight:400}}>Register</Link></Button>
+                                        </Stack> )} */}
+
+
  
-                                    </Grid>
+                                  </Grid>
 
 
-
+                                  {/*------------------------ Shopping Cart ------------------------*/}
                                   <Grid item xs={6}>
 
                                          {/*------------------------Cart ------------------------*/}
@@ -384,20 +437,58 @@ function ElevationScroll(props) {
           </ElevationScroll>
 
 
+          {/* ------------------------------------------------Last Bar------------------------------------------------------------------ */}
 
-          <HideOnScroll {...props}>
-                  <AppBar   sx={{mt:10,position:"inherit",height:40,boxShadow:"none !important",zIndex:10,backgroundColor:"red"}}>
+          <HideOnScroll {...props} >
+                  <AppBar   sx={{mt:"88px",position:"inherit",minHeight:40,boxShadow:"0px 4px 16px rgb(43 52 69 / 10%) !important",zIndex:10,backgroundColor:"#f6f9fc",justifyContent:"center",textAlign:"center"}}>
                     
                       <Grid container direction="row" spacing={2}>
 
-                          <Grid item xs={8}>
+
+                          {/* -------- Left Side --------- */}
+                          <Grid container direction="row" item xs={6}>
                             
-                            
+                                <Grid item xs={12} sm={6}>
+                                
+                                      {/*------------------------Browse Link to BrowseSearch ------------------------*/}
+                                      <Button  sx={{color:"black",'& > *':{color:"black"}}} startIcon={<ManageSearchIcon sx={{fontSize:"30px !important"}} />}><Link to="/search" style={{marginLeft:"-8px"}} className={sty.link}>Browse</Link></Button>
+                                
+                                </Grid>          
+
+
+
+
+                                <Grid item xs={12} sm={6}>
+                                
+                                      asdasdasdasd
+                                
+                                </Grid>    
+
+
+
                           </Grid>
 
 
-                          <Grid item xs={4}>
+
+
+                          {/* -------- Right Side --------- */}
+                          <Grid container direction="row" item xs={6}>
                             
+                                    <Grid  item xs={12} sm={6}>
+                                  
+                                      asdasdasdasd
+                                  
+                                    </Grid>
+
+
+
+
+                                    <Grid item xs={12} sm={6}>
+                                      
+                                        asdasdasdasdas
+
+                                    </Grid>    
+
                             
                           </Grid>
                           
@@ -407,6 +498,80 @@ function ElevationScroll(props) {
                     
                   </AppBar>
           </HideOnScroll>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {/* ------------------------------------------------Admin Dashboard------------------------------------------------------------------ */}
+    <Typography  component="div" sx={{ml:1,mb:2,p:0,':hover':{filter:"invert(1)"},transition:"all 0.8s",position:"fixed",bottom:"0px",zIndex:5000,boxShadow:"rgb(178 97 68) 0px 8px 16px 0px;",background:"linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%), linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)",borderRadius:"23px" }}>
+
+                {user?.role === "admin" ?<Button
+                        id="demo-positioned-button"
+                        aria-controls="demo-positioned-menu"
+                        aria-haspopup="true"
+                        
+                        onClick={aDashboardClick}
+                        sx={{color: 'common.white',fontWeight: 'bold',fontSize: 'subtitle1.fontSize'}}
+                        
+                      >
+                      <p className={sty.link} style={{color:"black",fontFamily:"monospace"}}>Admin Menu</p>
+                  </Button> 
+                :[]} 
+                  
+
+
+
+                <Drawer  anchor={"right"} open={adminDashboardStatus} onClose={aDashboardClose} >
+
+                    <Box >
+                          <List  >
+                              {[['Admin Dashboard',"dashboard"],['Category & Subcategory',"category"],[' Create New Product',"product"],['All Products, edit&delete',"products"],['Orders',"orders"]].map((text, index) =>
+                              {          
+                                
+                                return(
+                                <Link to={`/admin/${text[1]}`} className={sty.link_nav}>
+                                      <ListItem button key={text}>
+                                          <ListItemIcon>
+                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                          </ListItemIcon>
+        
+                                          <ListItemText primary={text[0]} />
+                                      </ListItem>
+                                </Link> 
+                              )})}
+                          </List>
+
+
+                          {/* <Divider />
+                          <List>
+                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                              <ListItem button key={text}>
+
+                                <ListItemIcon>
+                                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                </ListItemIcon>
+
+                                <Link to={`/admin/${text.split(' ')[0]}`} className={sty.link_nav}><ListItemText primary={text} /></Link>
+                              </ListItem>
+                            ))}
+                          </List> */}
+
+
+                    </Box>
+                </Drawer>
+    </Typography>
 
 </Box>
  </> 

@@ -87,7 +87,7 @@ function BrowseSearch() {
     const {text} = search
 
     //İf there is no argument in the search get all products
-    let resetText = text.length < 1
+    let resetText = text?.length < 1
     
 
     {/*------------------------ Main state ------------------------*/}
@@ -135,6 +135,7 @@ function BrowseSearch() {
 
         setEnterPageLoading(true)
 
+        if(text){ return}
 
          if(componentMounted)
             {await  getAllProductsByCounts(50)
@@ -146,7 +147,7 @@ function BrowseSearch() {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         
-        //setEnterPageLoading(false)
+        setEnterPageLoading(false)
 
         return () => {componentMounted = false;}
 
@@ -174,21 +175,37 @@ function BrowseSearch() {
     {/*------------------------ Fetch Products with Query Filter ------------------------*/}
     useEffect(async ()=>
     {
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         fetchProductsByFilter({query: text})
                 .then((arg)=>{setHomeFetchedProductsList(arg.data)})
                 .catch((err)=>{console.log("error in getting all products",err)})
+
+
+             setEnterPageLoading(false)   
     },[text])
 
-
+    console.log("setHomeFetchedProductsList",HomefetchedProductsList,"text",text)
 
 
     {/*------------------------ Fetch Products with Price Range  ------------------------*/}
 
      useEffect(async ()=>
     {
+
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
         let componentMounted = true;
+
+        if(text){ return}
 
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
         
@@ -221,6 +238,12 @@ function BrowseSearch() {
     useEffect(async ()=>
     {
 
+        //When there is a new render Set page position to 0 at Y axis
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement.scrollTop = 0;
+
+
+        if(text){ return}
         
         dispatch({type: "SEARCH_QUERY",payload: { text: ""},});
 
@@ -276,6 +299,11 @@ function BrowseSearch() {
     {/*------------------------ CheckBox Function ------------------------*/}
     const CheckBoxHandleChange = async (event) => 
     {
+
+        dispatch({
+            type: "SEARCH_QUERY",
+            payload: { text: "" },
+            })
 
         setCheckboxstate([])
 
@@ -485,9 +513,10 @@ function BrowseSearch() {
                                                         <Slider
                                                             getAriaLabel={() => 'Temperature range'}
                                                             value={RangeSlidervalue}
-                                                            onChange={(event, value,)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect)}}
+                                                            onChange={(event, value,)=>{return setRangeSlidervalue(value),setActiveUseEffect(!activeUseEffect),dispatch({type: "SEARCH_QUERY", payload: { text: "" },
+    })}}
                                                             valueLabelDisplay="auto"
-                                                            getAriaValueText={valuetext}
+                                                            
                                                             valueLabelFormat={valueLabelFormat}
                                                             
                                                             marks={marks}
