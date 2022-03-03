@@ -426,7 +426,7 @@ function ShoppingCart() {
     
     }
 
-    <Divider variant="middle" sx={{mx:12}}/>
+    
 
            
 

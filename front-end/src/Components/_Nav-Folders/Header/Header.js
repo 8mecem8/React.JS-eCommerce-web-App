@@ -4,7 +4,7 @@ import firebase from 'firebase/compat/app';
 import { useSelector, useDispatch } from 'react-redux'
 
 /* Material Uİ */
-import { Divider } from '@mui/material';
+import { CardMedia, Divider } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -36,6 +36,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import GridGoldenratioIcon from '@mui/icons-material/GridGoldenratio';
+import PasswordIcon from '@mui/icons-material/Password';
+import StormIcon from '@mui/icons-material/Storm';
 
 
 
@@ -50,7 +53,7 @@ import Search from '../../../UtiComponents/search/SearchProducts';
 
 
 
-
+import proPic from './1.png';
 
 {/*------------------------ Burger Menu Style ------------------------*/}
 /* const StyledMenu = withStyles({
@@ -106,7 +109,7 @@ function Header(props) {
 
 
     
-  const [anchorEl, setAnchorEl] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [adminDashboardStatus, setAdminDashboardStatus] = useState(false);
   const [burgerMenu, setBurgerMEnu] = useState(false);
   
@@ -359,25 +362,29 @@ function ElevationScroll(props) {
                                                       aria-haspopup="true"
                                                       onClick={handleMenu}
                                                       color="inherit"
-                                                      sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize' }}
+                                                      sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize',p:0,m:0 }}
                                                     >
-                                                      <AccountCircle sx={{fontSize: [45,40],m:"0",p:"0" }}/><Typography  sx={{display:{xs:"none", sm:"none", md:"none",lg:"none",xl:"inline"}}} className={sty.proP}>{user?.email.split('@')[0]}</Typography>
+                                                      {/* <AccountCircle sx={{fontSize: [45,40],m:"0",p:"0" }}/> */} {/* <img src={proPic} style={{height:"29px",}}/> */} 
+                                                      <CardMedia  component="img" image={proPic} alt="profile picture" sx={{height:["41px","38px","38px","38px","29px"],t:0,mr:1,}}/>
+                                                <Typography  sx={{display:{xs:"none", sm:"none", md:"none",lg:"none",xl:"inline"}}} className={sty.proP}>{user?.email.split('@')[0]}</Typography>
                                         </IconButton>
 
 
                                         {user ? <Menu
                                                       id="menu-appbar"
                                                       anchorEl={anchorEl}
-                                                      keepMounted
+                                                      
                                                       onMouseLeave={handleClose}
                                                       onPointerLeave={handleClose}
-                                                      
+                                                      anchorOrigin={{vertical: 'top',horizontal: 'right',}}
                                                       open={anchorEl}
                                                       onClose={handleClose}
+                                                      onClick={handleClose}
+                                                      sx={{transform:"translate3d(-250px,100px,0px)!important"}}
                                                     >
-                                                      <Link to="/user/History" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>History</Button></MenuItem></Link>
-                                                      <Link to="/user/Password" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Password</Button></MenuItem></Link>
-                                                      <Link to="/user/Wishlist" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Wishlist</Button></MenuItem></Link>
+                                                      <Link to="/user/History" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<GridGoldenratioIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>History</Button></MenuItem></Link>
+                                                      <Link to="/user/Password" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<PasswordIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Password</Button></MenuItem></Link>
+                                                      <Link to="/user/Wishlist" className={sty.link} style={{color: 'black',fontSize: '0.3em',fontWeight:100}}><MenuItem><Button variant="text"  startIcon={<StormIcon />} sx={{color: 'black',fontWeight: '100',fontSize: 'subtitle2'  }}>Wishlist</Button></MenuItem></Link>
                                                       <MenuItem onClick={logOut}><ExitToAppIcon />Logout</MenuItem>
                                         </Menu>
                                         
@@ -385,11 +392,13 @@ function ElevationScroll(props) {
                                         : <Menu
                                                       id="menu-appbar"
                                                       anchorEl={anchorEl}
-                                                      
-                                                      keepMounted
-                                                      
+                                                      anchorOrigin={{vertical: 'top',horizontal: 'right',}}
+                                                      onMouseLeave={handleClose}
+                                                      onPointerLeave={handleClose}
+                                                      onClick={handleClose}
                                                       open={anchorEl}
                                                       onClose={handleClose}
+                                                      sx={{transform:"translate3d(-250px,100px,0px)!important"}}
                                                     >
                                                       {/*------------------------ Login and register ------------------------*/}
                                                       <MenuItem><Button variant="text"  startIcon={<LoginIcon />} sx={{color: 'black',fontWeight: 'bold',fontSize: 'h5.fontSize'  }}><Link to="/login" className={sty.link} style={{color: 'black',fontSize: '0.7em',fontWeight:400}}>Login</Link></Button></MenuItem>
@@ -421,7 +430,7 @@ function ElevationScroll(props) {
                                   <Grid item xs={6}>
 
                                          {/*------------------------Cart ------------------------*/}
-                                       <Link to="/cart" style={{marginLeft:"5px",display:"flex"}} className={sty.link}><Badge badgeContent={cart.length == 0 ? undefined : cart.length} anchorOrigin={{vertical: 'top', horizontal: 'left',}} color={cart.length == 0 ? undefined : "error"} ><LocalGroceryStoreOutlinedIcon sx={{fontSize:"30px !important",color:"black"}} /></Badge><Typography sx={{color:"black"}}>Cart</Typography></Link>
+                                       <Link to="/cart" style={{marginLeft:"5px",display:"flex",alignItems:"center"}} className={sty.link}><Badge badgeContent={cart.length == 0 ? undefined : cart.length} anchorOrigin={{vertical: 'top', horizontal: 'left',}} color={cart.length == 0 ? undefined : "error"} ><LocalGroceryStoreOutlinedIcon sx={{fontSize:"27px !important",color:"black"}} /></Badge><Typography sx={{color:"black",fontFamily:"system-ui",fontSize:"26px"}}>Cart</Typography></Link>
 
 
                                   </Grid>
@@ -515,7 +524,7 @@ function ElevationScroll(props) {
 
 
     {/* ------------------------------------------------Admin Dashboard------------------------------------------------------------------ */}
-    <Typography  component="div" sx={{ml:1,mb:2,p:0,':hover':{filter:"invert(1)"},transition:"all 0.8s",position:"fixed",bottom:"0px",zIndex:5000,boxShadow:"rgb(178 97 68) 0px 8px 16px 0px;",background:"linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%), linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)",borderRadius:"23px" }}>
+    <Typography  component="div" sx={{ml:1,mb:2,p:0,':hover':{filter:"invert(1)"},transition:"all 0.8s",position:"fixed",bottom:"0px",zIndex:5000,boxShadow:"rgb(178 97 68) 0px 8px 16px 0px, inset 0px 0px 9px rgb(0 0 0 / 68%)",background:"linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%), linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)",borderRadius:"23px" }}>
 
                 {user?.role === "admin" ?<Button
                         id="demo-positioned-button"

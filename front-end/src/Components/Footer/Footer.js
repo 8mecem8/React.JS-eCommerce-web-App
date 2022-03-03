@@ -47,22 +47,26 @@ function Footer()
 
     return (
         <>
+        <Box sx={{ bgcolor: '#37475a', height: '30px', width:"100vw",mx:"auto",mt:10, }} />
+
         {enterPageLoading ? (<PageLoader />)  : 
         (
-        <section style={{backgroundColor:"rgb(3 52 100)",width:"100vw",height:"100vw",overflowY:"hidden",}}>
 
             
-            <Box sx={{ bgcolor: '#37475a', height: '30px', width:"100vw" }} />
+
+        <section style={{backgroundColor:"rgb(3 52 100)",width:"100vw",height:"auto",overflowY:"hidden",}}>
+
+            
+            
            
 
 
 
-            <Grid container direction="row" justifyContent="start" alignItems="start" sx={{mx:"auto"}}>
+            <Grid container direction="row" justifyContent="center" alignItems="start" sx={{mx:"auto",m:0,/* '& > :first-child': {ml:"20px"} */}} >
 
-                <Grid item xs={2}> 
-                </Grid>
+                
 
-                <Grid item xs={1} sx={{textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(7, 0.3fr)'}}>
+                <Grid component="fieldset" item xs={5} sm={5} md={2} lg={1.5}  sx={{border:"transparent",textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(7, 0.3fr)'}}>
                     <Typography sx={{fontSize:"16px",fontWeight: 700,color:"#DDD",textAlign: 'start',m:"6px 0 14px 0",whiteSpace:"nowrap"}}>Get to Know Us</Typography>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Careers</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Blog</Link>
@@ -72,7 +76,7 @@ function Footer()
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Investor Relations</Link>
                 </Grid>
 
-                <Grid item xs={1} sx={{textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(9, 0.3fr)',ml:20}}>
+                <Grid component="fieldset" item xs={12} sm={5} md={3} lg={2} sx={{border:"transparent",textAlign: 'center', gridTemplateRows: 'repeat(9, 0.3fr)',display:{xs:"none", sm:"grid", md:"grid",lg:"grid",xl:"grid"}}}>
                     <Typography sx={{fontSize:"16px",fontWeight: 700,color:"#DDD",textAlign: 'start',m:"6px 0 14px 0",whiteSpace:"nowrap"}}>Make Money with Us</Typography>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Sell products on Our Ecommerce Platform</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Sell apps on Our Ecommerce Platform</Link>
@@ -86,9 +90,9 @@ function Footer()
 
                 </Grid>
 
-                <Grid item xs={1} sx={{textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(10, 0.3fr)',ml:20}}>
-                    <Typography sx={{fontSize:"16px",fontWeight: 700,color:"#DDD",textAlign: 'start',m:"6px 0 14px 0",whiteSpace:"nowrap"}}>Ecommerce Payment Products</Typography>
-                     <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Rewards Visa Signature Cards</Link>
+                <Grid component="fieldset" item xs={12} sm={5} md={4} lg={2} sx={{border:"transparent",textAlign: 'center',gridTemplateRows: 'repeat(10, 0.3fr)',display:{xs:"none", sm:"grid", md:"none",lg:"grid",xl:"grid"}}}>
+                    <Typography sx={{fontSize:"16px",fontWeight: 700,color:"#DDD",textAlign: 'start',m:"6px 0 14px 0",whiteSpace:"nowrap"}}>Ecommerce Payment </Typography>
+                     <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Rewards Visa Cards</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Store Card</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Secured Card</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Business Card</Link>
@@ -102,7 +106,7 @@ function Footer()
 
                 </Grid>
 
-                <Grid item xs={1} sx={{textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(9, 0.3fr)',ml:20}}>
+                <Grid component="fieldset" item xs={5} sm={5} md={2} lg={2} sx={{border:"transparent",textAlign: 'center',display: 'grid', gridTemplateRows: 'repeat(9, 0.3fr)'}}>
                     <Typography sx={{fontSize:"16px",fontWeight: 700,color:"#DDD",textAlign: 'start',m:"6px 0 14px 0",whiteSpace:"nowrap"}}>Let Us Help You</Typography>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Ecommerce and COVID-19</Link>
                      <Link to="/" style={{textAlign: 'start',textDecoration:"none",marginLeft:"0px",marginRight:"0px",color:"#DDD",fontSize:"14px"}}>Your Account</Link>
@@ -116,8 +120,7 @@ function Footer()
 
                 </Grid>
 
-                <Grid item xs={2}>  
-                </Grid>
+                
 
             </Grid>
 

@@ -41,7 +41,7 @@ import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer'
 import { addToWishlist } from '../../../UtiFunctions/utiUSer';
 
 
-
+import newArrival from './newarrival.png';
 
 {/*------------------------ Snackbar color setting ------------------------*/}
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -236,7 +236,12 @@ function NewArrivals() {
           
           <Container maxWidth="xl" sx={{mx: "auto",pt:2,pl:"6px !important",pr:"27px !important"}}>
 
-            <p>New arrivals</p>
+            {/* <p>New arrivals</p> */}
+            <br />
+            <br />
+
+
+            <Badge sx={{m:"0px !important"}}  anchorOrigin={{vertical: 'top',horizontal: 'right',}} badgeContent={ <CardMedia  component="img" image={newArrival} alt="profile picture" sx={{transform:["translate3d(-65px,38px,0px) rotate3d(0, 0, 1, 24deg)","translate3d(-79px,44px,0px) rotate3d(0, 0, 1, 25deg)","translate3d(-77px,59px,0px) rotate3d(0, 0, 1, 32deg)","translate3d(-59px,35px,0px) rotate3d(0, 0, 1, 35deg)","translate3d(-45px,48px,0px) rotate3d(0, 0, 1, 35deg)"],height:["63px","73px","73px","83px","93px"],t:0,mr:0,}}/>}>
 
             <Box
             sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto",justifyContent:"center",backgroundColor:"#69d2ea",borderRadius:"23px" }}>
@@ -307,7 +312,7 @@ function NewArrivals() {
             
         
             </Box>
-
+            </Badge>
                     <Box sx={{mx:"auto !important", display:"grid", alignContent:"center", justifyContent:"center",m:2,p:2}}>
                         <Pagination count={Math.ceil(fetchedTotalNumberforProducts / ProductPerPage)} page={page} onChange={handleChange}  />
                     </Box>
