@@ -234,7 +234,7 @@ function NewArrivals() {
           
         <>
           
-          <Container maxWidth="xl" sx={{mx: "auto",pt:2,pl:"6px !important",pr:"27px !important"}}>
+          <Container sx={{maxWidth:"1431px !important",mx: "auto",pt:2,pl:"6px !important",pr:"27px !important"}}>
 
             {/* <p>New arrivals</p> */}
             <br />

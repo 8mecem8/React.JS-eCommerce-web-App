@@ -45,7 +45,11 @@ import AllProductsHome from './AllProductsHome/AllProductsHome';
 
 
 
-
+import caro1 from './1.JPG';
+import caro2 from './2.JPG';
+import caro3 from './3.JPG';
+import caro4 from './4.JPG';
+import caro5 from './5.JPG';
 
 
 
@@ -59,11 +63,11 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2 // optional, default to 1.
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
   },
   mobile: {
-    breakpoint: { max: 650, min: 0 },
+    breakpoint: { max: 464, min: 0 },
     items: 1,
     slidesToSlide: 1 // optional, default to 1.
   }
@@ -133,38 +137,34 @@ function Home()
 
 
         { /*------------------------ Top Product list Carousel ------------------------*/ }
-             {/* <Container maxWidth="lg" sx={{mx: "auto",pt:2}}>
+              <Container  sx={{mx: "auto",pt:2}}>
                 <Carousel
-                        swipeable={true}
-                        draggable={true}
-                        showDots={true}
-                        responsive={responsive}
-                        ssr={false} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlay={ true}
-                        autoPlaySpeed={3000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={3000}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        
-                        dotListClass="custom-dot-list-style"
-                        itemClass="carousel-item-padding-40-px"
-                >
-
-                {["zurna", "kurna", "burma"].map(arg =>
-                    {
+                    swipeable={false}
+                    draggable={false}
+                    showDots={true}
+                    responsive={responsive}
+                    ssr={false} // means to render carousel on server-side.
+                    infinite={true}
+                    autoPlay={true}
+                    autoPlaySpeed={4000}
+                    keyBoardControl={true}
+                    customTransition="all .2"
+                    transitionDuration={1000}
+                    containerClass="carousel-container"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
                     
-
-                        return(
-                            arg
-                        )
-                    })}
-              
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                    >
+                        <CardMedia  component="img" image={caro1} alt=" picture" />
+                        <CardMedia  component="img" image={caro2} alt=" picture" />
+                        <CardMedia  component="img" image={caro3} alt=" picture" />
+                        <CardMedia  component="img" image={caro4} alt=" picture" />
+                        <CardMedia  component="img" image={caro5} alt=" picture" />
+                        
 
                 </Carousel>
-            </Container> */}
+            </Container> 
             
 
 
