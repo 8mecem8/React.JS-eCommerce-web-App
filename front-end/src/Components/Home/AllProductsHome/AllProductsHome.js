@@ -210,7 +210,7 @@ console.log()
 
                                 <Paper elevation={0} sx={{m:"3px !important",p:"0px",borderTopRightRadius:"143px !important",borderTopLeftRadius:"55px !important",borderBottomRightRadius:"34px !important",borderBottomLeftRadius:"34px !important",":hover": {boxShadow: 6,},backgroundColor:"rgb(246 249 252)",borderRadius:"70%"}}>
 
-
+                                        <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>
                                         <Card sx={{height:175,width:182,p:"36px",m:"0 !important",borderTop:"solid",borderColor:"deepskyblue",borderBottomRightRadius:"0px !important",borderBottomLeftRadius:"0px !important",borderTopRightRadius:"143px !important",borderTopLeftRadius:"55px !important"}}>
                                                 <Chip  label={`${arg.category.name}`} size="small" color="warning" variant="outlined" sx={{ml:"-15px !important", mt:"-17px !important"}} />
                                                 
@@ -248,7 +248,7 @@ console.log()
                                                     
                                                 </CardActions>
                                         </Card>
-
+                                        </Link>
                                 
                                 </Paper>
 

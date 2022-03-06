@@ -41,7 +41,7 @@ import Footer from '../Footer/Footer';
 import NewArrivals from './NewArrivals/NewArrivals';
 import BestSellers from './BestSellers/BestSellers';
 import AllProductsHome from './AllProductsHome/AllProductsHome';
-import TetContent from './TetContent/TetContent';
+
 
 
 
