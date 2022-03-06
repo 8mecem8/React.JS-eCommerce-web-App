@@ -42,6 +42,11 @@ import { addToWishlist } from '../../../UtiFunctions/utiUSer';
 
 
 import newArrival from './newarrival.png';
+import promobg from './prm6.png';
+
+
+
+
 
 {/*------------------------ Snackbar color setting ------------------------*/}
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -244,7 +249,7 @@ function NewArrivals() {
             <Badge sx={{m:"0px !important"}}  anchorOrigin={{vertical: 'top',horizontal: 'right',}} badgeContent={ <CardMedia  component="img" image={newArrival} alt="profile picture" sx={{transform:["translate3d(-65px,38px,0px) rotate3d(0, 0, 1, 24deg)","translate3d(-79px,44px,0px) rotate3d(0, 0, 1, 25deg)","translate3d(-77px,59px,0px) rotate3d(0, 0, 1, 32deg)","translate3d(-59px,35px,0px) rotate3d(0, 0, 1, 35deg)","translate3d(-45px,48px,0px) rotate3d(0, 0, 1, 35deg)"],height:["63px","73px","73px","83px","93px"],t:0,mr:0,}}/>}>
 
             <Box
-            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto",justifyContent:"center",backgroundColor:"#69d2ea",borderRadius:"23px" }}>
+            sx={{backgroundImage:`url(${promobg})`,backgroundRepeat:"repeat",backfaceVisibility:"luminosity",backgroundSize:"contain",backgroundPosition:"top",display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto",justifyContent:"center",backgroundColor:"#69d2ea",borderRadius:"23px" }}>
 
 
 

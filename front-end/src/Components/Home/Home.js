@@ -41,17 +41,20 @@ import Footer from '../Footer/Footer';
 import NewArrivals from './NewArrivals/NewArrivals';
 import BestSellers from './BestSellers/BestSellers';
 import AllProductsHome from './AllProductsHome/AllProductsHome';
+import TetContent from './TetContent/TetContent';
 
 
 
 
-import caro1 from './1.JPG';
-import caro2 from './2.JPG';
-import caro3 from './3.JPG';
-import caro4 from './4.JPG';
-import caro5 from './5.JPG';
+import caro1 from './1a.JPG';
+import caro2 from './2a.JPG';
+import caro3 from './3a.JPG';
+import caro4 from './4a.JPG';
+import caro5 from './5a.JPG';
+import caro6 from './6a.JPG';
+import caro7 from './7a.JPG';
 
-
+import pad from './pad.JPG';
 
 /*------------------------ Carousel Settings Prop ------------------------*/
 
@@ -59,17 +62,20 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    partialVisibilityGutter: 0
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    partialVisibilityGutter: 0
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    partialVisibilityGutter: 0
   }
 };
 
@@ -133,11 +139,11 @@ function Home()
         <>
         {enterPageLoading ? (<PageLoader />)  : 
         (
-        <section style={{backgroundColor:"#f6f9fc",width:"100vw",height:"100%",overflowY:"hidden",overflowX:"hidden",marginTop:"0px"}}>
+        <section style={{backgroundColor:"rgb(246 249 252 / 0%)",width:"100vw",height:"100%",overflowY:"hidden",overflowX:"hidden",marginTop:"0px"}}>
 
 
         { /*------------------------ Top Product list Carousel ------------------------*/ }
-              <Container  sx={{mx: "auto",pt:2}}>
+              <Container  sx={{m:"0px !important",p:"0px !important",mx: "auto",pt:2,maxWidth:"100% !important"}}>
                 <Carousel
                     swipeable={false}
                     draggable={false}
@@ -156,11 +162,15 @@ function Home()
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
                     >
+                        
                         <CardMedia  component="img" image={caro1} alt=" picture" />
                         <CardMedia  component="img" image={caro2} alt=" picture" />
                         <CardMedia  component="img" image={caro3} alt=" picture" />
                         <CardMedia  component="img" image={caro4} alt=" picture" />
                         <CardMedia  component="img" image={caro5} alt=" picture" />
+                        <CardMedia  component="img" image={caro6} alt=" picture" />
+                        <CardMedia  component="img" image={caro7} alt=" picture" />
+
                         
 
                 </Carousel>
@@ -174,10 +184,14 @@ function Home()
            
             <AllProductsHome />
 
+        
+
      
 
             
                         <Box sx={{ bgcolor: '#0d6ee108', height: '30px', width:"100vw",overflowX:"hidden" }} />
+                         <CardMedia  component="img" image={pad} alt="profile picture"
+                         sx={{t:0,mx:"auto !important",my:2,maxWidth:"1659px !important"}}/>
 
         </section>
         

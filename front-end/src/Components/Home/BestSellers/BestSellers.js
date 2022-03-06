@@ -36,7 +36,8 @@ import CartDrawer from '../../../UtiComponents/cartDrawer/cartDrawer';
 
 
 
-
+import promoback from './prm2.png';
+import funcad from './fad.JPG';
 
 
 
@@ -154,7 +155,7 @@ console.log()
             <p>Best Sellers</p>
 
             <Box
-            sx={{display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto", justifyContent:"center" ,backgroundColor:"#ff4913",borderRadius:"23px" }}>
+            sx={{backgroundImage:`url(${promoback})`,backgroundRepeat:"repeat",backfaceVisibility:"luminosity",backgroundSize:"contain",display: 'flex', flexWrap: 'wrap', '& :not(style)': {m: 1},mx:"auto", justifyContent:"center" ,backgroundColor:"#ff4913",borderRadius:"23px" }}>
                 
             
 
@@ -166,9 +167,9 @@ console.log()
                             
                             <Badge  anchorOrigin={{vertical: 'bottom',horizontal: 'right',}} badgeContent={<Tooltip disabled={arg.quantity <= 0} onClick={()=> { return HandleAddToCart(arg), dispatch({type: "SET_DRAWER", payload: true,})} } title="Add to Shopping Cart" placement="top"><Fab size="small" color="primary" aria-label="add" sx={{m:"0 !important",p:"0 !important", fontSize:"5px !important",transform:"translate3d(-29px,-28px,0)"}}><AddShoppingCartSharpIcon /></Fab></Tooltip>} >
                                 
-                                <Paper elevation={0} sx={{height:311,minWidth:228,m:"1.5 !important",mt:"23px !important",p:"0px",":hover": {boxShadow: 6,},borderTopRightRadius:"100px",borderTopLeftRadius:"15px",borderBottomRightRadius:"100px",borderBottomLeftRadius:"100px"}}>
+                                <Paper elevation={0} sx={{height:311,minWidth:228,m:"1.5 !important",mt:{xs:"52px !important", sm:"64px !important", md:"58px !important",lg:"54px !important",xl:"23px !important"},p:"0px",":hover": {boxShadow: 6,},borderTopRightRadius:"100px",borderTopLeftRadius:"15px",borderBottomRightRadius:"100px",borderBottomLeftRadius:"100px"}}>
 
-
+                                        <Link to={`/product/${arg.slug}`} style={{textDecoration:"none",marginLeft:"1px",marginRight:"1px"}}>
                                         <Card sx={{height:208,width:250,p:"20px",m:"0 !important",borderTopRightRadius:"100px",borderTopLeftRadius:"15px"}}>
                                                 <Chip  label={`${arg.category.name}`} size="small" color="warning" variant="outlined" sx={{ml:"-15px !important", mt:"-17px !important"}} />
                                                 
@@ -206,7 +207,7 @@ console.log()
                                                     
                                                 </CardActions>
                                         </Card>
-
+                                        </Link>
                                 
                                 </Paper>
 
@@ -220,12 +221,15 @@ console.log()
         
             </Box>
 
-                        <Box sx={{mx:"auto !important", display:"grid", alignContent:"center", justifyContent:"center",m:2,p:2}}>
+                        <Box sx={{mx:"auto !important", display:"grid", alignContent:"center", justifyContent:"center",m:2,p:2,mt:"45px !important"}}>
                             <Pagination count={Math.ceil(fetchedTotalNumberforProducts / ProductPerPage)} page={page} onChange={handleChange}  />
                         </Box>
 
 
                         <Box sx={{ bgcolor: '#ffffff00', height: '50px', width:"100vw",mx:"auto",overflowX:"hidden" }} />
+
+                        <CardMedia  component="img" image={funcad} alt="profile picture"
+                         sx={{height:["63px","73px","73px","83px","93px"],t:0,mx:"auto !important",my:5,maxWidth:"1000px !important"}}/>
 
             </Container>
 

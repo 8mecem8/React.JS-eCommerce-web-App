@@ -67,6 +67,8 @@ useLayoutEffect(
         document.documentElement.scrollTop = 0;
         document.scrollingElement.scrollTop = 0;
 
+      
+
 
     const unsubscribe = auth.onAuthStateChanged(async (user) =>
     {

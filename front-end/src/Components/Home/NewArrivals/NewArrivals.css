@@ -1,7 +1,7 @@
 .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
   overflow-x: hidden;
   max-width: 30%;
-  background-color: #d8e3e6 !important;
+  background: linear-gradient(183deg, rgb(0 255 255 / 82%), rgb(228 255 0 / 67%) 100.71%), linear-gradient(127deg, rgb(145 0 255 / 42%), rgb(0 30 255 / 75%) 100.71%),linear-gradient(342deg, rgb(0 176 255), rgb(101 202 99 / 91%) 100.71%) !important
 }
 
 

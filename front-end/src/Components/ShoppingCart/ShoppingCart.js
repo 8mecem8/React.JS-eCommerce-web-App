@@ -407,7 +407,7 @@ function ShoppingCart() {
                             {/* ------------------------ Down part of right side------------------------ */}
                             <Grid item xs={6} sx={{m:0,p:0,}}>
 
-                                downside
+                                {/* downside */}
 
                             </Grid>
 

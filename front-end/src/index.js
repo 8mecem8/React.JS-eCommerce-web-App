@@ -16,7 +16,6 @@ export const store = createStore(combinedRedusers, composeWithDevTools(applyMidd
 
 
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -469,7 +469,7 @@ function ElevationScroll(props) {
 
                                 <Grid item xs={12} sm={6}>
                                 
-                                      asdasdasdasd
+                                      
                                 
                                 </Grid>    
 
@@ -485,7 +485,7 @@ function ElevationScroll(props) {
                             
                                     <Grid  item xs={12} sm={6}>
                                   
-                                      asdasdasdasd
+                                      
                                   
                                     </Grid>
 
@@ -494,7 +494,7 @@ function ElevationScroll(props) {
 
                                     <Grid item xs={12} sm={6}>
                                       
-                                        asdasdasdasdas
+                                       
 
                                     </Grid>    
 
