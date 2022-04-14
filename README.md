@@ -1,5 +1,5 @@
 # React.JS-eCommerce-web-App
- 🔭 I’m currently working on  First personal React JS E-Commerce Web Application
+ 🔭 I finished First personal React JS E-Commerce Web Application
  
  I have developed many small projects to learn React.JS, In this project I will be developing a Web Application with React.JS as good as a real world application, This project will have more features than my first Vanilla Javascript eCommerce Web Application.In this project I'm using Google's Firebase & MongoDb as databases , user login & authentication & other functionatilties like password reset mostly will be controlled by Firebase.
  
@@ -17,3 +17,11 @@ For testing this web application you can use these user accounts or create new o
 user name: test@test.com password: 123456
 
 Admin user name: admintest@test.com 123456
+
+# Project Links
+
+https://pazaar---react.herokuapp.com/
+
+
+with three.js webgl library
+https://pazaar---react---threejs.herokuapp.com/
