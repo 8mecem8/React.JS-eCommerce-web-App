@@ -25,3 +25,9 @@ https://pazaar---react.herokuapp.com/
 
 
 https://pazaar---react---threejs.herokuapp.com/ with three.js webgl library
+
+# Project Summary
+
+In this Projet First time I used firebase, material-ui, developed my skills to work with React,Redux, mongoDb
+
+One of the important lesson I have learned while developing this projest predesigning project structure and desinging database, data relations more important than coding process.After dividing projet into small steps to take and finish one by one help me to solve problems in a simpler way while developing. 
