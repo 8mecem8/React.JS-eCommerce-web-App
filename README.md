@@ -23,5 +23,5 @@ Admin user name: admintest@test.com 123456
 https://pazaar---react.herokuapp.com/
 
 
-with three.js webgl library
-https://pazaar---react---threejs.herokuapp.com/
+
+https://pazaar---react---threejs.herokuapp.com/ with three.js webgl library
