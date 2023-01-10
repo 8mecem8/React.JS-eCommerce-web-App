@@ -25,7 +25,7 @@ https://pazaar-react.onrender.com/
 
 
 
-https://pazaar---react---threejs.herokuapp.com/ with three.js webgl library
+https://pazaar-react-threejs.onrender.com/ with three.js webgl library
 
 # Project Summary
 
