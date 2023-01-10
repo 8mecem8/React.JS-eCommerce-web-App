@@ -20,7 +20,8 @@ Admin user name: admintest@test.com 123456
 
 # Project Links
 
-https://pazaar---react.herokuapp.com/
+
+https://pazaar-react.onrender.com/
 
 
 
