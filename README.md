@@ -1,5 +1,5 @@
 # React.JS-eCommerce-web-App
- 🔭 I finished First personal React JS E-Commerce Web Application
+ 🔭 First personal React JS E-Commerce Web Application
  
  I have developed many small projects to learn React.JS, In this project I will be developing a Web Application with React.JS as good as a real world application, This project will have more features than my first Vanilla Javascript eCommerce Web Application.In this project I'm using Google's Firebase & MongoDb as databases , user login & authentication & other functionatilties like password reset mostly will be controlled by Firebase.
  
